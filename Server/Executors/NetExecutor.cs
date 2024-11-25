@@ -12,6 +12,31 @@ using Utilities;
 
 namespace Server.Executors;
 
+/// <summary>
+/// Handles the execution of network requests in the server environment.
+/// </summary>
+/// <remarks>
+/// The `NetExecutor` class is responsible for processing TCP requests by:
+/// - Parsing and deserializing the incoming request.
+/// - Decrypting the payload if the request is encrypted.
+/// - Routing the request based on its type (e.g., "KeyExchange", "KnownPeers").
+/// - Delegating request handling to the appropriate controller or service.
+/// - Logging key events and errors during the request lifecycle.
+/// 
+/// Features:
+/// - Secure payload decryption using session keys stored in Redis.
+/// - Support for multiple request types with extensible handling logic.
+/// - Comprehensive error handling for JSON deserialization, socket errors, and unexpected exceptions.
+/// - Asynchronous execution to support high concurrency.
+/// 
+/// Example Usage:
+/// ```c#
+/// TcpClient client = ...;
+/// TcpHandler handler = ...;
+/// TcpRequest request = ...;
+/// var executor = new NetExecutor(client, handler, request);
+/// ```
+/// </remarks>
 public class NetExecutor
 {
     private TcpClient _tcpClient;
