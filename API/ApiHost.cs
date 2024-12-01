@@ -50,7 +50,6 @@ public class ApiHost
             }
             catch (OperationCanceledException)
             {
-                // ожидаемо при отмене
             }
         }
     }
