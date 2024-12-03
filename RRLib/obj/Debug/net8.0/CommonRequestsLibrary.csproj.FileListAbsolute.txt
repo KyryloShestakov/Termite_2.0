@@ -1,0 +1,16 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/bin/Debug/net8.0/CommonRequestsLibrary.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/bin/Debug/net8.0/CommonRequestsLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/bin/Debug/net8.0/CommonRequestsLibrary.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/bin/Debug/net8.0/NetworkLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/bin/Debug/net8.0/NetworkLibrary.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.csproj.AssemblyReference.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRe.3F366148.Up2Date
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/refint/CommonRequestsLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/CommonRequestsLibrary.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CommonRequestsLibrary/obj/Debug/net8.0/ref/CommonRequestsLibrary.dll

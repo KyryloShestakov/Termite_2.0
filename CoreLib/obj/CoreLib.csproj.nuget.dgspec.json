@@ -1,0 +1,1196 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/CoreLib.csproj": {}
+  },
+  "projects": {
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj",
+        "projectName": "BlockchainLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj",
+        "projectName": "Client",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj",
+        "projectName": "ConsensusLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/CoreLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/CoreLib.csproj",
+        "projectName": "CoreLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/CoreLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj",
+        "projectName": "EnumsLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj",
+        "projectName": "ModelsLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj",
+        "projectName": "PeerLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj",
+        "projectName": "RRLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/SecurityLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/SecurityLib.csproj",
+        "projectName": "SecurityLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/SecurityLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj",
+        "projectName": "Server",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/SecurityLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/SecurityLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj",
+        "projectName": "StorageLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj"
+              },
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.8.16, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj",
+        "projectName": "TestDb",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/StorageLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj",
+        "projectName": "UtilitiesLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.11, 8.0.11]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/kyrylo_shestakov/.dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

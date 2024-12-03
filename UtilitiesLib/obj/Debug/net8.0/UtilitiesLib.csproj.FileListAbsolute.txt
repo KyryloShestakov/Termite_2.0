@@ -1,0 +1,15 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/bin/Debug/net8.0/UtilitiesLib.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/bin/Debug/net8.0/UtilitiesLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/bin/Debug/net8.0/UtilitiesLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/refint/UtilitiesLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/ref/UtilitiesLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/bin/Debug/net8.0/UtilitiesLib.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.genruntimeconfig.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/obj/Debug/net8.0/UtilitiesLib.csproj.AssemblyReference.cache

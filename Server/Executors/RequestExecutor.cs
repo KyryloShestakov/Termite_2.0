@@ -75,7 +75,7 @@ public class RequestExecutor
                      try
                      {
                          Logger.Log("Initializing BlockchainExecutor...", LogLevel.Information, Source.Server);
-                         _blockchainExecutor = new BlockchainExecutor();
+                         _blockchainExecutor = new BlockchainExecutor(tcpClient, tcpHandler, tcpRequest);
                      }
                      catch (Exception blockchainEx)
                      {

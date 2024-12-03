@@ -76,7 +76,7 @@ public class NetExecutor
                 {
                     Logger.Log($"Session key is larger than 32 bytes, truncating it to 256 bits (32 bytes).", LogLevel.Warning, Source.Secure);
                     Logger.Log(sessionKeyBytes.Length.ToString(), LogLevel.Warning, Source.Secure);
-                    Array.Resize(ref sessionKeyBytes, 32); // Обрезаем ключ до 32 байт
+                    Array.Resize(ref sessionKeyBytes, 32);
                 }
                 
                 string decryptedPayload = secureConnectionManager.DecryptMessage(request.PayLoad.EncryptedPayload, sessionKeyBytes);
