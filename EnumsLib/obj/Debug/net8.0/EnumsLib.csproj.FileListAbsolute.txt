@@ -1,0 +1,12 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/bin/Debug/net8.0/EnumsLib.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/bin/Debug/net8.0/EnumsLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/bin/Debug/net8.0/EnumsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/refint/EnumsLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/EnumsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/Debug/net8.0/ref/EnumsLib.dll

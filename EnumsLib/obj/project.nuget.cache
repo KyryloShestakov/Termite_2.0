@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "n4YyzjXdZTo=",
+  "success": true,
+  "projectFilePath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj",
+  "expectedPackageFiles": [
+    "/Users/kyrylo_shestakov/.nuget/packages/microsoft.netcore.app.ref/8.0.11/microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/kyrylo_shestakov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

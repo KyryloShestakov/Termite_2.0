@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "9Qf9FHXBxxE=",
+  "success": true,
+  "projectFilePath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj",
+  "expectedPackageFiles": [
+    "/Users/kyrylo_shestakov/.nuget/packages/microsoft.netcore.app.ref/8.0.11/microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/kyrylo_shestakov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
