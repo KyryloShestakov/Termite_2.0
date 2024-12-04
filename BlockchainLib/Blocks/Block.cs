@@ -127,6 +127,7 @@ namespace BlockchainLib
             {
                 var model = new BlockModel
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Index = Index,
                     Timestamp = Timestamp,
                     Transactions = Transactions.Select(t => new TransactionModel
