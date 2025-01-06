@@ -1,0 +1,12 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/bin/Debug/net8.0/HttpServer.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/bin/Debug/net8.0/HttpServer.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/bin/Debug/net8.0/HttpServer.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/refint/HttpServer.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/HttpServer.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpServer/obj/Debug/net8.0/ref/HttpServer.dll

@@ -1,0 +1,30 @@
+<Control xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:termiteUi="clr-namespace:TermiteUI"
+         x:Class="TermiteUI.CTPage"
+         x:DataType="termiteUi:CTViewModel">
+
+    <Grid>
+        <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" />
+        <ListBox ItemsSource="{Binding Transactions}" Width="1500" Height="500" Background="Transparent"
+                 HorizontalAlignment="Left">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Receiver: " FontWeight="Bold" />
+                        <TextBlock Text="{Binding Receiver}" Margin="5,0" />
+                        <TextBlock Text="Amount: " FontWeight="Bold" />
+                        <TextBlock Text="{Binding Amount}" Margin="5,0" />
+                        <TextBlock Text="Sender: " FontWeight="Bold" />
+                        <TextBlock Text="{Binding Sender}" Margin="5,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        
+        
+    </Grid>
+    
+    
+</Control>

@@ -1,0 +1,15 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/bin/Debug/net8.0/NetworkLibrary.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/bin/Debug/net8.0/NetworkLibrary.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/bin/Debug/net8.0/NetworkLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/bin/Debug/net8.0/NetworkLibrary.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.csproj.AssemblyReference.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/refint/NetworkLibrary.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/NetworkLibrary.genruntimeconfig.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/NetworkLibrary/obj/Debug/net8.0/ref/NetworkLibrary.dll

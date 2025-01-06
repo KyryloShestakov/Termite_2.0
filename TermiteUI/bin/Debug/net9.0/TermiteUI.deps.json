@@ -1,0 +1,1468 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "TermiteUI/1.0.0": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.BuildServices": "0.0.31",
+          "Avalonia.Desktop": "11.2.1",
+          "Avalonia.Diagnostics": "11.2.1",
+          "Avalonia.Fonts.Inter": "11.2.1",
+          "Avalonia.Themes.Fluent": "11.2.1",
+          "BlockchainLib": "1.0.0",
+          "Client": "1.0.0",
+          "CommunityToolkit.Mvvm": "8.4.0",
+          "ReactiveUI": "20.1.63",
+          "Server": "1.0.0",
+          "StorageLib": "1.0.0"
+        },
+        "runtime": {
+          "TermiteUI.dll": {}
+        }
+      },
+      "Avalonia/11.2.1": {
+        "dependencies": {
+          "Avalonia.BuildServices": "0.0.31",
+          "Avalonia.Remote.Protocol": "11.2.1",
+          "MicroCom.Runtime": "0.11.0"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Base.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.Controls.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.DesignerSupport.dll": {
+            "assemblyVersion": "0.7.0.0",
+            "fileVersion": "0.7.0.0"
+          },
+          "lib/net8.0/Avalonia.Dialogs.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.Markup.Xaml.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.Markup.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.Metal.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.MicroCom.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.OpenGL.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.Vulkan.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          },
+          "lib/net8.0/Avalonia.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Angle.Windows.Natives/2.1.22045.20230930": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/av_libglesv2.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/av_libglesv2.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/av_libglesv2.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Avalonia.BuildServices/0.0.31": {},
+      "Avalonia.Controls.ColorPicker/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.Remote.Protocol": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Controls.ColorPicker.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Controls.DataGrid/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.Remote.Protocol": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Desktop/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.Native": "11.2.1",
+          "Avalonia.Skia": "11.2.1",
+          "Avalonia.Win32": "11.2.1",
+          "Avalonia.X11": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Desktop.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Diagnostics/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.Controls.ColorPicker": "11.2.1",
+          "Avalonia.Controls.DataGrid": "11.2.1",
+          "Avalonia.Themes.Simple": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Diagnostics.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Fonts.Inter/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Fonts.Inter.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.FreeDesktop/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Tmds.DBus.Protocol": "0.20.0"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.FreeDesktop.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Native/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Native.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/osx/native/libAvaloniaNative.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Avalonia.Remote.Protocol/11.2.1": {
+        "runtime": {
+          "lib/net8.0/Avalonia.Remote.Protocol.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Skia/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "HarfBuzzSharp": "7.3.0.2",
+          "HarfBuzzSharp.NativeAssets.Linux": "7.3.0.2",
+          "HarfBuzzSharp.NativeAssets.WebAssembly": "7.3.0.3-preview.2.2",
+          "SkiaSharp": "2.88.8",
+          "SkiaSharp.NativeAssets.Linux": "2.88.8",
+          "SkiaSharp.NativeAssets.WebAssembly": "2.88.8"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Skia.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Themes.Fluent/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Themes.Fluent.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Themes.Simple/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Themes.Simple.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.Win32/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.Angle.Windows.Natives": "2.1.22045.20230930"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Win32.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "Avalonia.X11/11.2.1": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Avalonia.FreeDesktop": "11.2.1",
+          "Avalonia.Skia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.X11.dll": {
+            "assemblyVersion": "11.2.1.0",
+            "fileVersion": "11.2.1.0"
+          }
+        }
+      },
+      "CommunityToolkit.Mvvm/8.4.0": {
+        "runtime": {
+          "lib/net8.0/CommunityToolkit.Mvvm.dll": {
+            "assemblyVersion": "8.4.0.0",
+            "fileVersion": "8.4.0.1"
+          }
+        }
+      },
+      "DynamicData/9.0.4": {
+        "dependencies": {
+          "System.Reactive": "6.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/DynamicData.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.4.44987"
+          }
+        }
+      },
+      "HarfBuzzSharp/7.3.0.2": {
+        "dependencies": {
+          "HarfBuzzSharp.NativeAssets.Win32": "7.3.0.2",
+          "HarfBuzzSharp.NativeAssets.macOS": "7.3.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/HarfBuzzSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "7.3.0.2"
+          }
+        }
+      },
+      "HarfBuzzSharp.NativeAssets.Linux/7.3.0.2": {
+        "dependencies": {
+          "HarfBuzzSharp": "7.3.0.2"
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libHarfBuzzSharp.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "HarfBuzzSharp.NativeAssets.macOS/7.3.0.2": {
+        "runtimeTargets": {
+          "runtimes/osx/native/libHarfBuzzSharp.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "HarfBuzzSharp.NativeAssets.WebAssembly/7.3.0.3-preview.2.2": {},
+      "HarfBuzzSharp.NativeAssets.Win32/7.3.0.2": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/libHarfBuzzSharp.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libHarfBuzzSharp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libHarfBuzzSharp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "MicroCom.Runtime/0.11.0": {
+        "runtime": {
+          "lib/net5.0/MicroCom.Runtime.dll": {
+            "assemblyVersion": "0.11.0.0",
+            "fileVersion": "0.11.0.0"
+          }
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/9.0.0": {
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.10"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore/9.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Analyzers": "9.0.0",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0",
+          "Microsoft.Extensions.Logging": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions/9.0.0": {
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Analyzers/9.0.0": {},
+      "Microsoft.EntityFrameworkCore.Relational/9.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Logging": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite/9.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "9.0.0",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.0",
+          "Microsoft.Extensions.DependencyModel": "9.0.0",
+          "Microsoft.Extensions.Logging": "9.0.0",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.10",
+          "SQLitePCLRaw.core": "2.1.10",
+          "System.Text.Json": "9.0.0"
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/9.0.0": {
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.0",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.0",
+          "Microsoft.Extensions.DependencyModel": "9.0.0",
+          "Microsoft.Extensions.Logging": "9.0.0",
+          "SQLitePCLRaw.core": "2.1.10",
+          "System.Text.Json": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Memory/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "9.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Options": "9.0.0",
+          "Microsoft.Extensions.Primitives": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.0": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyModel/9.0.0": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Options": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Logging.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Primitives": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Options.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/9.0.0": {
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
+          }
+        }
+      },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "dependencies": {
+          "System.IO.Pipelines": "8.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.8.1080"
+          }
+        }
+      },
+      "ReactiveUI/20.1.63": {
+        "dependencies": {
+          "DynamicData": "9.0.4",
+          "Splat": "15.1.1",
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/ReactiveUI.dll": {
+            "assemblyVersion": "20.1.0.0",
+            "fileVersion": "20.1.63.39471"
+          }
+        }
+      },
+      "SkiaSharp/2.88.8": {
+        "dependencies": {
+          "SkiaSharp.NativeAssets.Win32": "2.88.8",
+          "SkiaSharp.NativeAssets.macOS": "2.88.8"
+        },
+        "runtime": {
+          "lib/net6.0/SkiaSharp.dll": {
+            "assemblyVersion": "2.88.0.0",
+            "fileVersion": "2.88.8.0"
+          }
+        }
+      },
+      "SkiaSharp.NativeAssets.Linux/2.88.8": {
+        "dependencies": {
+          "SkiaSharp": "2.88.8"
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libSkiaSharp.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libSkiaSharp.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libSkiaSharp.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libSkiaSharp.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SkiaSharp.NativeAssets.macOS/2.88.8": {
+        "runtimeTargets": {
+          "runtimes/osx/native/libSkiaSharp.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SkiaSharp.NativeAssets.WebAssembly/2.88.8": {},
+      "SkiaSharp.NativeAssets.Win32/2.88.8": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/libSkiaSharp.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libSkiaSharp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libSkiaSharp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Splat/15.1.1": {
+        "runtime": {
+          "lib/net8.0/Splat.dll": {
+            "assemblyVersion": "15.1.0.0",
+            "fileVersion": "15.1.1.17670"
+          }
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.10",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.10"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {
+            "assemblyVersion": "2.1.10.2445",
+            "fileVersion": "2.1.10.2445"
+          }
+        }
+      },
+      "SQLitePCLRaw.core/2.1.10": {
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {
+            "assemblyVersion": "2.1.10.2445",
+            "fileVersion": "2.1.10.2445"
+          }
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.10": {
+        "runtimeTargets": {
+          "runtimes/browser-wasm/nativeassets/net9.0/e_sqlite3.a": {
+            "rid": "browser-wasm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm/native/libe_sqlite3.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libe_sqlite3.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-armel/native/libe_sqlite3.so": {
+            "rid": "linux-armel",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-mips64/native/libe_sqlite3.so": {
+            "rid": "linux-mips64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-arm/native/libe_sqlite3.so": {
+            "rid": "linux-musl-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-arm64/native/libe_sqlite3.so": {
+            "rid": "linux-musl-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-s390x/native/libe_sqlite3.so": {
+            "rid": "linux-musl-s390x",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libe_sqlite3.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-ppc64le/native/libe_sqlite3.so": {
+            "rid": "linux-ppc64le",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-s390x/native/libe_sqlite3.so": {
+            "rid": "linux-s390x",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libe_sqlite3.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x86/native/libe_sqlite3.so": {
+            "rid": "linux-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib": {
+            "rid": "maccatalyst-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/maccatalyst-x64/native/libe_sqlite3.dylib": {
+            "rid": "maccatalyst-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/libe_sqlite3.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libe_sqlite3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm/native/e_sqlite3.dll": {
+            "rid": "win-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/e_sqlite3.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/e_sqlite3.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/e_sqlite3.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.10": {
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.10"
+        },
+        "runtime": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {
+            "assemblyVersion": "2.1.10.2445",
+            "fileVersion": "2.1.10.2445"
+          }
+        }
+      },
+      "StackExchange.Redis/2.8.16": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.8.16.12844"
+          }
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {},
+      "System.IO.Pipelines/8.0.0": {},
+      "System.Memory/4.5.3": {},
+      "System.Reactive/6.0.1": {
+        "runtime": {
+          "lib/net6.0/System.Reactive.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.1.7420"
+          }
+        }
+      },
+      "System.Text.Json/9.0.0": {},
+      "Tmds.DBus.Protocol/0.20.0": {
+        "dependencies": {
+          "System.IO.Pipelines": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Tmds.DBus.Protocol.dll": {
+            "assemblyVersion": "0.20.0.0",
+            "fileVersion": "0.20.0.0"
+          }
+        }
+      },
+      "BlockchainLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0"
+        },
+        "runtime": {
+          "BlockchainLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Client/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "SecurityLib": "1.0.0",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "Client.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EnumsLib/1.0.0": {
+        "runtime": {
+          "EnumsLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "ModelsLib/1.0.0": {
+        "runtime": {
+          "ModelsLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PeerLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "TestDb": "1.0.0"
+        },
+        "runtime": {
+          "PeerLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "RRLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "RRLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SecurityLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "SecurityLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Server/1.0.0": {
+        "dependencies": {
+          "BlockchainLib": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "PeerLib": "1.0.0",
+          "RRLib": "1.0.0",
+          "SecurityLib": "1.0.0",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "Server.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "StorageLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StackExchange.Redis": "2.8.16",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "StorageLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "TestDb/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "StorageLib": "1.0.0"
+        },
+        "runtime": {
+          "TestDb.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "UtilitiesLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0"
+        },
+        "runtime": {
+          "UtilitiesLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TermiteUI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Avalonia/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AyYhIN2A7bRwxp6BFHrIbXAHUFPXegzSMYwDrUnw1BzZs9ctwYTiCPCM5wbE2PXsEBwFDVJ/a2YHTOp56fSYAw==",
+      "path": "avalonia/11.2.1",
+      "hashPath": "avalonia.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Angle.Windows.Natives/2.1.22045.20230930": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Bo3qOhKC1b84BIhiogndMdAzB3UrrESKK7hS769f5HWeoMw/pcd42US5KFYW2JJ4ZSTrXnP8mXwLTMzh+S+9Lg==",
+      "path": "avalonia.angle.windows.natives/2.1.22045.20230930",
+      "hashPath": "avalonia.angle.windows.natives.2.1.22045.20230930.nupkg.sha512"
+    },
+    "Avalonia.BuildServices/0.0.31": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KmCN6Hc+45q4OnF10ge450yVUvWuxU6bdQiyKqiSvrHKpahNrEdk0kG6Ip6GHk2SKOCttGQuA206JVdkldEENg==",
+      "path": "avalonia.buildservices/0.0.31",
+      "hashPath": "avalonia.buildservices.0.0.31.nupkg.sha512"
+    },
+    "Avalonia.Controls.ColorPicker/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-t8ViFwfIe6jCO5HvzPWOtwGNSMHYNc8XakWp76Rgy1MOiht8tHKry9cU7k40AHEYU6wVjiYBkl0c8zYZyyha1g==",
+      "path": "avalonia.controls.colorpicker/11.2.1",
+      "hashPath": "avalonia.controls.colorpicker.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Controls.DataGrid/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UaNQrY86GBqMZqZ/N/5/wLzr4Emh2N405VZI/IgH0I8BoMrjnosNr+++D7BOcahMNce0lUZLOsFyy+OY02PUAw==",
+      "path": "avalonia.controls.datagrid/11.2.1",
+      "hashPath": "avalonia.controls.datagrid.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Desktop/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q6alzkTgFjukOrbiiFlh0mkhkxGRMRTMS8zdNEixIl9apPnD2ln9sjAC4NR2agNz5+HmZVfXYu6kYK12rMmKwA==",
+      "path": "avalonia.desktop/11.2.1",
+      "hashPath": "avalonia.desktop.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Diagnostics/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-axUWa4sZoe9HgUXPEDhbZXijL8ex+lwQGVwNQLmD299O7pCqKcYThjyG/eCETO/boqjKTt3H85LHEPx94BP9dg==",
+      "path": "avalonia.diagnostics/11.2.1",
+      "hashPath": "avalonia.diagnostics.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Fonts.Inter/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-egEFQWLHuSzyWKolPy9u4qPor270N2GL/4CI33eBxr09chrUVQsOlxQ6zeWPiBLzzgv/lCrZhOMCAIWsOz3tNg==",
+      "path": "avalonia.fonts.inter/11.2.1",
+      "hashPath": "avalonia.fonts.inter.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.FreeDesktop/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ChKdPjQ2uBJUN0y+/RsdoETzXRn/q1eWFBDwprDy+Zi/AVkUfRk06hKbsb/U+Q3zO65CMEprRcMPbys0EkK2vg==",
+      "path": "avalonia.freedesktop/11.2.1",
+      "hashPath": "avalonia.freedesktop.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Native/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1cVasDUIkqfAYLkaLFDx+VDZymer2v643OYD6Jd6nzP20TNTqN2LfFOpxXCTYMrWc9Dk5AoVJJCrz3wRE5kooQ==",
+      "path": "avalonia.native/11.2.1",
+      "hashPath": "avalonia.native.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Remote.Protocol/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aqEialxjir7DO/dOFf7BGN/yQ4/adSC5UuVfqBr/RUHOENSH6CqoHj8kmtmJxnuz7ESQFSB2+h1kLVnk5csiDw==",
+      "path": "avalonia.remote.protocol/11.2.1",
+      "hashPath": "avalonia.remote.protocol.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Skia/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FkqiXWT1hN0s5MIx5IKDGZaqewQENikQh6aBQyApiZVu5koa8H8RW1yfb2cFK3M4IVIyhqwl8ZirkXsS18lf/Q==",
+      "path": "avalonia.skia/11.2.1",
+      "hashPath": "avalonia.skia.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Themes.Fluent/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9YUzDmZO5oDppsoA3Igeu/v1cVi4xu8jdO6ZrBzXJXJ9mma/htK0Ub9+V1lRoCW/O70nQfBX+ZDpm0dca1PVgw==",
+      "path": "avalonia.themes.fluent/11.2.1",
+      "hashPath": "avalonia.themes.fluent.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Themes.Simple/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ToiYv8hhJ5gcEtD54VZv7NpBFiqGasj4bjFh/AtjXApiYOp8r3orFPX8Nsc3kHcUCvNNjbjAy9dmBG65nYePkw==",
+      "path": "avalonia.themes.simple/11.2.1",
+      "hashPath": "avalonia.themes.simple.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.Win32/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7Gfw7S1PoINaCXaIV1rh7zo82IhsqhR7a0PAt281cBrfDkJiNU0DYgW2RZxKl3oVFxtfbxJZbdP7hSVmHvoDfw==",
+      "path": "avalonia.win32/11.2.1",
+      "hashPath": "avalonia.win32.11.2.1.nupkg.sha512"
+    },
+    "Avalonia.X11/11.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h2aCpyLmxGkldPK7cbncEgyobrJ5En7gQtrwVARLmN32Rw6dHut3jyF3P8at2DmWxRuKwZVXgWBSSI62hINgrQ==",
+      "path": "avalonia.x11/11.2.1",
+      "hashPath": "avalonia.x11.11.2.1.nupkg.sha512"
+    },
+    "CommunityToolkit.Mvvm/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tqVU8yc/ADO9oiTRyTnwhFN68hCwvkliMierptWOudIAvWY1mWCh5VFh+guwHJmpMwfg0J0rY+yyd5Oy7ty9Uw==",
+      "path": "communitytoolkit.mvvm/8.4.0",
+      "hashPath": "communitytoolkit.mvvm.8.4.0.nupkg.sha512"
+    },
+    "DynamicData/9.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CjJUF3u8V7QseHlumOBajFUYM9YKlI6QhDKz5MMyeckPeU6QyMExDJhGsJqIk6RYYLaPNLsk5qkzxEgDWv/lsg==",
+      "path": "dynamicdata/9.0.4",
+      "hashPath": "dynamicdata.9.0.4.nupkg.sha512"
+    },
+    "HarfBuzzSharp/7.3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0tCd6HyCmNsX/DniCp2b00fo0xPbdNwKOs9BxxyT8oOOuMlWjcSFwzONKyeckCKVBFEsbSmsAHPDTqxoSDwZMg==",
+      "path": "harfbuzzsharp/7.3.0.2",
+      "hashPath": "harfbuzzsharp.7.3.0.2.nupkg.sha512"
+    },
+    "HarfBuzzSharp.NativeAssets.Linux/7.3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aKa5J1RqjXKAtdcZJp5wjC78klfBIzJHM6CneN76lFmQ9LLRJA9Oa0TkIDaV8lVLDKMAy5fCKHXFlXUK1YfL/g==",
+      "path": "harfbuzzsharp.nativeassets.linux/7.3.0.2",
+      "hashPath": "harfbuzzsharp.nativeassets.linux.7.3.0.2.nupkg.sha512"
+    },
+    "HarfBuzzSharp.NativeAssets.macOS/7.3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nycYH/WLJ6ogm+I+QSFCdPJsdxSb5GANWYbQyp1vsd/KjXN56RVUJWPhbgP2GKb/Y7mrsHM7EProqVXlO/EMsA==",
+      "path": "harfbuzzsharp.nativeassets.macos/7.3.0.2",
+      "hashPath": "harfbuzzsharp.nativeassets.macos.7.3.0.2.nupkg.sha512"
+    },
+    "HarfBuzzSharp.NativeAssets.WebAssembly/7.3.0.3-preview.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Dc+dolrhmkpqwT25NfNEEgceW0//KRR2WIOvxlyIIHIIMBCn0FfUeJX5RhFll8kyaZwF8tuKsxRJtQG/rzSBog==",
+      "path": "harfbuzzsharp.nativeassets.webassembly/7.3.0.3-preview.2.2",
+      "hashPath": "harfbuzzsharp.nativeassets.webassembly.7.3.0.3-preview.2.2.nupkg.sha512"
+    },
+    "HarfBuzzSharp.NativeAssets.Win32/7.3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DpF9JBzwws2dupOLnjME65hxQWWbN/GD40AoTkwB4S05WANvxo3n81AnQJKxWDCnrWfWhLPB36OF27TvEqzb/A==",
+      "path": "harfbuzzsharp.nativeassets.win32/7.3.0.2",
+      "hashPath": "harfbuzzsharp.nativeassets.win32.7.3.0.2.nupkg.sha512"
+    },
+    "MicroCom.Runtime/0.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MEnrZ3UIiH40hjzMDsxrTyi8dtqB5ziv3iBeeU4bXsL/7NLSal9F1lZKpK+tfBRnUoDSdtcW3KufE4yhATOMCA==",
+      "path": "microcom.runtime/0.11.0",
+      "hashPath": "microcom.runtime.0.11.0.nupkg.sha512"
+    },
+    "Microsoft.Data.Sqlite.Core/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cFfZjFL+tqzGYw9lB31EkV1IWF5xRQNk2k+MQd+Cf86Gl6zTeAoiZIFw5sRB1Z8OxpEC7nu+nTDsLSjieBAPTw==",
+      "path": "microsoft.data.sqlite.core/9.0.0",
+      "hashPath": "microsoft.data.sqlite.core.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wpG+nfnfDAw87R3ovAsUmjr3MZ4tYXf6bFqEPVAIKE6IfPml3DS//iX0DBnf8kWn5ZHSO5oi1m4d/Jf+1LifJQ==",
+      "path": "microsoft.entityframeworkcore/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fnmifFL8KaA4ZNLCVgfjCWhZUFxkrDInx5hR4qG7Q8IEaSiy/6VOSRFyx55oH7MV4y7wM3J3EE90nSpcVBI44Q==",
+      "path": "microsoft.entityframeworkcore.abstractions/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Analyzers/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Qje+DzXJOKiXF72SL0XxNlDtTkvWWvmwknuZtFahY5hIQpRKO59qnGuERIQ3qlzuq5x4bAJ8WMbgU5DLhBgeOQ==",
+      "path": "microsoft.entityframeworkcore.analyzers/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Relational/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j+msw6fWgAE9M3Q/5B9Uhv7pdAdAQUvFPJAiBJmoy+OXvehVbfbCE8ftMAa51Uo2ZeiqVnHShhnv4Y4UJJmUzA==",
+      "path": "microsoft.entityframeworkcore.relational/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.relational.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xu6dlgBO9I1WA1WdT+rUvv+ZGQ9aGRn3c246ykyuFzBX02oNYd1lk7LEVGhjBN1T49N3C9yBUHFQY8vY4JZQrw==",
+      "path": "microsoft.entityframeworkcore.sqlite/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4gmIZli/Na39mck6s/gO2n1NdOHHwNQfSWucpA+bAU5UAEMYFGMXpCR1AHoo/VJuyMkfpBxuHzkj1/xczy2vFg==",
+      "path": "microsoft.entityframeworkcore.sqlite.core/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.core.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FPWZAa9c0H4dvOj351iR1jkUIs4u9ykL4Bm592yhjDyO5lCoWd+TMAHx2EMbarzUvCvgjWjJIoC6//Q9kH6YhA==",
+      "path": "microsoft.extensions.caching.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.caching.abstractions.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Memory/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zbnPX/JQ0pETRSUG9fNPBvpIq42Aufvs15gGYyNIMhCun9yhmWihz0WgsI7bSDPjxWTKBf8oX/zv6v2uZ3W9OQ==",
+      "path": "microsoft.extensions.caching.memory/9.0.0",
+      "hashPath": "microsoft.extensions.caching.memory.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lqvd7W3FGKUO1+ZoUEMaZ5XDJeWvjpy2/M/ptCGz3tXLD4HWVaSzjufsAsjemasBEg+2SxXVtYVvGt5r2nKDlg==",
+      "path": "microsoft.extensions.configuration.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MCPrg7v3QgNMr0vX4vzRXvkNGgLg8vKWX0nKCWUxu2uPyMsaRgiRc1tHBnbTcfJMhMKj2slE/j2M9oGkd25DNw==",
+      "path": "microsoft.extensions.dependencyinjection/9.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+6f2qv2a3dLwd5w6JanPIPs47CxRbnk+ZocMJUhv9NxP88VlOcJYZs9jY+MYSjxvady08bUZn6qgiNh7DadGgg==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyModel/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-saxr2XzwgDU77LaQfYFXmddEDRUKHF4DaGMZkNB3qjdVSZlax3//dGJagJkKrGMIPNZs2jVFXITyCCR6UHJNdA==",
+      "path": "microsoft.extensions.dependencymodel/9.0.0",
+      "hashPath": "microsoft.extensions.dependencymodel.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-crjWyORoug0kK7RSNJBTeSE6VX8IQgLf3nUpTB9m62bPXp/tzbnOsnbe8TXEG0AASNaKZddnpHKw7fET8E++Pg==",
+      "path": "microsoft.extensions.logging/9.0.0",
+      "hashPath": "microsoft.extensions.logging.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g0UfujELzlLbHoVG8kPKVBaW470Ewi+jnptGS9KUi6jcb+k2StujtK3m26DFSGGwQ/+bVgZfsWqNzlP6YOejvw==",
+      "path": "microsoft.extensions.logging.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.logging.abstractions.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-y2146b3jrPI3Q0lokKXdKLpmXqakYbDIPDV6r3M8SqvSf45WwOTzkyfDpxnZXJsJQEpAsAqjUq5Pu8RCJMjubg==",
+      "path": "microsoft.extensions.options/9.0.0",
+      "hashPath": "microsoft.extensions.options.9.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N3qEBzmLMYiASUlKxxFIISP4AiwuPTHF5uCh+2CWSwwzAJiIYx0kBJsS30cp1nvhSySFAVi30jecD307jV+8Kg==",
+      "path": "microsoft.extensions.primitives/9.0.0",
+      "hashPath": "microsoft.extensions.primitives.9.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
+    },
+    "ReactiveUI/20.1.63": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lPrrPDH5dgBZh/vpZGqycTbeRPHWcrLAhmRAOK8rqeAObVuYAzLrhoGusnfRvaljz0ApP5UiPLEdH7lxtfj0Jw==",
+      "path": "reactiveui/20.1.63",
+      "hashPath": "reactiveui.20.1.63.nupkg.sha512"
+    },
+    "SkiaSharp/2.88.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bRkp3uKp5ZI8gXYQT57uKwil1uobb2p8c69n7v5evlB/2JNcMAXVcw9DZAP5Ig3WSvgzGm2YSn27UVeOi05NlA==",
+      "path": "skiasharp/2.88.8",
+      "hashPath": "skiasharp.2.88.8.nupkg.sha512"
+    },
+    "SkiaSharp.NativeAssets.Linux/2.88.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0FO6YA7paNFBMJULvEyecPmCvL9/STvOAi5VOUw2srqJ7pNTbiiZkfl7sulAzcumbWgfzaVjRXYTgMj7SoUnWQ==",
+      "path": "skiasharp.nativeassets.linux/2.88.8",
+      "hashPath": "skiasharp.nativeassets.linux.2.88.8.nupkg.sha512"
+    },
+    "SkiaSharp.NativeAssets.macOS/2.88.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6Kn5TSkKlfyS6azWHF3Jk2sW5C4jCE5uSshM/5AbfFrR+5n6qM5XEnz9h4VaVl7LTxBvHvMkuPb/3bpbq0vxTw==",
+      "path": "skiasharp.nativeassets.macos/2.88.8",
+      "hashPath": "skiasharp.nativeassets.macos.2.88.8.nupkg.sha512"
+    },
+    "SkiaSharp.NativeAssets.WebAssembly/2.88.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-S3qRo8c+gVYOyfrdf6FYnjx/ft+gPkb4dNY2IPv5Oy5yNBhDhXhKqHFr9h4+ne6ZU+7D4dbuRQqsIqCo8u1/DA==",
+      "path": "skiasharp.nativeassets.webassembly/2.88.8",
+      "hashPath": "skiasharp.nativeassets.webassembly.2.88.8.nupkg.sha512"
+    },
+    "SkiaSharp.NativeAssets.Win32/2.88.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O9QXoWEXA+6cweR4h3BOnwMz+pO9vL9mXdjLrpDd0w1QzCgWmLQBxa1VgySDITiH7nQndrDG1h6937zm9pLj1Q==",
+      "path": "skiasharp.nativeassets.win32/2.88.8",
+      "hashPath": "skiasharp.nativeassets.win32.2.88.8.nupkg.sha512"
+    },
+    "Splat/15.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RHDTdF90FwVbRia2cmuIzkiVoETqnXSB2dDBBi/I35HWXqv4OKGqoMcfcd6obMvO2OmmY5PjU1M62K8LkJafAA==",
+      "path": "splat/15.1.1",
+      "hashPath": "splat.15.1.1.nupkg.sha512"
+    },
+    "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UxWuisvZ3uVcVOLJQv7urM/JiQH+v3TmaJc1BLKl5Dxfm/nTzTUrqswCqg/INiYLi61AXnHo1M1JPmPqqLnAdg==",
+      "path": "sqlitepclraw.bundle_e_sqlite3/2.1.10",
+      "hashPath": "sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512"
+    },
+    "SQLitePCLRaw.core/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ii8JCbC7oiVclaE/mbDEK000EFIJ+ShRPwAvvV89GOZhQ+ZLtlnSWl6ksCNMKu/VGXA4Nfi2B7LhN/QFN9oBcw==",
+      "path": "sqlitepclraw.core/2.1.10",
+      "hashPath": "sqlitepclraw.core.2.1.10.nupkg.sha512"
+    },
+    "SQLitePCLRaw.lib.e_sqlite3/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mAr69tDbnf3QJpRy2nJz8Qdpebdil00fvycyByR58Cn9eARvR+UiG2Vzsp+4q1tV3ikwiYIjlXCQFc12GfebbA==",
+      "path": "sqlitepclraw.lib.e_sqlite3/2.1.10",
+      "hashPath": "sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512"
+    },
+    "SQLitePCLRaw.provider.e_sqlite3/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uZVTi02C1SxqzgT0HqTWatIbWGb40iIkfc3FpFCpE/r7g6K0PqzDUeefL6P6HPhDtc6BacN3yQysfzP7ks+wSQ==",
+      "path": "sqlitepclraw.provider.e_sqlite3/2.1.10",
+      "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.10.nupkg.sha512"
+    },
+    "StackExchange.Redis/2.8.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WaoulkOqOC9jHepca3JZKFTqndCWab5uYS7qCzmiQDlrTkFaDN7eLSlEfHycBxipRnQY9ppZM7QSsWAwUEGblw==",
+      "path": "stackexchange.redis/2.8.16",
+      "hashPath": "stackexchange.redis.2.8.16.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
+      "path": "system.componentmodel.annotations/5.0.0",
+      "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    },
+    "System.IO.Pipelines/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
+      "path": "system.io.pipelines/8.0.0",
+      "hashPath": "system.io.pipelines.8.0.0.nupkg.sha512"
+    },
+    "System.Memory/4.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "System.Reactive/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rHaWtKDwCi9qJ3ObKo8LHPMuuwv33YbmQi7TcUK1C264V3MFnOr5Im7QgCTdLniztP3GJyeiSg5x8NqYJFqRmg==",
+      "path": "system.reactive/6.0.1",
+      "hashPath": "system.reactive.6.0.1.nupkg.sha512"
+    },
+    "System.Text.Json/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-js7+qAu/9mQvnhA4EfGMZNEzXtJCDxgkgj8ohuxq/Qxv+R56G+ljefhiJHOxTNiw54q8vmABCWUwkMulNdlZ4A==",
+      "path": "system.text.json/9.0.0",
+      "hashPath": "system.text.json.9.0.0.nupkg.sha512"
+    },
+    "Tmds.DBus.Protocol/0.20.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2gkt2kuYPhDKd8gtl34jZSJOnn4nRJfFngCDcTZT/uySbK++ua0YQx2418l9Rn1Y4dE5XNq6zG9ZsE5ltLlNNw==",
+      "path": "tmds.dbus.protocol/0.20.0",
+      "hashPath": "tmds.dbus.protocol.0.20.0.nupkg.sha512"
+    },
+    "BlockchainLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Client/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModelsLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PeerLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RRLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SecurityLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Server/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StorageLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TestDb/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UtilitiesLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

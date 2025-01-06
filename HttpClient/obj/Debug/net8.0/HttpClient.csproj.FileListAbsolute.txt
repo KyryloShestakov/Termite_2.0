@@ -1,0 +1,15 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/bin/Debug/net8.0/HttpClient
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/bin/Debug/net8.0/HttpClient.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/bin/Debug/net8.0/HttpClient.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/bin/Debug/net8.0/HttpClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/bin/Debug/net8.0/HttpClient.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/refint/HttpClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/HttpClient.genruntimeconfig.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/HttpClient/obj/Debug/net8.0/ref/HttpClient.dll

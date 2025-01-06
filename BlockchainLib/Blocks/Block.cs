@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using ModelsLib.BlockchainLib;
 using Utilities;
+using System.Text.Json;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BlockchainLib
 {
@@ -42,8 +46,8 @@ namespace BlockchainLib
                 Difficulty = difficulty;
                 Nonce = nonce;
                 Signature = signature;
-                Hash = GenerateHash();
-                Size = CalculateSize();
+              //  Hash = GenerateHash();
+              //  Size = CalculateSize();
 
                 Logger.Log("Block created successfully.", LogLevel.Information, Source.Blockchain);
             }
@@ -58,10 +62,10 @@ namespace BlockchainLib
             try
             {
                 Timestamp = DateTime.UtcNow;
-                Hash = GenerateHash();
-                Size = CalculateSize();
+              //  Hash = GenerateHash();
+              //  Size = CalculateSize();
 
-                Logger.Log("Empty block created successfully.", LogLevel.Information, Source.Blockchain);
+               // Logger.Log("Empty block created successfully.", LogLevel.Information, Source.Blockchain);
             }
             catch (Exception ex)
             {
@@ -77,10 +81,11 @@ namespace BlockchainLib
         {
             try
             {
-                string blockData = $"{Index}{Timestamp}{PreviousHash}{MerkleRoot}";
+                string blockData = $"{Index}{Timestamp}{PreviousHash}{MerkleRoot}{Nonce}";
                 using (SHA256 sha256 = SHA256.Create())
                 {
                     byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(blockData));
+                    Logger.Log($"Hash: {Convert.ToBase64String(hashBytes)}", LogLevel.Information, Source.Blockchain);
                     Logger.Log("Hash generated successfully.", LogLevel.Information, Source.Blockchain);
                     return Convert.ToBase64String(hashBytes);
                 }
@@ -125,19 +130,14 @@ namespace BlockchainLib
         {
             try
             {
+                string transactions = JsonConvert.SerializeObject(Transactions);
+
                 var model = new BlockModel
                 {
                     Id = Guid.NewGuid().ToString(),
                     Index = Index,
                     Timestamp = Timestamp,
-                    Transactions = Transactions.Select(t => new TransactionModel
-                    {
-                        Id = t.Id,
-                        Amount = t.Amount,
-                        Sender = t.Sender,
-                        Receiver = t.Receiver,
-                        Fee = t.Fee
-                    }).ToList(),
+                    Transactions = transactions,
                     MerkleRoot = MerkleRoot,
                     PreviousHash = PreviousHash,
                     Hash = Hash,
@@ -164,6 +164,19 @@ namespace BlockchainLib
         {
             try
             {
+                List<Transaction> transactions;
+                var transactionsJson = model.Transactions;
+
+                if (transactionsJson.TrimStart().StartsWith("{"))
+                {
+                    var singleTransaction = JsonConvert.DeserializeObject<Transaction>(transactionsJson);
+                    transactions = new List<Transaction> { singleTransaction };
+                }
+                else
+                {
+                    transactions = JsonConvert.DeserializeObject<List<Transaction>>(transactionsJson);
+                }
+
                 var block = new Block
                 {
                     Index = model.Index,
@@ -175,15 +188,7 @@ namespace BlockchainLib
                     Nonce = model.Nonce,
                     Signature = model.Signature,
                     Size = model.Size,
-                    Transactions = model.Transactions.Select(t => new Transaction
-                    {
-                        Id = t.Id,
-                        Amount = t.Amount,
-                        Sender = t.Sender,
-                        Receiver = t.Receiver,
-                        Fee = t.Fee,
-                        Data = t.Data
-                    }).ToList()
+                    Transactions = transactions
                 };
 
                 Logger.Log("BlockModel converted to Block successfully.", LogLevel.Information, Source.Blockchain);
@@ -195,5 +200,6 @@ namespace BlockchainLib
                 throw;
             }
         }
+
     }
 }

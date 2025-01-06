@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="TermiteUI/BlockchainPage.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/BlockchainPage2.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/ConfirmedTransactionPage.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/MainWindow.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/MinePage.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Page1.axaml" value="TermiteUI/TermiteUI.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

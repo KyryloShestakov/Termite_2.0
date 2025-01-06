@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:termiteUi="clr-namespace:TermiteUI"
+        mc:Ignorable="d"
+        x:Class="TermiteUI.MainWindow"
+        Title="TermiteUI" 
+        Background="MediumSlateBlue"
+        Width="1000" 
+        Height="650"
+        x:DataType="termiteUi:MainWindowViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Верхний блок для заголовка -->
+            <RowDefinition Height="50"/>
+            <!-- Основная рабочая область -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Левая колонка для кнопок -->
+            <ColumnDefinition Width="200"/>
+            <!-- Правая колонка для контента -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Termite Peer" 
+                   FontSize="24" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Grid.ColumnSpan="2"
+                   FontWeight="Bold"
+                   Foreground="Azure"/>
+
+        <!-- Меню с кнопками слева -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Spacing="10" Background="rgba(10, 185, 62, 0.32)" Margin="10">
+            <Button Content="Start peer" Command="{Binding NavigateToPage1}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Start mine" Command="{Binding NavigateToPage2}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Confirmed Transactions" Command="{Binding NavigateToPage3}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Connected peers" Command="{Binding NavigateToPage4}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Wallet" Command="{Binding NavigateToPage2}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Info about my peer" Command="{Binding NavigateToPage3}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+            <Button Content="Blockchain" Command="{Binding NavigateToPage4}" Width="180" HorizontalAlignment="Left" Background="Azure"/>
+        </StackPanel>
+
+        <!-- Основная рабочая область справа -->
+        <Border Grid.Row="1" Grid.Column="1" Background="Azure" Margin="10">
+            <ContentControl Content="{Binding CurrentView}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Border>
+    </Grid>
+</Window>

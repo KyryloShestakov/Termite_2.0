@@ -1,7 +1,7 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using CommonRequestsLibrary.Requests.NetRequests;
+using RRLib.Requests.NetRequests;
 using RRLib;
 using RRLib.Responses;
 using SecurityLib.Security;
@@ -76,7 +76,7 @@ public class NetExecutor
                 {
                     Logger.Log($"Session key is larger than 32 bytes, truncating it to 256 bits (32 bytes).", LogLevel.Warning, Source.Secure);
                     Logger.Log(sessionKeyBytes.Length.ToString(), LogLevel.Warning, Source.Secure);
-                    Array.Resize(ref sessionKeyBytes, 32); // Обрезаем ключ до 32 байт
+                    Array.Resize(ref sessionKeyBytes, 32);
                 }
                 
                 string decryptedPayload = secureConnectionManager.DecryptMessage(request.PayLoad.EncryptedPayload, sessionKeyBytes);
@@ -127,15 +127,37 @@ public class NetExecutor
                         if (tcpClient.Connected)
                         {
                             await tcpHandler.Write(responseJson);
+                            Logger.Log($"Response sent to client: {response.Message}", LogLevel.Information,
+                                Source.Server);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log($"{e}", LogLevel.Error, Source.Server);
+                        throw;
+                    }
+
+                    break;
+                
+                case "PeerInfo":
+                {
+                    try
+                    {
+                        PeerInfoRequest peerInfoRequest = PeerInfoRequest.Deserialize(tcpRequest.Message);
+                        Response response = await _controller.HandleRequestAsync(peerInfoRequest);
+                        string responseJson = JsonSerializer.Serialize(response);
+                        if (tcpClient.Connected)
+                        {
+                            await tcpHandler.Write(responseJson);
                             Logger.Log($"Response sent to client: {response.Message}", LogLevel.Information, Source.Server);
                         }
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Logger.Log($"{e}", LogLevel.Error, Source.Server);
                         throw;
                     }
-
+                }
                     break;
 
                 default:

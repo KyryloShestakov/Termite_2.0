@@ -2,7 +2,10 @@ using Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ModelsLib.BlockchainLib;
 using StorageLib.DB.Redis;
+using StorageLib.DB.SqlLite;
+using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 
 namespace BlockchainLib.Blocks
 {
@@ -11,10 +14,11 @@ namespace BlockchainLib.Blocks
         private readonly TransactionMemoryPool _transactionMemoryPool;
         private const int MaxWaitTimeInSeconds = 60;
         private DateTime lastTransactionTime;
-        private const int MaxTransactionLimit = 1;
+        private const int MaxTransactionLimit = 10;
         private Blockchain _blockChain;
         private MerkleTree _merkleTree;
         private BlockManager _blockManager;
+        private BlocksBdService _blocksBdService;
         public int CurrentDifficulty { get; set; } = 1;
 
         // Constructor to initialize dependencies
@@ -25,12 +29,22 @@ namespace BlockchainLib.Blocks
             _blockManager = new BlockManager();
             _merkleTree = new MerkleTree();
             lastTransactionTime = DateTime.Now;
+
+            _blocksBdService = new BlocksBdService(new AppDbContext());
         }
 
         public async Task<Block> StartBuilding()
         {
             try
             {
+                List<BlockModel> blocks = await _blocksBdService.GetAllBlocksAsync();
+                foreach (var blockModel in blocks)
+                {
+                   Block block = Block.FromBlockModel(blockModel);
+                   await _blockChain.AddBlockAsync(block);
+                }
+
+                
                 if (await TryBuildBlock())
                 {
                     if (await _blockChain.GetCountAsync() == 0)
@@ -47,13 +61,13 @@ namespace BlockchainLib.Blocks
                 }
                 else
                 {
-                    Logger.Log("Conditions for building a block not met.");
+                    Logger.Log("Conditions for building a block not met.", LogLevel.Warning, Source.Blockchain);
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error during block building process: {ex.Message}");
+                Logger.Log($"Error during block building process: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -65,14 +79,15 @@ namespace BlockchainLib.Blocks
                 RedisService redisService = new RedisService();
                 _transactionMemoryPool.FillFromRedis(redisService);
                  int num =_transactionMemoryPool.GetTransactionCount();
-                Logger.Log(num.ToString());
+                Logger.Log($"Count transactions: {num.ToString()} wait for {MaxTransactionLimit}", LogLevel.Information, Source.Blockchain);
                 if (_transactionMemoryPool.GetTransactionCount() >= MaxTransactionLimit || (DateTime.UtcNow - lastTransactionTime).TotalSeconds > MaxWaitTimeInSeconds)
                 {
                     lastTransactionTime = DateTime.UtcNow;
                     return true;
                 }
-
                 Logger.Log("Waiting for more transactions to build the block.");
+                
+               
                 return false;
             }
             catch (Exception ex)
@@ -95,6 +110,7 @@ namespace BlockchainLib.Blocks
                 while (block.Transactions.Count < MaxTransactionLimit && _transactionMemoryPool.GetTransactionCount() > 0)
                 {
                     var tx = _transactionMemoryPool.GetHighestFeeTransaction();
+                    tx.BlockId = block.Id;
                     block.Transactions.Add(tx);
                 }
 
@@ -151,13 +167,8 @@ namespace BlockchainLib.Blocks
         {
             try
             {
-                Random random = new Random();
-                int randomValue = random.Next(1, int.MaxValue);
-
-                string timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
-
-                string nonce = $"{timestamp}-{randomValue}";
-
+                string nonce = Guid.NewGuid().ToString();
+                Logger.Log($"Trying nonce: {nonce}", LogLevel.Information , Source.Blockchain);
                 return nonce;
             }
             catch (Exception ex)
@@ -167,11 +178,12 @@ namespace BlockchainLib.Blocks
             }
         }
 
+
         private string SignBlock(Block block)
         {
             try
             {
-                return _blockManager.SignBlock(block.GenerateHash());
+                return _blockManager.SignBlock(block.Hash);
             }
             catch (Exception ex)
             {
@@ -184,24 +196,32 @@ namespace BlockchainLib.Blocks
         {
             try
             {
-                Logger.Log("Creating genesis block");
-                string id = Guid.NewGuid().ToString();
+                Logger.Log("Creating genesis block", LogLevel.Information, Source.Blockchain);
+
                 int index = 1;
                 string previousHash = "0";
-                string merkleRoot = null;
-                int difficulty = 2;
-                string nonce = "randomNonce123";
-                string signature = "blockSignature";
 
-                Block genesisBlock = new Block(index, null, previousHash, merkleRoot, difficulty, nonce, signature);
+                var data = "first transaction";
+                Transaction transaction = new Transaction("GenesisBlock", "FirstPeer", 1000000, 1, "signed", data);
+                //TODO Надо добавить туда выданный адресс для первого узла
+                List<Transaction> transactions = new List<Transaction>();
+                transactions.Add(transaction);
+                string merkleRoot = _merkleTree.CalculateMerkleRoot(transactions);  // Добавлено для генерации MerkleRoot (или создайте более специфическую логику)
+                int difficulty = 1;
+                string nonce = GenerateNonce();  // Генерация уникального nonce
+
+                string signature = "";
                 
-                Logger.Log("Genesis block created successfully.");
+                Block genesisBlock = new Block(index, transactions, previousHash, merkleRoot, difficulty, nonce, signature);
+                genesisBlock.Signature = SignBlock(genesisBlock);
+                Logger.Log($"Genesis block created successfully with ID: {genesisBlock.Id}.", LogLevel.Information, Source.Blockchain);
+                genesisBlock.Hash = "0";
+                // Возвращаем блок
                 return genesisBlock;
             }
             catch (Exception ex)
             {
-                // Log error
-                Logger.Log($"Error while creating genesis block: {ex.Message}");
+                Logger.Log($"Error while creating genesis block: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;  // Propagate the error
             }
         }

@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.1" />
+        <PackageReference Include="Avalonia.BuildServices" Version="0.0.31" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="ReactiveUI" Version="20.1.63" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <UpToDateCheckInput Update="Page1.axaml">
+        <DependentUpon>Page1.axaml</DependentUpon>
+      </UpToDateCheckInput> 
+        <UpToDateCheckInput Update="Page2.axaml">
+        <DependentUpon>Page2.axaml</DependentUpon>
+      </UpToDateCheckInput>
+        <UpToDateCheckInput Update="ConfirmedTransactionPage.axaml">
+        <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
+      </UpToDateCheckInput>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Update="CTPage.axaml.cs">
+        <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Include="BlockchainPage.axaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\BlockchainLib\BlockchainLib.csproj" />
+      <ProjectReference Include="..\Client\Client.csproj" />
+      <ProjectReference Include="..\Server\Server.csproj" />
+      <ProjectReference Include="..\StorageLib\StorageLib.csproj" />
+    </ItemGroup>
+</Project>

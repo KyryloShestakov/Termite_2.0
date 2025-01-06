@@ -65,6 +65,21 @@ public class Logger
             Console.WriteLine($"Error logging message with level {level}: {ex.Message}");
         }
     }
+    public static void Log(string message, LogLevel level, Source source, string messageType = null)
+    {
+        try
+        {
+            // Log message only if the log level is greater than or equal to the minimum level
+            if (level >= MinimumLogLevel)
+            {
+                Console.WriteLine($" [{source}] [{level}] [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{messageType}] {message}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error logging message with level {level}: {ex.Message}");
+        }
+    }
 }
 
 public enum LogLevel
@@ -81,5 +96,7 @@ public enum Source
     Unknown,
     Secure,
     Storage,
-    Blockchain
+    Blockchain,
+    App,
+    Validator
 }

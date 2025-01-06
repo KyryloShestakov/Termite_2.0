@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
-using CommonRequestsLibrary.Requests.NetRequests;
 using RRLib;
+using RRLib.Requests.NetRequests;
 using RRLib.Responses;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;

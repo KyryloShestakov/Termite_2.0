@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:termiteUi="clr-namespace:TermiteUI"
+         x:Class="TermiteUI.Page1"
+         x:DataType="termiteUi:Page1">
+<Grid>
+    <StackPanel>
+        <Button Content="Start server" Command="{Binding StartServer}"></Button>
+        <Button Content="Start client" Command="{Binding StartClient}"></Button>
+        <Button Content="Stop server" Command="{Binding StopServer}"></Button>
+        <Button Content="Stop client" Command="{Binding StopClient}"></Button>
+    </StackPanel>
+</Grid>
+</UserControl>

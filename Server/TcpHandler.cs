@@ -27,13 +27,19 @@ public class TcpHandler : ResponseService
 
     private async Task StartReceivingAsync(TcpClient tcpClient)
     {
-        var cancellationToken = _cancellationTokenSource.Token;
+        CancellationToken cancellationToken = _cancellationTokenSource.Token;
 
         while (!cancellationToken.IsCancellationRequested)
         {
             try
             {
-                string message = await ReadAsync(tcpClient);
+                if (!_currentClient.Connected)
+                {
+                    Logger.Log("Client has disconnected", LogLevel.Warning, Source.Server);
+                    break;
+                }
+
+                string message = await ReadAsync(tcpClient, cancellationToken);
                 if (string.IsNullOrEmpty(message))
                 {
                     Logger.Log("Received empty message", LogLevel.Warning, Source.Server);
@@ -49,24 +55,43 @@ public class TcpHandler : ResponseService
         }
     }
     
-    private async Task<string> ReadAsync(TcpClient tcpClient)
+    private async Task<string> ReadAsync(TcpClient tcpClient, CancellationToken cancellationToken)
     {
         if (tcpClient == null) throw new ArgumentNullException(nameof(tcpClient));
         if (IsDisposed) throw new ObjectDisposedException(nameof(tcpClient));
 
-        StringBuilder fullMessage = new StringBuilder();
         NetworkStream stream = tcpClient.GetStream();
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[8024];
 
         try
         {
-            int bytesRead;
-            while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+            if (!tcpClient.Connected)
             {
-                fullMessage.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
-                Logger.Log("ReadAsync completed", LogLevel.Information, Source.Server);
-                break;
+                Logger.Log("Client is not connected", LogLevel.Warning, Source.Server);
+                return string.Empty;
             }
+            
+            if (stream == null || !stream.CanRead)
+            {
+                Logger.Log("Network stream is not available for reading.", LogLevel.Warning, Source.Server);
+                return string.Empty;
+            }
+            
+            cancellationToken.ThrowIfCancellationRequested();
+            
+            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+            if (bytesRead == 0)
+            {
+                Logger.Log("No data received, connection might be closed.", LogLevel.Warning, Source.Server);
+                return string.Empty;
+            }
+            Logger.Log($"Received {bytesRead} bytes", LogLevel.Information, Source.Server);
+           
+            string receivedData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            Logger.Log("ReadAsync completed", LogLevel.Information, Source.Server);
+               
+            return receivedData;
+
         }
         catch (OperationCanceledException)
         {
@@ -78,12 +103,7 @@ public class TcpHandler : ResponseService
             Logger.Log($"Error while reading data: {ex.Message}", LogLevel.Error, Source.Server);
             throw;
         }
-        finally
-        {
-            Logger.Log("Client disconnected", LogLevel.Information, Source.Server);
-        }
 
-        return fullMessage.ToString();
     }
 
     public async Task<TcpRequest> AwaitRequestAsync()
@@ -116,7 +136,7 @@ public class TcpHandler : ResponseService
                 Logger.Log("Cancellation requested in WaitForRequest", LogLevel.Warning, Source.Server);
                 return;
             }
-            await Task.Delay(5000, cancellationToken);
+            await Task.Delay(500, cancellationToken);
         }
     }
     
@@ -148,3 +168,4 @@ public class TcpHandler : ResponseService
         IsDisposed = true;
     }
 }
+

@@ -22,7 +22,9 @@ public class RequestHandlerFactory
             // Mapping request types to their corresponding handler instances
             { "KeyExchange", new AuthRequestHandler() },
             { "KnownPeers", new KnownPeerRequestHandler() },
-            { "Transaction", new TransactionRequestHandler() }
+            { "Transaction", new TransactionRequestHandler() },
+            { "Block", new BlockRequestHandler() },
+            { "PeerInfo", new PeerInfoHandler() }
         };
     }
 

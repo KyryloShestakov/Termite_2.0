@@ -1,0 +1,15 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/bin/Debug/net8.0/ConsensusLib.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/bin/Debug/net8.0/ConsensusLib.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/bin/Debug/net8.0/ConsensusLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/bin/Debug/net8.0/ConsensusLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.csproj.AssemblyReference.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/refint/ConsensusLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ConsensusLib.genruntimeconfig.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/Debug/net8.0/ref/ConsensusLib.dll

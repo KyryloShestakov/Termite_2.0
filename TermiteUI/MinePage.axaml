@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:termiteUi="clr-namespace:TermiteUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TermiteUI.MinePage"
+             x:DataType="termiteUi:MinePage">
+    <Grid>
+        <StackPanel>
+             <TextBlock Text="Termite Mine"></TextBlock>
+            
+            <TextBlock>
+                <Run Text="Unconfirmed transactions: " />
+                <Run Text="{Binding UnconfirmedTransactionsCount}" FontWeight="Bold" />
+                <Run Text=". A minimum of 10." />
+            </TextBlock>
+            <Button Content="Start mine" Command="{Binding StartMineAsync}"></Button>
+        </StackPanel>
+       
+    </Grid>
+</UserControl>

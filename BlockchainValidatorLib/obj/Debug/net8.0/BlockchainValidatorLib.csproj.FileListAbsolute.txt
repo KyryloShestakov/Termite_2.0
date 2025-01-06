@@ -1,0 +1,12 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/bin/Debug/net8.0/BlockchainValidatorLib.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/bin/Debug/net8.0/BlockchainValidatorLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/bin/Debug/net8.0/BlockchainValidatorLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/refint/BlockchainValidatorLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/BlockchainValidatorLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainValidatorLib/obj/Debug/net8.0/ref/BlockchainValidatorLib.dll
