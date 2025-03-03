@@ -29,13 +29,14 @@ namespace BlockchainLib.Addresses
             try
             {
                 // Generate the address and private key using the AddressManager
-                (string address, string privateKey) = _AddressManager.GenerateAddressWithKeys();
+                (string address, string privateKey, string publicKey) = _AddressManager.GenerateAddressWithKeys();
             
                 // Create the response data containing the address and private key
                 var responseData = new
                 {
                     Address = address,
-                    PrivateKey = privateKey
+                    PrivateKey = privateKey,
+                    PubicKey = publicKey
                 };
 
                 // Log the successful generation of the address and private key

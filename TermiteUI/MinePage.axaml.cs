@@ -50,8 +50,7 @@ public partial class MinePage : UserControl, INotifyPropertyChanged
     private async void GetCountUnconfirmedTransactions()
     {
         TransactionMemoryPool _transactionMemoryPool = new TransactionMemoryPool();
-        RedisService redisService = new RedisService();
-        await Task.Run(() => _transactionMemoryPool.FillFromRedis(redisService));
+        await Task.Run(() => _transactionMemoryPool.FillFromSqlLite());
         int num = _transactionMemoryPool.GetTransactionCount();
         Logger.Log($"Number of unconfirmed transactions: {num}", LogLevel.Information, Source.Blockchain);
         UnconfirmedTransactionsCount = num;

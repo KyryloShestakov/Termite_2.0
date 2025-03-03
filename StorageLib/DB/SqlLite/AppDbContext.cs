@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<KnownPeersModel> PeersList { get; set; }
     public DbSet<BlockModel> Blocks { get; set; }
     public DbSet<TransactionModel> Transactions { get; set; }
+    public DbSet<MyPrivatePeerInfoModel> MyPrivatePeerInfo { get; set; }
 
     public AppDbContext() : base()
     {

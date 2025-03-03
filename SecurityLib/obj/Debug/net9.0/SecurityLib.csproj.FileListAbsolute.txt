@@ -2,6 +2,7 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/SecurityLib.runtimeconfig.json
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/SecurityLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/SecurityLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/EnumsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/RRLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/StorageLib.dll
@@ -9,6 +10,7 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/RRLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/StorageLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/UtilitiesLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/EnumsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/ModelsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/Debug/net9.0/SecurityLib.csproj.AssemblyReference.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/Debug/net9.0/SecurityLib.GeneratedMSBuildEditorConfig.editorconfig

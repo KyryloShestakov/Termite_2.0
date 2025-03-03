@@ -1,4 +1,7 @@
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
+using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib.BlockchainLib;
 using Newtonsoft.Json;
 using StorageLib.DB.Redis;
@@ -13,16 +16,13 @@ namespace BlockchainLib
     public class TransactionManager : ITransactionManager
     {
         private TransactionMemoryPool _memoryPool;
-        private TransactionBdService _transactionBdService;
-        private RedisService _redisService;
-        private BlocksBdService _blocksBdService;
-
+        private readonly IDbProcessor _dbProcessor;
+        private readonly AppDbContext _appDbContext;
         public TransactionManager()
         {
             _memoryPool = new TransactionMemoryPool();
-            _transactionBdService = new TransactionBdService(new AppDbContext());
-            _redisService = new RedisService();
-            _blocksBdService = new BlocksBdService(new AppDbContext());
+            _appDbContext = new AppDbContext();
+            _dbProcessor = new DbProcessor();
         }
 
         public async Task<Transaction> CreateTransaction(
@@ -31,7 +31,8 @@ namespace BlockchainLib
             decimal amount,
             decimal fee,
             string signature,
-            Object data)
+            Object data,
+            string pubKey)
         {
             // Validation of input parameters
             if (string.IsNullOrWhiteSpace(senderAddress))
@@ -69,27 +70,31 @@ namespace BlockchainLib
                 LogLevel.Information, Source.Blockchain);
 
             // Transaction creation
-            Transaction transaction = new Transaction(senderAddress, recipientAddress, amount, fee, signature, data);
+            Transaction transaction = new Transaction(senderAddress, recipientAddress, amount, fee, signature, data, pubKey);
             string transactionType = data?.ToString();
             switch (transactionType)
             {
                 case "Unconfirmed":
-                    Logger.Log($"Transaction {transaction.Id} marked as unconfirmed. Adding to memory pool and Redis.",
+                    Logger.Log($"Transaction {transaction.Id} marked as unconfirmed. Adding to memory pool and DB.",
                         LogLevel.Information, Source.Storage);
                     _memoryPool.AddTransaction(transaction);
 
-                    string json = Transaction.Serialize(transaction);
-                    await _redisService.SetStringAsync(transaction.Id, json);
-
-                    Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,
-                        Source.Storage);
+                    // string json = Transaction.Serialize(transaction);
+                    // await _redisService.SetStringAsync(transaction.Id, json);
+                    TransactionModel transactionmodel = Transaction.ToModel(transaction);                 
+                    bool isCreated = await _dbProcessor.ProcessService<bool>(new TransactionBdService(new AppDbContext()), CommandType.Add, new DbData(transactionmodel));
+                    if (!isCreated)
+                    {
+                        Logger.Log($"Transaction {transaction.Id} was not created", LogLevel.Warning, Source.Blockchain);
+                    }
+                   // Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,Source.Storage);
                     break;
 
                 case "Confirmed":
                     Logger.Log($"Transaction {transaction.Id} marked as confirmed. Adding to database.",
                         LogLevel.Information, Source.Storage);
                     TransactionModel transactionModel = Transaction.ToModel(transaction);
-                    await _transactionBdService.AddTransactionAsync(transactionModel);
+                    await _dbProcessor.ProcessService<bool>(new TransactionBdService(_appDbContext), CommandType.Add, new DbData(transactionModel));
 
                     Logger.Log($"Transaction {transaction.Id} saved to the database.", LogLevel.Information,
                         Source.Storage);
@@ -128,8 +133,42 @@ namespace BlockchainLib
 
                 return transactions;
         }
-            
         
+        public TransactionModel SignTransaction(TransactionModel transaction, string privateKey)
+        {
+            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
+            if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
+
+            string transactionData = JsonConvert.SerializeObject(new
+            {
+                transaction.Sender,
+                transaction.Receiver,
+                transaction.Amount,
+                transaction.Timestamp,
+                transaction.Fee,
+                transaction.Data,
+                transaction.Contract
+            });
+
+            byte[] transactionHash = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(transactionData));
+
+            RSA privateKeyRsa = GetPrivateKeyFromString(privateKey);
+            byte[] signature = privateKeyRsa.SignData(transactionHash, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+
+            transaction.Signature = Convert.ToBase64String(signature);
+
+            return transaction;
+        }
+            
+        private RSA GetPrivateKeyFromString(string privateKey)
+        {
+            using (RSA rsa = RSA.Create())
+            {
+                // Преобразуем строковый ключ в byte[] и импортируем
+                rsa.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out _);
+                return rsa;
+            }
+        }
 
     }
     

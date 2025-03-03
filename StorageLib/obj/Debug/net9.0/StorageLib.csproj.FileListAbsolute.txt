@@ -2,10 +2,12 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/StorageLib.runtimeconfig.json
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/StorageLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/StorageLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/EnumsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/UtilitiesLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/ModelsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/UtilitiesLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/bin/Debug/net9.0/EnumsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/obj/Debug/net9.0/StorageLib.csproj.AssemblyReference.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/obj/Debug/net9.0/StorageLib.GeneratedMSBuildEditorConfig.editorconfig
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/StorageLib/obj/Debug/net9.0/StorageLib.AssemblyInfoInputs.cache

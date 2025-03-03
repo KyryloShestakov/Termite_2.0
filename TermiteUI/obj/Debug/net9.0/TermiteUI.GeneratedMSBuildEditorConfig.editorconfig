@@ -35,14 +35,23 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/ConfirmedTransactionPage.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/KnownPeersPage.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/MinePage.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/MyInfoPage.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/Page1.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/Page2.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TermiteUI/WalletPage.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

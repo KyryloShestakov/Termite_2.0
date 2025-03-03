@@ -1,4 +1,5 @@
-﻿using ModelsLib.NetworkModels;
+﻿using DataLib.DB.SqlLite.Services.NetServices;
+using ModelsLib.NetworkModels;
 using StorageLib.DB.SqlLite.Services;
 using RRLib;
 using RRLib.Requests.NetRequests;
@@ -9,26 +10,25 @@ namespace PeerLib.Services;
 
 public class KnownPeersService
 {
-    private PeersListService _peersListService;
+    private readonly PeerInfoService _peerInfoService;
     
     // Constructor that initializes the PeersListService and ensures the database is created
     public KnownPeersService()
     {
-        var context = new AppDbContext();
-        context.Database.EnsureCreated(); // Ensures that the database is created if it doesn't exist
-        _peersListService = new PeersListService(context);
+        _peerInfoService = new PeerInfoService(new AppDbContext());
     }
 
     // Method for adding new known peers
     public async Task<Response> PostKnownPeers(Request request)
     {
         KnownPeersRequest knownPeersRequest = request as KnownPeersRequest;
-        List<KnownPeersModel> knownPeers = knownPeersRequest.GetKnownPeers();
+        List<PeerInfoModel> knownPeers = knownPeersRequest.GetKnownPeers();
+        
         
         // Iterate through the list of known peers and add them to the database
-        foreach (KnownPeersModel knownPeer in knownPeers)
+        foreach (PeerInfoModel knownPeer in knownPeers)
         { 
-            await _peersListService.AddPeerAsync(knownPeer);
+            await _peerInfoService.Add(knownPeer);
         }
         
         // Return a successful response after adding the peers
@@ -40,7 +40,7 @@ public class KnownPeersService
     public async Task<Response> GetKnownPeers(Request request)
     {
         // Retrieve all peers from the database
-        var peersList = await _peersListService.GetAllPeersAsync();
+        var peersList = await _peerInfoService.GetAll();
         
         // If no peers are found, return a response indicating that
         if (peersList == null || !peersList.Any())
@@ -57,23 +57,24 @@ public class KnownPeersService
     public async Task<Response> UpdateKnownPeers(Request request)
     {
         KnownPeersRequest knownPeersRequest = request as KnownPeersRequest;
-        List<KnownPeersModel> updatedPeers = knownPeersRequest.GetKnownPeers();
+        List<PeerInfoModel> updatedPeers = knownPeersRequest.GetKnownPeers();
         
         // Iterate through the list of updated peers and either update or add them
-        foreach (KnownPeersModel updatedPeer in updatedPeers)
+        foreach (PeerInfoModel updatedPeer in updatedPeers)
         {
-            var existingPeer = await _peersListService.GetPeerByIdAsync(updatedPeer.Id);
+            var existingPeer = await _peerInfoService.Get(updatedPeer.NodeId);
+            PeerInfoModel model = existingPeer as PeerInfoModel;
             if (existingPeer != null)
             {
                 // If the peer exists, update its details
-                existingPeer.Id = updatedPeer.Id; // Example: updating only the name, but can include other fields
-                existingPeer.Address = updatedPeer.Address;
-                await _peersListService.UpdatePeerAsync(existingPeer);
+                model.Id = updatedPeer.Id; // Example: updating only the name, but can include other fields
+                model.IpAddress = updatedPeer.IpAddress;
+                await _peerInfoService.Update(model.NodeId,model);
             }
             else
             {
                 // If the peer doesn't exist, add it to the database
-                await _peersListService.AddPeerAsync(updatedPeer);
+                await _peerInfoService.Add(updatedPeer);
             }
         }
         
@@ -86,16 +87,18 @@ public class KnownPeersService
     public async Task<Response> DeleteKnownPeers(Request request)
     {
         KnownPeersRequest knownPeersRequest = request as KnownPeersRequest;
-        List<KnownPeersModel> peersToDelete = knownPeersRequest.GetKnownPeers();
+        List<PeerInfoModel> peersToDelete = knownPeersRequest.GetKnownPeers();
         
         // Iterate through the list of peers to be deleted and remove them from the database
-        foreach (KnownPeersModel peer in peersToDelete)
+        foreach (PeerInfoModel peer in peersToDelete)
         {
-            var existingPeer = await _peersListService.GetPeerByIdAsync(peer.Id);
+            var existingPeer = await _peerInfoService.Get(peer.NodeId);
+            PeerInfoModel model = existingPeer as PeerInfoModel;
+            
             if (existingPeer != null)
             {
                 // If the peer exists, delete it from the database
-                await _peersListService.DeletePeerAsync(existingPeer.Id);
+                await _peerInfoService.Delete(model.NodeId);
             }
         }
         

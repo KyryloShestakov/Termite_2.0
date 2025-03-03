@@ -20,7 +20,15 @@ public class RequestPool
     /// <param name="request">Запрос для добавления</param>
     public void AddRequest(Request request)
     {
-        _requests.Enqueue(request); // Добавление в очередь
+        if (request.RequestType == "Empty")
+        {
+            Logger.Log("Request is null", LogLevel.Warning, Source.Client);
+        }
+        else
+        {
+            _requests.Enqueue(request);
+        }
+        
         Logger.Log($"Request added. Total requests in pool: {_requests.Count}", LogLevel.Information, Source.Client);
     }
 

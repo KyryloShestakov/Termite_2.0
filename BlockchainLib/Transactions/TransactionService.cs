@@ -1,8 +1,13 @@
+using System.Security.Cryptography;
+using System.Text;
 using RRLib;
 using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
 using BlockchainLib;
+using Microsoft.Extensions.Logging;
 using ModelsLib.BlockchainLib;
+using Utilities;
+using LogLevel = Utilities.LogLevel;
 
 namespace BlockchainLib
 {
@@ -28,11 +33,11 @@ namespace BlockchainLib
 
                 foreach (var transaction in transactions)
                 {
-                    Transaction newTransaction = await _transactionManager.CreateTransaction(transaction.Sender, transaction.Receiver, transaction.Amount, transaction.Fee, transaction.Signature, transaction.Data);
+                    Transaction newTransaction = await _transactionManager.CreateTransaction(transaction.Sender, transaction.Receiver, transaction.Amount, transaction.Fee, transaction.Signature, transaction.Data, transaction.PublicKey);
                 }
                 
                 Response response = _serverResponseService.GetResponse(true, "Transaction Created");
-
+                
                 return response;
             }
             catch (Exception e)
@@ -55,6 +60,33 @@ namespace BlockchainLib
         public async Task<Response> DeleteTransactions(Request request)
         {
             throw new NotImplementedException();
+        }
+        
+        public string SignTransaction(TransactionModel transaction, string privateKey)
+        {
+            try
+            {
+                string key = privateKey.Substring(14, privateKey.Length - 14);
+               // Logger.Log($"{key}", LogLevel.Information, Source.Blockchain);
+                using (var rsa = new RSACryptoServiceProvider())
+                {
+                    byte[] privateKeyBytes = Convert.FromBase64String(key);
+            
+                    rsa.ImportRSAPrivateKey(privateKeyBytes, out _);
+
+                    string dataToSign = $"{transaction.Sender}{transaction.Receiver}{transaction.Amount}{transaction.Fee}{transaction.Data}";
+                    byte[] dataBytes = Encoding.UTF8.GetBytes(dataToSign);
+
+                    byte[] signatureBytes = rsa.SignData(dataBytes, new SHA256CryptoServiceProvider());
+                    
+                    return Convert.ToBase64String(signatureBytes);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error signing transaction: {e.Message}");
+                throw;
+            }
         }
     }
 }

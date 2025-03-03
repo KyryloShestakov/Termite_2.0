@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BlockchainLib\BlockchainLib.csproj" />
       <ProjectReference Include="..\Client\Client.csproj" />
       <ProjectReference Include="..\SecurityLib\SecurityLib.csproj" />
       <ProjectReference Include="..\TestDb\TestDb.csproj" />

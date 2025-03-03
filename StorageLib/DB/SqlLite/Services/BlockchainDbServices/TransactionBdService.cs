@@ -1,10 +1,14 @@
+using DataLib.DB.SqlLite.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
 using Utilities;
+using LogLevel = Utilities.LogLevel;
 
 namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
 {
-    public class TransactionBdService
+    public class TransactionBdService : IDbProvider
     {
         private readonly AppDbContext _context;
 
@@ -15,16 +19,13 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
         /// <exception cref="ArgumentNullException">Thrown when the context is null.</exception>
         public TransactionBdService(AppDbContext context)
         {
+            _context = new AppDbContext();
             _context = context ?? throw new ArgumentNullException(nameof(context), "Database context cannot be null.");
         }
 
-        /// <summary>
-        /// Adds a new transaction to the database.
-        /// </summary>
-        /// <param name="transaction">The transaction model to add.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task AddTransactionAsync(TransactionModel transaction)
+        public async Task<bool> Add(IModel model)
         {
+            TransactionModel transaction = model as TransactionModel;
             if (transaction == null)
             {
                 Logger.Log("Attempted to add a null transaction to the database.", LogLevel.Error, Source.Storage);
@@ -34,22 +35,24 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
             try
             {
                 _context.Transactions.Add(transaction);
+                Logger.Log($"Public key is {transaction.PublicKey}.", LogLevel.Information, Source.Storage);
                 await _context.SaveChangesAsync();
                 Logger.Log($"Transaction added to DB | id:{transaction.Id}", LogLevel.Information, Source.Storage);
+                return true;
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error adding transaction to DB: {ex.Message}", LogLevel.Error, Source.Storage);
-                throw;
+                if (ex.InnerException != null)
+                {
+                    Logger.Log($"Inner Exception: {ex.InnerException.Message}", LogLevel.Error, Source.Storage);
+                    Logger.Log($"Stack Trace: {ex.InnerException.StackTrace}", LogLevel.Error, Source.Storage);
+                }
+                return false;
             }
         }
 
-        /// <summary>
-        /// Retrieves a transaction by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the transaction.</param>
-        /// <returns>The transaction model or null if not found.</returns>
-        public async Task<TransactionModel> GetTransactionByIdAsync(int id)
+        public async Task<IModel> Get(string id)
         {
             try
             {
@@ -67,17 +70,13 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
             }
         }
 
-        /// <summary>
-        /// Retrieves all transactions from the database.
-        /// </summary>
-        /// <returns>A list of all transactions.</returns>
-        public async Task<List<TransactionModel>> GetAllTransactionsAsync()
+        public async Task<List<IModel>> GetAll()
         {
             try
             {
                 var transactions = await _context.Transactions.ToListAsync();
                 Logger.Log($"Retrieved {transactions.Count} transactions from the database.", LogLevel.Information, Source.Storage);
-                return transactions;
+                return new List<IModel>(transactions);
             }
             catch (Exception ex)
             {
@@ -86,12 +85,7 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
             }
         }
 
-        /// <summary>
-        /// Deletes a transaction by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the transaction to delete.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task DeleteTransactionAsync(int id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
@@ -99,12 +93,13 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
                 if (transaction == null)
                 {
                     Logger.Log($"Transaction not found for deletion | id:{id}", LogLevel.Warning, Source.Storage);
-                    return;
+                    return false;
                 }
 
                 _context.Transactions.Remove(transaction);
                 await _context.SaveChangesAsync();
                 Logger.Log($"Transaction deleted | id:{id}", LogLevel.Information, Source.Storage);
+                return true;
             }
             catch (Exception ex)
             {
@@ -113,13 +108,9 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
             }
         }
 
-        /// <summary>
-        /// Updates an existing transaction in the database.
-        /// </summary>
-        /// <param name="transaction">The updated transaction model.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        public async Task UpdateTransactionAsync(TransactionModel transaction)
+        public async Task<bool> Update(string id, IModel model)
         {
+            TransactionModel transaction = model as TransactionModel;
             if (transaction == null)
             {
                 Logger.Log("Attempted to update a null transaction.", LogLevel.Error, Source.Storage);
@@ -132,7 +123,7 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
                 if (existingTransaction == null)
                 {
                     Logger.Log($"Transaction not found for update | id:{transaction.Id}", LogLevel.Warning, Source.Storage);
-                    return;
+                    return false;
                 }
 
                 existingTransaction.Data = transaction.Data;
@@ -141,12 +132,18 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
 
                 await _context.SaveChangesAsync();
                 Logger.Log($"Transaction updated | id:{transaction.Id}", LogLevel.Information, Source.Storage);
+                return true;
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error updating transaction | id:{transaction.Id} | Error: {ex.Message}", LogLevel.Error, Source.Storage);
                 throw;
             }
+        }
+
+        public async Task<bool> Exists(string id)
+        {
+            return true;
         }
     }
 }

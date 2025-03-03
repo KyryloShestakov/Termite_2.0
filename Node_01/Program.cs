@@ -5,7 +5,10 @@ class Program
 {
     static async Task Main()
     {
-       Node node = new Node();
-       node.Start();
+       Peer peer = new Peer();
+       // peer.CreatePeer();
+       peer.Start();
+       
+       
     }
 }

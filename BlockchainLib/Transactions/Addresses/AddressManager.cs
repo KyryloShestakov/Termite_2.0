@@ -1,6 +1,8 @@
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
+using DataLib.DB.SqlLite.Interfaces;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
 using Newtonsoft.Json;
 using StorageLib.DB.SqlLite;
@@ -14,10 +16,10 @@ namespace BlockchainLib.Addresses
     /// </summary>
     public class AddressManager : IAddressManager
     {
-        private BlocksBdService _blocksService;
+        private BlockManager _blockManager;
         public AddressManager()
         {
-            _blocksService = new BlocksBdService(new AppDbContext());
+            _blockManager = new BlockManager();
         }
 
         /// <summary>
@@ -28,7 +30,7 @@ namespace BlockchainLib.Addresses
         /// - `Address`: The generated blockchain address.
         /// - `PrivateKey`: The corresponding private key in Base64 format.
         /// </returns>
-        public (string Address, string PrivateKey) GenerateAddressWithKeys()
+        public (string Address, string PrivateKey, string PublicKey) GenerateAddressWithKeys()
         {
             using (var rsa = RSA.Create())
             {
@@ -47,9 +49,9 @@ namespace BlockchainLib.Addresses
                     var checksum = ComputeChecksum(hash160);
                     var addressBytes = Combine(hash160, checksum);
                     var address = EncodeBase58(addressBytes);
-
+                    var publicKey = EncodeBase58(publicKeyBytes);
                     // Return the address and private key
-                    return (address, privateKeyBase64);
+                    return (address, privateKeyBase64, publicKey);
                 }
             }
         }
@@ -61,14 +63,16 @@ namespace BlockchainLib.Addresses
         /// <returns>The balance associated with the address.</returns>
         public async Task<decimal> GetBalance(string address)
         {
+            IDbProcessor _dbProcessor = new DbProcessor();
+            
             decimal incomingAmount = 0;
             decimal outgoingAmount = 0;
 
-            var blocks = await _blocksService.GetAllBlocksAsync();
-
+            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
+            List<BlockModel> blocks = models.Cast<BlockModel>().ToList();
             foreach (var block in blocks)
             {
-                var transactions = GetTransactionsModelFromBlock(block);
+                var transactions = _blockManager.GetTransactionsFromBlock(block);
 
                 foreach (var transaction in transactions)
                 {
@@ -87,24 +91,6 @@ namespace BlockchainLib.Addresses
             return incomingAmount - outgoingAmount;
         }
         
-        public List<TransactionModel> GetTransactionsModelFromBlock(BlockModel block)
-        {
-            var transactions = new List<TransactionModel>();
-
-            if (!string.IsNullOrEmpty(block.Transactions))
-            {
-                try
-                {
-                    transactions = JsonConvert.DeserializeObject<List<TransactionModel>>(block.Transactions);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log($"Error deserializing transactions: {ex.Message}", LogLevel.Error, Source.App);
-                }
-            }
-
-            return transactions;
-        }
 
         /// <summary>
         /// Computes the checksum for the given data using double SHA-256 hashing.

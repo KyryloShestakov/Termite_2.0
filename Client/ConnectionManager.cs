@@ -1,6 +1,11 @@
 using System.Linq;
 using System.Net.Sockets;
+using DataLib.DB.SqlLite.Interfaces;
+using DataLib.DB.SqlLite.Services.NetServices;
+using EnumsLib;
+using ModelsLib;
 using ModelsLib.NetworkModels;
+using PeerLib.Services;
 using StorageLib.DB.SqlLite.Services;
 using StorageLib.DB.SqlLite;
 using Utilities;
@@ -9,15 +14,16 @@ namespace Client;
 
 public class ConnectionManager
 {
-    private readonly List<KnownPeersModel> _peers;
-    private readonly PeersListService _peersService;
+    private readonly List<PeerInfoModel> _peers;
     private readonly Dictionary<string, TcpClient> _activeConnections = new();
-
+    private readonly IDbProcessor _dbProcessor;
+    private readonly AppDbContext _appDbContext;
 
     public ConnectionManager()
     {
-        _peers = new List<KnownPeersModel>();
-        _peersService = new PeersListService(new AppDbContext());
+         _peers = new List<PeerInfoModel>();
+         _appDbContext = new AppDbContext();
+         _dbProcessor = new DbProcessor();
     }
 
     /// <summary>
@@ -26,11 +32,12 @@ public class ConnectionManager
     public async Task InitializePeersAsync()
     {
         Logger.Log("Initializing known peers...", LogLevel.Information, Source.Client);
-        List<KnownPeersModel> knownPeers = await _peersService.GetAllPeersAsync();
+        List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new PeerInfoService(_appDbContext), CommandType.GetAll);
+        List<PeerInfoModel> peers = models.Cast<PeerInfoModel>().ToList();
         lock (_peers)
         {
-            _peers.Clear(); // Очищаем список перед обновлением
-            _peers.AddRange(knownPeers);
+            _peers.Clear();
+            _peers.AddRange(peers);
         }
         Logger.Log($"Loaded {_peers.Count} peers from database.", LogLevel.Information, Source.Client);
     }
@@ -38,18 +45,18 @@ public class ConnectionManager
     /// <summary>
     /// Возвращает список известных узлов.
     /// </summary>
-    public List<KnownPeersModel> GetPeersList()
+    public List<PeerInfoModel> GetPeersList()
     {
         lock (_peers)
         {
-            return new List<KnownPeersModel>(_peers);
+            return new List<PeerInfoModel>(_peers);
         }
     }
 
     /// <summary>
     /// Возвращает список активных узлов.
     /// </summary>
-    public List<KnownPeersModel> GetActivePeersList()
+    public List<PeerInfoModel> GetActivePeersList()
     {
         lock (_peers)
         {
@@ -79,7 +86,7 @@ public class ConnectionManager
     {
         lock (_peers)
         {
-            var peer = _peers.FirstOrDefault(p => p.Address == address);
+            var peer = _peers.FirstOrDefault(p => p.IpAddress == address);
             if (peer != null)
             {
                 peer.Status = newStatus;
@@ -95,7 +102,7 @@ public class ConnectionManager
     /// <summary>
     /// Проверяет и возвращает список свободных узлов для подключения.
     /// </summary>
-    public List<KnownPeersModel> GetAvailablePeersForConnection(int maxConnectionsPerPeer)
+    public List<PeerInfoModel> GetAvailablePeersForConnection(int maxConnectionsPerPeer)
     {
         lock (_peers)
         {
@@ -119,7 +126,7 @@ public class ConnectionManager
             foreach (var peer in _peers)
             {
                 Logger.Log(
-                    $"Peer: {peer.Address}:{peer.Port}, Status: {peer.Status}",
+                    $"Peer: {peer.IpAddress}:{peer.Port}, Status: {peer.Status}",
                     LogLevel.Information,
                     Source.Client
                 );

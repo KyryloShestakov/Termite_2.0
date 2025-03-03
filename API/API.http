@@ -1,0 +1,57 @@
+@API_HostAddress = http://localhost:5009
+
+GET {{API_HostAddress}}/api/main/GetAddress
+Accept: application/json
+
+###
+
+POST {{API_HostAddress}}/api/main/PostTransaction
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": "12345",
+  "Sender": "29DckhJXKKvKYQfBdY9s6PvaMn4hcTcxKKL4u5oZCNhmwhfLSw",
+  "Receiver": "Bob",
+  "Amount": 100.50,
+  "Timestamp": "2025-01-24T15:00:00",
+  "Fee": 1.25,
+  "Signature": "abcdef1234567890",
+  "BlockId": null,
+  "Data": null,
+  "Contract": null,
+  "PublicKey": ""
+}
+
+###
+
+
+POST http://localhost:5009/api/main/GetBalance
+Accept: application/json
+Content-Type: application/json
+
+{
+  "address": "Nj5nVJNwssoo8XZi6aXmuwhuWRRNf22q5MCpo2LHMaChjrA93"
+}
+
+###
+
+POST http://localhost:5009/api/main/GetTransaction
+Accept: application/json
+Content-Type: application/json
+
+
+"a7419adc-559c-4ea7-9a7f-0975faae975c"
+
+
+###
+POST http://localhost:5009/api/main/GetTransactionsByAddress
+Accept: application/json
+Content-Type: application/json
+
+"Nj5nVJNwssoo8XZi6aXmuwhuWRRNf22q5MCpo2LHMaChjrA93"
+
+###
+
+
+

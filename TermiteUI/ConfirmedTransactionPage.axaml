@@ -5,26 +5,56 @@
          x:DataType="termiteUi:CTViewModel">
 
     <Grid>
-        <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" />
-        <ListBox ItemsSource="{Binding Transactions}" Width="1500" Height="500" Background="Transparent"
-                 HorizontalAlignment="Left">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="Receiver: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding Receiver}" Margin="5,0" />
-                        <TextBlock Text="Amount: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding Amount}" Margin="5,0" />
-                        <TextBlock Text="Sender: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding Sender}" Margin="5,0" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <!-- Создаём строки для организации элементов -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Для заголовка -->
+            <RowDefinition Height="*" />    <!-- Для списка с прокруткой -->
+        </Grid.RowDefinitions>
 
-        
-        
+        <!-- Заголовок -->
+        <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" Grid.Row="0" />
+
+        <!-- Список с прокруткой -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding Transactions}" Width="1500" Background="Transparent"
+                     HorizontalAlignment="Left">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Используем Border для оформления карточки -->
+                        <Border BorderThickness="1" CornerRadius="5" BorderBrush="Beige" Padding="10" Margin="10" Background="#FFF">
+                            <StackPanel>
+                                <!-- Каждое поле на отдельной строке -->
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Receiver: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Receiver}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Amount: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Amount}" Margin="5,0" />
+                                    <TextBlock Text="TER" FontWeight="Bold" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Sender: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Sender}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Timestamp: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Timestamp}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Block id: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding BlockId}" Margin="5,0" />
+                                </StackPanel> 
+                                
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
-    
-    
 </Control>

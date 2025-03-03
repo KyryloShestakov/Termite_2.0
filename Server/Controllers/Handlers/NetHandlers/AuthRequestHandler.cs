@@ -1,4 +1,5 @@
 using RRLib;
+using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
 using SecurityLib.Authentication;
 
@@ -14,7 +15,7 @@ public class AuthRequestHandler : IRequestHandler
     }
     
     public async Task<Response> HandleRequestAsync(Request request)
-    { 
+    {
         switch (request.Method)
         {
             case "POST":

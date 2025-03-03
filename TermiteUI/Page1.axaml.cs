@@ -4,6 +4,7 @@ using Server;
 using Utilities;
 using ReactiveUI;
 using System.Reactive;
+using CoreLib;
 
 namespace TermiteUI
 {
@@ -43,7 +44,7 @@ namespace TermiteUI
         public void StopServer()
         {
             TcpServer server = new TcpServer();
-            server.StopAsync();
+            server.Stop();
             Logger.Log("Server stopped.", LogLevel.Information, Source.App);
         }
 

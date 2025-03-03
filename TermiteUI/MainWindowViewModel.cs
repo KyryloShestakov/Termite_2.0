@@ -21,6 +21,10 @@ namespace TermiteUI;
         public IRelayCommand NavigateToPage2 { get; }
         public IRelayCommand NavigateToPage3 { get; }
         public IRelayCommand NavigateToPage4 { get; }
+        public IRelayCommand NavigateToPage5 { get; }
+        
+        public IRelayCommand NavigateToPage6 { get; }
+        public IRelayCommand NavigateToPage7 { get; }
 
         public MainWindowViewModel()
         {
@@ -30,5 +34,8 @@ namespace TermiteUI;
             NavigateToPage2 = new RelayCommand(() => CurrentView = new MinePage());
             NavigateToPage3 = new RelayCommand(() => CurrentView = new CTPage());
             NavigateToPage4 = new RelayCommand(() => CurrentView = new BlockchainPage());
+            NavigateToPage5 = new RelayCommand(() => CurrentView = new WalletPage());
+            NavigateToPage6 = new RelayCommand(() => CurrentView = new MyInfoPage());
+            NavigateToPage7= new RelayCommand(() => CurrentView = new KnownPeersPage());
         }
     }

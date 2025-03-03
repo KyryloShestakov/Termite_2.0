@@ -11,7 +11,7 @@ public class KnownPeersRequest : Request
     
     public static KnownPeersRequest Deserialize(string json) => JsonConvert.DeserializeObject<KnownPeersRequest>(json) ?? throw new InvalidOperationException();
     
-    public List<KnownPeersModel> GetKnownPeers()
+    public List<PeerInfoModel> GetKnownPeers()
     {
         if (PayLoad.KnownPeers != null && PayLoad.KnownPeers.Any())
         {

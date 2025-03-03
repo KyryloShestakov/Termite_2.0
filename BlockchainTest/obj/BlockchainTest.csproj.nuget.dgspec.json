@@ -232,7 +232,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

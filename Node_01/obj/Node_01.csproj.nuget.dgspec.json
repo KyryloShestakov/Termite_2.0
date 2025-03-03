@@ -111,6 +111,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj"
+              },
               "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
                 "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
               },
@@ -124,83 +127,6 @@
                 "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/UtilitiesLib/UtilitiesLib.csproj"
               }
             }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj",
-        "projectName": "ConsensusLib",
-        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj",
-        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
-        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net9.0"
-        ],
-        "sources": {
-          "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
-            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -280,9 +206,6 @@
             "projectReferences": {
               "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj": {
                 "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj"
-              },
-              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj": {
-                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ConsensusLib/ConsensusLib.csproj"
               },
               "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj": {
                 "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Server/Server.csproj"
@@ -423,7 +346,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

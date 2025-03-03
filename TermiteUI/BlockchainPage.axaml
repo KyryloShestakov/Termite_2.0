@@ -1,32 +1,64 @@
 <Control xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:termiteUi="clr-namespace:TermiteUI"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="TermiteUI.BlockchainPage"
-        x:DataType="termiteUi:BlockchainViewModel"
-        >
-    <Grid>
-        <TextBlock Text="Blockchain" FontSize="18" Margin="10" />
-        <ListBox ItemsSource="{Binding Blocks}" Width="1500" Height="500" 
-                 Background="Transparent"
-                 HorizontalAlignment="Left">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="Index: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding Index}" Margin="5,0" />
-                        <TextBlock Text="Date: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding Timestamp}" Margin="5,0" /> 
-                        <TextBlock Text="PreviousHash: " FontWeight="Bold" />
-                        <TextBlock Text="{Binding PreviousHash}" Margin="5,0" /> 
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:termiteUi="clr-namespace:TermiteUI"
+         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+         x:Class="TermiteUI.BlockchainPage"
+         x:DataType="termiteUi:BlockchainViewModel">
 
-        
-        
+    <Grid>
+        <!-- Создаём строки для разделения заголовка и списка -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Для заголовка -->
+            <RowDefinition Height="*" />    <!-- Для списка -->
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Blockchain" FontSize="18" Margin="10" Grid.Row="0" />
+
+        <!-- Список с карточками -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Blocks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Карточка -->
+                        <Border BorderThickness="1" CornerRadius="5" BorderBrush="Beige" Padding="10" Margin="10" Background="#FFF">
+                            <StackPanel>
+                                <!-- Индекс и его значение на одной строке -->
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Index:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Index}" Margin="5,0" />
+                                </StackPanel>
+
+                                <!-- Дата и её значение на одной строке -->
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Date:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Timestamp}" Margin="5,0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Hash:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Hash}" Margin="5,0" />
+                                </StackPanel>
+
+                                <!-- Hash предыдущего блока на одной строке -->
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="PreviousHash:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding PreviousHash}" Margin="5,0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Id:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Id}" Margin="5,0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Merkle root:" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding MerkleRoot}" Margin="5,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Control>

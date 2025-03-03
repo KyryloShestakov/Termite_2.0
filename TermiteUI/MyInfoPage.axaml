@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:termiteUi="clr-namespace:TermiteUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="termiteUi:MyInfoPage"
+             x:Class="TermiteUI.MyInfoPage">
+    <StackPanel Spacing="10" Margin="20">
+        <!-- Заголовок -->
+        <TextBlock Text="My Node Info" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" />
+
+        <!-- Карточка с информацией -->
+        <Border Background="#F7F7F7"
+                CornerRadius="10"
+                BoxShadow="2 2 5 #aaa"
+                Padding="20">
+            <StackPanel>
+                <!-- Привязка информации о узле, все данные на одной строке -->
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Node id: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.NodeId}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="IP Address: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.IpAddress}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Port: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.Port}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Last Seen: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.LastSeen}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Status: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.Status}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Software Version: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.SoftwareVersion}" FontSize="16" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Node Type: " FontSize="16" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PeerInfo.NodeType}" FontSize="16" />
+                </StackPanel>
+
+                <!-- <StackPanel Orientation="Horizontal" Spacing="5"> -->
+                <!--     <TextBlock Text="Wallet Address: " FontSize="16" FontWeight="Bold" /> -->
+                <!--     <TextBlock Text="{Binding PeerInfo.AddressWallet}" FontSize="16" /> -->
+                <!-- </StackPanel> -->
+                <!-- -->
+                <!-- <StackPanel Orientation="Horizontal" Spacing="5"> -->
+                <!--     <TextBlock Text="Private Key: " FontSize="16" FontWeight="Bold" /> -->
+                <!--     <TextBlock Text="{Binding PeerInfo.PrivateKey}" FontSize="16" /> -->
+                <!-- </StackPanel> -->
+                <!-- -->
+                <!-- <StackPanel Orientation="Horizontal" Spacing="5"> -->
+                <!--     <TextBlock Text="Public Key: " FontSize="16" FontWeight="Bold" /> -->
+                <!--     <TextBlock Text="{Binding PeerInfo.PublicKey}" FontSize="16" /> -->
+                <!-- </StackPanel> -->
+            </StackPanel>
+        </Border>
+
+        <!-- Кнопка "Создать" -->
+        <Button Content="Create peer" Command="{Binding CreatePeerAsync}" 
+                HorizontalAlignment="Center"
+                Padding="10,5"
+                Background="#4CAF50" 
+                Foreground="White" 
+                CornerRadius="5" />
+    </StackPanel>
+</UserControl>

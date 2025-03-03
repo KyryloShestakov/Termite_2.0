@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EnumsLib;
 
 namespace ModelsLib.NetworkModels;
 [Table("PeersList")]
-public class KnownPeersModel
+public class KnownPeersModel : IModel
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

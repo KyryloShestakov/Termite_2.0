@@ -11,6 +11,7 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -802,9 +803,33 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Text.Json/9.0.0": {},
       "System.Threading.Channels/7.0.0": {},
+      "EnumsLib/1.0.0": {
+        "runtime": {
+          "EnumsLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "ModelsLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "runtime": {
           "ModelsLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PeerLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "TestDb": "1.0.0"
+        },
+        "runtime": {
+          "PeerLib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -849,6 +874,19 @@
         },
         "runtime": {
           "StorageLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "TestDb/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "StorageLib": "1.0.0"
+        },
+        "runtime": {
+          "TestDb.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1230,7 +1268,17 @@
       "path": "system.threading.channels/7.0.0",
       "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
     },
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "ModelsLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PeerLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1246,6 +1294,11 @@
       "sha512": ""
     },
     "StorageLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TestDb/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

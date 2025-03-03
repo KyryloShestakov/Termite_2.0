@@ -1,4 +1,5 @@
 using BlockchainLib.Blocks;
+using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib.BlockchainLib;
 using Newtonsoft.Json;
 using StorageLib.DB.Redis;
@@ -12,15 +13,12 @@ public class BlockChainCore
 {
     private Blockchain _blockchain;
     private BlockBuilder _blockBuilder;
-    private BlocksBdService _blocksBdService;
-    private RedisService _redisService;
-    
+    private IDbProcessor _dbProcessor;
     public BlockChainCore()
     {
         _blockchain = new Blockchain();
         _blockBuilder = new BlockBuilder();
-        _blocksBdService = new BlocksBdService(new AppDbContext());
-        _redisService = new RedisService();
+        _dbProcessor = new DbProcessor();
     }
 
     public async void StartBlockchain()
@@ -44,40 +42,27 @@ public class BlockChainCore
 
             BlockModel blockModel = block.ToBlockModel();
             
-            await _blocksBdService.AddBlockAsync(blockModel);
+            await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(blockModel));
 
-            await RemoveTransactionsFromBlockFromRedis(block);
+            await RemoveTransactionsFromBlockFromSqlLite(block);
 
 
         }
         catch (Exception ex)
         {
-            Logger.Log($"Error occurred while starting blockchain: {ex.Message}");
+            Logger.Log($"Error occurred while starting blockchain: {ex.Message}", LogLevel.Error, Source.Blockchain);
         }
     }
 
     
-    public async Task RemoveTransactionsFromBlockFromRedis(Block block)
+    public async Task RemoveTransactionsFromBlockFromSqlLite(Block block)
     {
         try
         {
-            List<TransactionModel> transactionModels = new List<TransactionModel>();
-        
             foreach (var transaction in block.Transactions)
             {
-                TransactionModel transactionModel = new TransactionModel
-                {
-                    Id = transaction.Id,
-                    Amount = transaction.Amount,
-                    Sender = transaction.Sender,
-                    Receiver = transaction.Receiver,
-                    Timestamp = transaction.Timestamp
-                };
-
-                transactionModels.Add(transactionModel);
+                await _dbProcessor.ProcessService<bool>(new TransactionBdService(new AppDbContext()), CommandType.Delete, new DbData(null, transaction.Id));
             }
-
-            await _redisService.RemoveTransactionsFromRedisAsync(transactionModels);
         }
         catch (Exception ex)
         {

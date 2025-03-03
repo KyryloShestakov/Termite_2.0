@@ -11,7 +11,7 @@ public class RequestHandler
     {
     }
 
-    public async Task SendRequestAsync(TcpClient client, string request)
+    public async Task SendRequestAsync(TcpClient client, string request, NetworkStream stream)
     {
         
         if (!client.Connected)
@@ -22,10 +22,10 @@ public class RequestHandler
 
         try
         {
-            Logger.Log($"Sending request: {request}");
+            Logger.Log($"Sending request: {request}", LogLevel.Information, Source.Client);
 
-            NetworkStream stream = client.GetStream();
-
+          //  NetworkStream stream = client.GetStream();
+            StreamWriter writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true };
             if (!stream.CanWrite)
             {
                 Logger.Log("Network stream is not writable", LogLevel.Error, Source.Client);
@@ -36,7 +36,8 @@ public class RequestHandler
 
             if (client.Connected)
             {
-                await stream.WriteAsync(dataToSend, 0, dataToSend.Length);
+               // await stream.WriteAsync(dataToSend, 0, dataToSend.Length);
+                await writer.WriteLineAsync(request);
                 Logger.Log($"Message sent {dataToSend.Length}", LogLevel.Information, Source.Client);
 
             }

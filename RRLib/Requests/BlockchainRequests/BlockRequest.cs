@@ -5,7 +5,7 @@ namespace RRLib.Requests.BlockchainRequests;
 
 public class BlockRequest : Request
 {
-    public BlockRequest() : base("block")
+    public BlockRequest() : base("Block")
     {
     }
     
@@ -13,9 +13,19 @@ public class BlockRequest : Request
     
     public BlockModel GetBlock()
     {
-        if (PayLoad.Block != null)
+        if (PayLoad.Blocks != null)
         {
             return PayLoad.Block;
+        }
+        
+        throw new InvalidOperationException("Block not found.");
+    }
+    
+    public List<BlockModel> GetBlocks()
+    {
+        if (PayLoad.Blocks != null)
+        {
+            return PayLoad.Blocks;
         }
         
         throw new InvalidOperationException("Block not found.");

@@ -1,3 +1,6 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/TestDb.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/TestDb.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/TestDb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/ClientTest
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/ClientTest.deps.json
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/ClientTest.runtimeconfig.json
@@ -46,12 +49,22 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/Client.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/EnumsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/ModelsLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/PeerLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/RRLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/SecurityLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/StorageLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/TestDb.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/UtilitiesLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/Client.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/ModelsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/EnumsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/PeerLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/RRLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/SecurityLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/StorageLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/TestDb.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/UtilitiesLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/obj/Debug/net9.0/ClientTest.csproj.AssemblyReference.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/obj/Debug/net9.0/ClientTest.GeneratedMSBuildEditorConfig.editorconfig
@@ -65,7 +78,3 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/obj/Debug/net9.0/ClientTest.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/obj/Debug/net9.0/ClientTest.genruntimeconfig.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/obj/Debug/net9.0/ref/ClientTest.dll
-/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/RRLib.dll
-/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/RRLib.pdb
-/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/SecurityLib.dll
-/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ClientTest/bin/Debug/net9.0/SecurityLib.pdb

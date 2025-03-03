@@ -1,0 +1,15 @@
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/bin/Debug/net9.0/TcpTestClient
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/bin/Debug/net9.0/TcpTestClient.deps.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/bin/Debug/net9.0/TcpTestClient.runtimeconfig.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/bin/Debug/net9.0/TcpTestClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/bin/Debug/net9.0/TcpTestClient.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.AssemblyInfoInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.AssemblyInfo.cs
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.csproj.CoreCompileInputs.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/refint/TcpTestClient.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/TcpTestClient.genruntimeconfig.cache
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TcpTestClient/obj/Debug/net9.0/ref/TcpTestClient.dll

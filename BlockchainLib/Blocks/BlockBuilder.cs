@@ -2,7 +2,11 @@ using Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataLib.DB.SqlLite.Interfaces;
+using DataLib.DB.SqlLite.Services.NetServices;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
+using ModelsLib.NetworkModels;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
@@ -12,14 +16,14 @@ namespace BlockchainLib.Blocks
     public class BlockBuilder
     {
         private readonly TransactionMemoryPool _transactionMemoryPool;
-        private const int MaxWaitTimeInSeconds = 60;
+        private const int MaxWaitTimeInSeconds = 30000;
         private DateTime lastTransactionTime;
-        private const int MaxTransactionLimit = 10;
+        private const int MaxTransactionLimit = 1;
         private Blockchain _blockChain;
         private MerkleTree _merkleTree;
         private BlockManager _blockManager;
-        private BlocksBdService _blocksBdService;
-        public int CurrentDifficulty { get; set; } = 1;
+        private readonly IDbProcessor _dbProcessor;
+        public int CurrentDifficulty { get; set; } = 2;
 
         // Constructor to initialize dependencies
         public BlockBuilder()
@@ -29,27 +33,21 @@ namespace BlockchainLib.Blocks
             _blockManager = new BlockManager();
             _merkleTree = new MerkleTree();
             lastTransactionTime = DateTime.Now;
-
-            _blocksBdService = new BlocksBdService(new AppDbContext());
+            _dbProcessor = new DbProcessor();
         }
 
         public async Task<Block> StartBuilding()
         {
             try
             {
-                List<BlockModel> blocks = await _blocksBdService.GetAllBlocksAsync();
-                foreach (var blockModel in blocks)
-                {
-                   Block block = Block.FromBlockModel(blockModel);
-                   await _blockChain.AddBlockAsync(block);
-                }
 
+                await _blockChain.LoadBlocksFromBd();
                 
                 if (await TryBuildBlock())
                 {
-                    if (await _blockChain.GetCountAsync() == 0)
+                    if (_blockChain.GetLastIndexAsync() == null)
                     {
-                        Logger.Log("Blockchain is empty. Starting to create the genesis block.");
+                        Logger.Log("Blockchain is empty. Starting to create the genesis block.", LogLevel.Information, Source.Blockchain);
                         Block genesisBlock = await CreateGenesisBlock();
                         Logger.Log($"Genesis block created: {genesisBlock.Id}", LogLevel.Information, Source.Blockchain);
                         return genesisBlock;
@@ -76,35 +74,35 @@ namespace BlockchainLib.Blocks
         {
             try
             {
-                RedisService redisService = new RedisService();
-                _transactionMemoryPool.FillFromRedis(redisService);
-                 int num =_transactionMemoryPool.GetTransactionCount();
-                Logger.Log($"Count transactions: {num.ToString()} wait for {MaxTransactionLimit}", LogLevel.Information, Source.Blockchain);
+                await _transactionMemoryPool.FillFromSqlLite();
+                int transactionCount = _transactionMemoryPool.GetTransactionCount();
+                Logger.Log($"Count transactions: {transactionCount.ToString()} wait for {MaxTransactionLimit}", LogLevel.Information, Source.Blockchain);
                 if (_transactionMemoryPool.GetTransactionCount() >= MaxTransactionLimit || (DateTime.UtcNow - lastTransactionTime).TotalSeconds > MaxWaitTimeInSeconds)
                 {
                     lastTransactionTime = DateTime.UtcNow;
                     return true;
                 }
-                Logger.Log("Waiting for more transactions to build the block.");
+                Logger.Log("Waiting for more transactions to build the block.", LogLevel.Warning, Source.Blockchain);
                 
                
                 return false;
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in TryBuildBlock: {ex.Message}");
+                Logger.Log($"Error in TryBuildBlock: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 return false;
             }
         }
-
+        
         private async Task<Block> BuildBlockAsync()
         {
             try
             {
                 string previousBlockHash = await _blockChain.GetLastBlockHashAsync();
-
-                int index = await _blockChain.GetCountAsync() + 1;
-
+                if (previousBlockHash == null) Logger.Log("Blockchain is empty", LogLevel.Warning, Source.Blockchain);
+                
+                int index = await _blockChain.GetLastIndexAsync() + 1;
+                
                 Block block = new Block(index, new List<Transaction>(), previousBlockHash, string.Empty, CurrentDifficulty, string.Empty, string.Empty);
 
                 while (block.Transactions.Count < MaxTransactionLimit && _transactionMemoryPool.GetTransactionCount() > 0)
@@ -113,27 +111,27 @@ namespace BlockchainLib.Blocks
                     tx.BlockId = block.Id;
                     block.Transactions.Add(tx);
                 }
-
+                
                 block.MerkleRoot = _merkleTree.CalculateMerkleRoot(block.Transactions);
-                Logger.Log("Merkle root calculated.");
+                Logger.Log("Merkle root calculated.", LogLevel.Information, Source.Blockchain);
 
                 block.Nonce = MineBlock(block);
-                Logger.Log("Block mined.");
-
+                Logger.Log("Block mined.", LogLevel.Information, Source.Blockchain);
+                
                 block.Hash = block.GenerateHash();
-                Logger.Log($"Block hash generated: {block.Hash}");
-
+                Logger.Log($"Block hash generated: {block.Hash}", LogLevel.Information, Source.Blockchain);
+                
                 block.Signature = SignBlock(block);
-                Logger.Log("Block signature created.");
-
+                Logger.Log("Block signature created.", LogLevel.Information, Source.Blockchain);
+                
                 block.Size = block.CalculateSize();
-                Logger.Log($"Block size: {block.Size} bytes.");
-
+                Logger.Log($"Block size: {block.Size} bytes.", LogLevel.Information, Source.Blockchain);
+                
                 return block;
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in BuildBlockAsync: {ex.Message}");
+                Logger.Log($"Error in BuildBlockAsync: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -158,7 +156,7 @@ namespace BlockchainLib.Blocks
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in MineBlock: {ex.Message}");
+                Logger.Log($"Error in MineBlock: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -173,7 +171,7 @@ namespace BlockchainLib.Blocks
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in GenerateNonce: {ex.Message}");
+                Logger.Log($"Error in GenerateNonce: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -187,7 +185,7 @@ namespace BlockchainLib.Blocks
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in SignBlock: {ex.Message}");
+                Logger.Log($"Error in SignBlock: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -198,17 +196,18 @@ namespace BlockchainLib.Blocks
             {
                 Logger.Log("Creating genesis block", LogLevel.Information, Source.Blockchain);
 
+                
                 int index = 1;
                 string previousHash = "0";
 
                 var data = "first transaction";
-                Transaction transaction = new Transaction("GenesisBlock", "FirstPeer", 1000000, 1, "signed", data);
-                //TODO Надо добавить туда выданный адресс для первого узла
+                MyPrivatePeerInfoModel myInfo = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
+                Transaction transaction = new Transaction("GenesisBlock", "FirstPeer", 1000000, 1, "signed", data, myInfo.PublicKey);
                 List<Transaction> transactions = new List<Transaction>();
                 transactions.Add(transaction);
-                string merkleRoot = _merkleTree.CalculateMerkleRoot(transactions);  // Добавлено для генерации MerkleRoot (или создайте более специфическую логику)
+                string merkleRoot = _merkleTree.CalculateMerkleRoot(transactions);
                 int difficulty = 1;
-                string nonce = GenerateNonce();  // Генерация уникального nonce
+                string nonce = GenerateNonce();
 
                 string signature = "";
                 
@@ -216,13 +215,12 @@ namespace BlockchainLib.Blocks
                 genesisBlock.Signature = SignBlock(genesisBlock);
                 Logger.Log($"Genesis block created successfully with ID: {genesisBlock.Id}.", LogLevel.Information, Source.Blockchain);
                 genesisBlock.Hash = "0";
-                // Возвращаем блок
                 return genesisBlock;
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error while creating genesis block: {ex.Message}", LogLevel.Error, Source.Blockchain);
-                throw;  // Propagate the error
+                throw;
             }
         }
     }

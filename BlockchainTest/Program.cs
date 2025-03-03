@@ -11,9 +11,7 @@ public class Program
     {
         BlockChainCore blockChain = new BlockChainCore();
 
-        Timer timer = new Timer(TimerCallback, blockChain, 0, 60000);
-        TransactionManager transactionManager = new TransactionManager();
-        
+        Timer timer = new Timer(TimerCallback, blockChain, 0, 1000);
         
         Console.WriteLine("Blockchain started. Press Enter to exit.");
         Console.ReadLine();

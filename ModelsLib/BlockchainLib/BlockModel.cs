@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelsLib.BlockchainLib;
 
-public class BlockModel
+public class BlockModel : IModel
 {
     [Required]
     public string Id { get; set; }
@@ -27,5 +27,8 @@ public class BlockModel
     [Required]
     public string Signature { get; set; } 
     [Required]
-    public int Size { get; set; } 
+    public int Size { get; set; }
+
+    [NotMapped]
+    public List<TransactionModel> TransactionsModel { get; set; }
 }

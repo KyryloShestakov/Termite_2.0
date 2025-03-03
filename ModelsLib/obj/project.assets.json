@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "EnumsLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/EnumsLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EnumsLib.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "path": "../EnumsLib/EnumsLib.csproj",
+      "msbuildProject": "../EnumsLib/EnumsLib.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "EnumsLib >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/kyrylo_shestakov/.nuget/packages/": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+              "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

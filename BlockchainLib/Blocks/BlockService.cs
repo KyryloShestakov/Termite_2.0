@@ -1,9 +1,13 @@
+using BlockchainLib.Validator;
+using DataLib.DB.SqlLite.Interfaces;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
 using RRLib;
 using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
+using Utilities;
 
 namespace BlockchainLib
 {
@@ -11,15 +15,17 @@ namespace BlockchainLib
     {
         private BlockManager _blockManager;
         private ServerResponseService _serverResponseService;
-        private BlocksBdService _blocksBdService;
         private Blockchain _blockchain;
+        private readonly IDbProcessor _dbProcessor;
+        private AppDbContext _appDbContext;
 
         public BlockService()
         {
             // Initialize dependencies
             _blockManager = new BlockManager();
             _serverResponseService = new ServerResponseService();
-            _blocksBdService = new BlocksBdService(new AppDbContext());
+            _appDbContext = new AppDbContext();
+            _dbProcessor = new DbProcessor();
         }
 
         /// <summary>
@@ -30,20 +36,32 @@ namespace BlockchainLib
             if (request == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            BlockModel blockModel = request.GetBlock();
+            List<BlockModel> blockModel = request.GetBlocks();
 
             if (blockModel == null)
                 return _serverResponseService.GetResponse(false, "Invalid block data.");
-
+            
             try
             {
-                // Add the block to the database
-                await _blocksBdService.AddBlockAsync(blockModel);
-
-                // Convert the model to a blockchain block and add it to the blockchain
-                Block block = new Block();
-                block = Block.FromBlockModel(blockModel);
-                await _blockchain.AddBlockAsync(block);
+                // Validate block
+                BlockchainModel blockchainModel = new BlockchainModel();
+                blockchainModel.Blocks = blockModel;
+                
+                IValidator validator = new BlockChainValidator();
+                bool isValid = await validator.Validate(blockchainModel);
+                if (!isValid) { return _serverResponseService.GetResponse(false, "Invalid block data."); }
+                
+                foreach (BlockModel block in blockModel)
+                {
+                    bool existsInDb = await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Exists, new DbData(null, block.Id));
+                    Logger.Log($"Block {block.Id} exested in bd", LogLevel.Warning, Source.Blockchain);
+                    if (existsInDb) continue;
+                    await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(block));
+                    Block blockNew = new Block();
+                    blockNew = Block.FromBlockModel(block);
+                    await _blockchain.AddBlockAsync(blockNew);
+                }
+                
 
                 // Return a success response
                 return _serverResponseService.GetResponse(true, "Block created successfully.");
@@ -63,8 +81,8 @@ namespace BlockchainLib
             try
             {
                 // Fetch all blocks from the database
-                List<BlockModel> blocks = await _blocksBdService.GetAllBlocksAsync();
-
+                List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
+                List<BlockModel> blocks = models.Cast<BlockModel>().ToList();
                 // Return the blocks in the response
                 return _serverResponseService.GetResponse(true, "Blocks retrieved successfully.", blocks);
             }
@@ -90,8 +108,8 @@ namespace BlockchainLib
             try
             {
                 // Fetch the block by index
-                BlockModel blockModel = await _blocksBdService.GetBlockAsync(requestedBlock.Index);
-
+                IModel model = await _dbProcessor.ProcessService<IModel>(new BlocksBdService(_appDbContext), CommandType.Get, new DbData(null, requestedBlock.Index.ToString()));
+                BlockModel blockModel = model as BlockModel;
                 if (blockModel == null)
                     return _serverResponseService.GetResponse(false, "Block not found.");
 
@@ -119,12 +137,12 @@ namespace BlockchainLib
             try
             {
                 // Check if the block exists
-                BlockModel existingBlock = await _blocksBdService.GetBlockAsync(blockModelToUpdate.Index);
-                if (existingBlock == null)
+                bool result = await _dbProcessor.ProcessService<bool>(new BlocksBdService(_appDbContext), CommandType.Exists, new DbData(null, blockModelToUpdate.Index.ToString()));
+                if (result == false)
                     return _serverResponseService.GetResponse(false, "Block not found.");
 
                 // Update the block in the database
-                await _blocksBdService.UpdateBlockAsync(blockModelToUpdate);
+                await _dbProcessor.ProcessService<bool>(new BlocksBdService(_appDbContext), CommandType.Update, new DbData(blockModelToUpdate, blockModelToUpdate.Index.ToString()));
 
                 return _serverResponseService.GetResponse(true, "Block updated successfully.");
             }
@@ -150,12 +168,12 @@ namespace BlockchainLib
             try
             {
                 // Check if the block exists
-                BlockModel existingBlock = await _blocksBdService.GetBlockAsync(blockModelToDelete.Index);
-                if (existingBlock == null)
+                bool result = await _dbProcessor.ProcessService<bool>(new BlocksBdService(_appDbContext), CommandType.Exists, new DbData(null, blockModelToDelete.Index.ToString()));
+                if (result is false)
                     return _serverResponseService.GetResponse(false, "Block not found.");
 
                 // Delete the block from the database
-                await _blocksBdService.DeleteBlockAsync(blockModelToDelete.Id);
+                await _dbProcessor.ProcessService<bool>(new BlocksBdService(_appDbContext), CommandType.Delete, new DbData(null, blockModelToDelete.Id));
 
                 return _serverResponseService.GetResponse(true, "Block deleted successfully.");
             }

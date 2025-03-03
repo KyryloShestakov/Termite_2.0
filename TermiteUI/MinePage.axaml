@@ -5,18 +5,35 @@
              xmlns:termiteUi="clr-namespace:TermiteUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TermiteUI.MinePage"
-             x:DataType="termiteUi:MinePage">
+             x:DataType="termiteUi:MinePage"
+             >
     <Grid>
-        <StackPanel>
-             <TextBlock Text="Termite Mine"></TextBlock>
+        <StackPanel Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
             
-            <TextBlock>
-                <Run Text="Unconfirmed transactions: " />
-                <Run Text="{Binding UnconfirmedTransactionsCount}" FontWeight="Bold" />
-                <Run Text=". A minimum of 10." />
+            <!-- Заголовок -->
+            <TextBlock Text="Mine" FontSize="24" FontWeight="Bold" Foreground="#3B82F6" 
+                       HorizontalAlignment="Center" Margin="0,0,0,20" />
+            
+            <!-- Текст с информацией -->
+            <TextBlock FontSize="16" TextAlignment="Center">
+                <Run Text="Unconfirmed transactions: " />w
+                <Run Text="{Binding UnconfirmedTransactionsCount}" FontWeight="Bold" Foreground="#F59E0B" />
+                <Run Text=" A minimum of 10 required to start mining." />
             </TextBlock>
-            <Button Content="Start mine" Command="{Binding StartMineAsync}"></Button>
+            
+            <!-- Кнопка запуска майнинга -->
+            <Button Content="Start Mining" 
+                    Command="{Binding StartMineAsync}" 
+                    Width="200" 
+                    Height="50" 
+                    Background="#10B981" 
+                    Foreground="White"
+                    FontSize="16" 
+                    CornerRadius="8" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center" />
         </StackPanel>
-       
     </Grid>
 </UserControl>

@@ -81,6 +81,7 @@ namespace BlockchainLib
         {
             try
             {
+                Logger.Log($"PreviousHash {PreviousHash}", LogLevel.Information, Source.Blockchain);
                 string blockData = $"{Index}{Timestamp}{PreviousHash}{MerkleRoot}{Nonce}";
                 using (SHA256 sha256 = SHA256.Create())
                 {
@@ -105,11 +106,32 @@ namespace BlockchainLib
         {
             try
             {
+               
+                if (Hash == null || PreviousHash == null || MerkleRoot == null || Nonce == null || Signature == null)
+                {
+                    Logger.Log("One or more fields are null. Cannot calculate size.", LogLevel.Error, Source.Blockchain);
+                    Logger.Log($"Hash = {Hash}, Previous hash {PreviousHash}, Merkle roor = {MerkleRoot}, Nonce: {Nonce}, Signature: {Signature}", LogLevel.Warning, Source.Blockchain);
+                    return 0;
+                }
+
+                if (Transactions == null)
+                {
+                    Logger.Log("Transactions collection is null. Cannot calculate size.", LogLevel.Error, Source.Blockchain);
+                    return 0;
+                }
+
                 int size = sizeof(int) + Hash.Length + PreviousHash.Length + MerkleRoot.Length +
                            sizeof(long) + sizeof(int) + Nonce.Length + Signature.Length;
 
                 foreach (var transaction in Transactions)
                 {
+                    // Если транзакция null, пропускаем её
+                    if (transaction == null)
+                    {
+                        Logger.Log("Encountered null transaction. Skipping.", LogLevel.Warning, Source.Blockchain);
+                        continue;
+                    }
+
                     size += transaction.CalculateSize();
                 }
 
@@ -118,10 +140,12 @@ namespace BlockchainLib
             }
             catch (Exception ex)
             {
+                // Логируем ошибку
                 Logger.Log($"Error during size calculation: {ex.Message}", LogLevel.Error, Source.Blockchain);
-                return 0;
+                return 0; // Возвращаем 0 при ошибке
             }
         }
+
 
         /// <summary>
         /// Converts the current block to a BlockModel instance.
@@ -147,12 +171,13 @@ namespace BlockchainLib
                     Size = Size
                 };
 
-                Logger.Log("Block converted to BlockModel successfully.", LogLevel.Information, Source.Blockchain);
+               // Logger.Log("Block converted to BlockModel successfully.", LogLevel.Information, Source.Blockchain);
                 return model;
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error during block-to-model conversion: {ex.Message}", LogLevel.Error, Source.Blockchain);
+                Logger.Log($"Error {ex.InnerException}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
@@ -191,7 +216,7 @@ namespace BlockchainLib
                     Transactions = transactions
                 };
 
-                Logger.Log("BlockModel converted to Block successfully.", LogLevel.Information, Source.Blockchain);
+               // Logger.Log("BlockModel converted to Block successfully.", LogLevel.Information, Source.Blockchain);
                 return block;
             }
             catch (Exception ex)
@@ -201,5 +226,12 @@ namespace BlockchainLib
             }
         }
 
+        public override string ToString()
+        {
+            string block = $"Block: id: {Id}, index {Index},Hash {Hash}, PreviousHash {PreviousHash}, Timestamp {Timestamp}, Transactions {Transactions}, MerkleRoot {MerkleRoot}, Nonce {Nonce}, Difficulty {Difficulty}, Signature {Signature}, Size {Size}"
+            ;
+            return block;
+        }
+        
     }
 }

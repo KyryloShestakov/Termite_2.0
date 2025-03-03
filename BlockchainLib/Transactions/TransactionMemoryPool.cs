@@ -1,4 +1,9 @@
+using DataLib.DB.SqlLite.Interfaces;
+using ModelsLib;
+using ModelsLib.BlockchainLib;
 using StorageLib.DB.Redis;
+using StorageLib.DB.SqlLite;
+using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 
 namespace BlockchainLib
@@ -93,6 +98,19 @@ namespace BlockchainLib
         public void FillFromRedis(RedisService redisService)
         {
             var transactions = redisService.GetAllTransactionsAsync().Result;
+            foreach (var transactionModel in transactions)
+            {
+                Transaction transaction = Transaction.ToEntity(transactionModel);
+                AddTransaction(transaction);
+            }
+        }
+
+        public async Task FillFromSqlLite()
+        {
+            IDbProcessor _dbProcessor = new DbProcessor();
+            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(new AppDbContext()), CommandType.GetAll);
+            List<TransactionModel> transactions = models.Cast<TransactionModel>().ToList();
+            
             foreach (var transactionModel in transactions)
             {
                 Transaction transaction = Transaction.ToEntity(transactionModel);

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using EnumsLib;
 
 namespace ModelsLib.NetworkModels;
 
-public class PeerInfoModel
+public class PeerInfoModel : IModel
 {
     public int Id { get; set; }
     public string NodeId { get; set; }
@@ -17,14 +18,8 @@ public class PeerInfoModel
     
     public string? SoftwareVersion { get; set; }
     public string? NodeType { get; set; } = null;
-    
-    
+
+
 }
 
-public enum NodeStatus
-{
-    Active = 1,
-    Inactive = 2,
-    Suspended = 3,
-    Unreachable = 4
-}
+

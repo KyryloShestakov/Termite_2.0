@@ -1,31 +1,22 @@
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
+using Newtonsoft.Json;
 using Utilities;
 
 namespace Client;
 
 public class ResponseHandler
-{
-    public ResponseHandler()
-    {
-    }
-
+{ 
     public async Task ReceiveResponse(TcpClient tcpClient)
     {
         try
         {
             NetworkStream stream = tcpClient.GetStream();
-            byte[] buffer = new byte[1024];
-            StringBuilder responseMessage = new StringBuilder();
-            int bytesRead;
-
-            // Чтение из потока до получения ответа
-            while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
-            {
-                responseMessage.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
-            }
-
-            Logger.Log($"Received response: {responseMessage.ToString()}", LogLevel.Information, Source.Client);
+            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+            string response = await reader.ReadLineAsync();
+            Response responseObj = JsonConvert.DeserializeObject<Response>(response);
+            Logger.Log($"Received response: {responseObj.Message}", LogLevel.Information, Source.Client);
         }
         catch (OperationCanceledException)
         {

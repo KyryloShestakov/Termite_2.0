@@ -1,15 +1,17 @@
 using PeerLib.Services;
 using RRLib;
 using RRLib.Responses;
+using StorageLib.DB.SqlLite;
+using StorageLib.DB.SqlLite.Services;
 
 namespace Server.Controllers.Handlers.NetHandlers;
 
 public class KnownPeerRequestHandler : IRequestHandler
 {
-    private KnownPeersService _knownPeersService { get; }
+    private InfoPeerService _infoPeerService { get; }
     public KnownPeerRequestHandler()
     {
-        _knownPeersService = new KnownPeersService();
+        _infoPeerService = new InfoPeerService();
     }
     
     public async Task<Response> HandleRequestAsync(Request request)
@@ -17,13 +19,13 @@ public class KnownPeerRequestHandler : IRequestHandler
         switch (request.Method)
         {
             case "GET":
-                return await _knownPeersService.GetKnownPeers(request);
+                 return await _infoPeerService.GetPeers();
             case "POST":
-                return await _knownPeersService.PostKnownPeers(request);
+                return await _infoPeerService.PostPeerInfo(request);
             case "UPDATE":
-                return await _knownPeersService.UpdateKnownPeers(request);
+                return await _infoPeerService.UpdatePeer(request);
             case "DELETE":
-                return await _knownPeersService.DeleteKnownPeers(request);
+                return await _infoPeerService.DeletePeer(request);
             default:
                 var response = new ServerResponseService().GetResponse(false, "Unknown Method.");
                 return response;

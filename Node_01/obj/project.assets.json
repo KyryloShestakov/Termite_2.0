@@ -1152,6 +1152,7 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -1164,25 +1165,11 @@
           "bin/placeholder/Client.dll": {}
         }
       },
-      "ConsensusLib/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0"
-        },
-        "compile": {
-          "bin/placeholder/ConsensusLib.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ConsensusLib.dll": {}
-        }
-      },
       "CoreLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Client": "1.0.0",
-          "ConsensusLib": "1.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "Server": "1.0.0"
         },
@@ -1206,6 +1193,9 @@
       "ModelsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ModelsLib.dll": {}
         },
@@ -3425,11 +3415,6 @@
       "type": "project",
       "path": "../Client/Client.csproj",
       "msbuildProject": "../Client/Client.csproj"
-    },
-    "ConsensusLib/1.0.0": {
-      "type": "project",
-      "path": "../ConsensusLib/ConsensusLib.csproj",
-      "msbuildProject": "../ConsensusLib/ConsensusLib.csproj"
     },
     "CoreLib/1.0.0": {
       "type": "project",

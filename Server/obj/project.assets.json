@@ -1160,6 +1160,9 @@
       "ModelsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ModelsLib.dll": {}
         },

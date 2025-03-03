@@ -17,6 +17,7 @@
           "BlockchainLib": "1.0.0",
           "Client": "1.0.0",
           "CommunityToolkit.Mvvm": "8.4.0",
+          "CoreLib": "1.0.0",
           "ReactiveUI": "20.1.63",
           "Server": "1.0.0",
           "StorageLib": "1.0.0"
@@ -847,6 +848,7 @@
       "Client/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -854,6 +856,19 @@
         },
         "runtime": {
           "Client.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "CoreLib/1.0.0": {
+        "dependencies": {
+          "Client": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "Server": "1.0.0"
+        },
+        "runtime": {
+          "CoreLib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -868,6 +883,9 @@
         }
       },
       "ModelsLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "runtime": {
           "ModelsLib.dll": {
             "assemblyVersion": "1.0.0",
@@ -1415,6 +1433,11 @@
       "sha512": ""
     },
     "Client/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CoreLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

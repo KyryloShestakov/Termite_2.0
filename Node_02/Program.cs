@@ -1,5 +1,10 @@
 ﻿using System.Net.Sockets;
 using System.Text;
+using BlockchainLib;
+using BlockchainLib.Addresses;
+using DataLib.DB.SqlLite.Interfaces;
+using DataLib.DB.SqlLite.Services.NetServices;
+using EnumsLib;
 using RRLib.Requests.NetRequests;
 using ModelsLib.BlockchainLib;
 using ModelsLib.NetworkModels;
@@ -8,6 +13,8 @@ using RRLib;
 using RRLib.Requests.BlockchainRequests;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
+using StorageLib.DB.SqlLite;
+using StorageLib.DB.SqlLite.Services;
 using Utilities;
 using JsonException = System.Text.Json.JsonException;
 using Response = RRLib.Responses.Response;
@@ -18,9 +25,18 @@ namespace Node_02
     {
         public static async Task Main(string[] args)
         {
-           SecureConnectionManager secureConnectionManager = new SecureConnectionManager();
+            IDbProcessor dbProcessor = new DbProcessor();
+            AppDbContext appDbContext = new AppDbContext();
+            AddressService addressService = new AddressService();
+            TransactionService transactionService = new TransactionService();
+            SecureConnectionManager secureConnectionManager = new SecureConnectionManager();
+            PayLoad payLoad1 = new PayLoad();
+
+            
+            
            byte[] publickey = secureConnectionManager.GetPublicKeyBytes();
            string publicKey = System.Convert.ToBase64String(publickey);
+           
            ConnectionKey connectionKey = new ConnectionKey { Key = publicKey };
            
 
@@ -46,14 +62,15 @@ namespace Node_02
            string jsonRequest = request.Serialize();
            
            
-           PayLoad payLoad1 = new PayLoad();
 
-           var knownPeers = new KnownPeersModel()
+           var knownPeers = new PeerInfoModel()
            {
-            Address = "192.168.220.56",
+            IpAddress = "192.168.220.56",
             Port = 8080,
             Status = NodeStatus.Inactive,
-            Type = "Node",
+            NodeType = "Node",
+            NodeId = "node1",
+            LastSeen = DateTime.Now
            };
            var knownPeers2 = new KnownPeersModel()
            {
@@ -72,7 +89,7 @@ namespace Node_02
                SenderId = "client123",
                PayLoad = new PayLoad
                {
-                   KnownPeers = new List<KnownPeersModel>()
+                   KnownPeers = new List<PeerInfoModel>()
                    {
                        knownPeers
                    }
@@ -106,22 +123,10 @@ namespace Node_02
                Size = 1234,
                Transactions = transactions
            };
+           List<BlockModel> blocks = new List<BlockModel>();
+           blocks.Add(block);
 
-           
-           var TypeOfTransaction = "Unconfirmed";
-
-           var transaction = new TransactionModel
-           {
-               Id = Guid.NewGuid().ToString(),
-               Amount = 30.5m,
-               Sender = "Bob",
-               Receiver = "Alice",
-               Fee = 0.1m,
-               Signature = "someSignature",
-               Data = TypeOfTransaction
-           };
-
-           var request2 = new TransactionRequest()
+           var blockRequest = new BlockRequest()
            {
                RecipientId = "node3",
                ProtocolVersion = "2.0",
@@ -132,68 +137,85 @@ namespace Node_02
                Method = "POST",
                PayLoad = new PayLoad
                {
+                   Blocks = blocks
+               }
+           };
+
+           
+           var TypeOfTransaction = "Unconfirmed";
+           
+           
+           var data = addressService.GenerateAddress();
+           var dataString = data.Data.ToString();
+           string[] dataArray = dataString.Split(",");
+           
+           var data2 = addressService.GenerateAddress();
+           var dataString2 = data2.Data.ToString();
+           string[] dataArray2 = dataString2.Split(",");
+
+          // Logger.Log(dataArray2[1]);
+           string receiver = dataArray2[0].Substring(dataArray2[0].IndexOf("=") + 1).Trim();
+           string receiver1 = receiver.Substring(0, receiver.Length - 2);
+           
+           
+           var transaction = new TransactionModel
+           {
+               Id = Guid.NewGuid().ToString(),
+               Amount = 1000m,
+               Sender = "Nj5nVJNwssoo8XZi6aXmuwhuWRRNf22q5MCpo2LHMaChjrA93",
+               Receiver = "29DckhJXKKvKYQfBdY9s6PvaMn4hcTcxKKL4u5oZCNhmwhfLSw",
+               Fee = 0.1m,
+               Signature = "Signed",
+               Data = TypeOfTransaction,
+               PublicKey = "4e1BUTgGBfqVWZ2YKwCRoKqQRtwDCZkBWRtkgtqgivUvauiNVPzQf3YfdEK6Tkh71f3X3tYAokwwooPtRQN68zz5yksmaUXpuki2Ns87L4YjruMpPHYHMDmzA8uEzADTnXpLSgz6zSXbShnA2vkuLpZjynrrzHD3c1wJjBR9TDeiQf5V51XawTxRw7xguQmMejRkWL634XjdN5wjSrnWqut3HzPiXj6fc67wJkdvrF1t9CYZHcZ2dpSpVBVvEZ3i5JaAaWDFvZYgQCH1ejfZuF39CuNoU2XHLozaQvEZZ6HET8HiZB6BXitEJhN6gLC3gfX5YrZYRJdyknJ1VpvNP1zLymUjz3ViJmTSJwpAM8R2znpS4"
+           };
+
+           string signature = transactionService.SignTransaction(transaction, dataArray[1]);
+           transaction.Signature = signature;
+           
+           
+           MyPrivatePeerInfoModel peerInfoModel = await 
+               dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(appDbContext),
+                   CommandType.Get, new DbData(null, "default"));
+           
+           var request2 = new TransactionRequest()
+           {
+               RecipientId = "cf161569-00a0-4b9e-9670-a52c1f81e612",
+               ProtocolVersion = "2.0",
+               Route = new List<string> { "node1", "node2", "node3" },
+               Ttl = 10,
+               SenderId = peerInfoModel.NodeId,
+               RequestGroup = "Blockchain",
+               Method = "POST",
+               PayLoad = new PayLoad
+               {
                    Transactions = new List<TransactionModel>()
                    {
                        transaction
                    }
                }
            };
-           
-           RedisService redisService = new RedisService();
-         // byte[] sessionkey = secureConnectionManager.GenerateSessionKey();    
-           string sessionkeystr = await redisService.GetStringAsync("client123");
-           byte[] sessionkeybytes = Convert.FromBase64String(sessionkeystr);
-           if (sessionkeybytes.Length > 32)
-           {
-            //   Logger.Log($"Session key is larger than 32 bytes, truncating it to 256 bits (32 bytes).", LogLevel.Warning, Source.Secure);
-            //   Logger.Log(sessionkeybytes.Length.ToString(), LogLevel.Warning, Source.Secure);
-               Array.Resize(ref sessionkeybytes, 32); 
-           }
-           
-           //Менять здесь номер запроса
-           byte[] encryptedMessage = secureConnectionManager.EncryptMessage(request2.PayLoad.Serialize(), sessionkeybytes); 
-           request2.PayLoad.EncryptedPayload = encryptedMessage;
-           
-           Logger.Log($"Encrypted message: {Convert.ToBase64String(encryptedMessage)}", LogLevel.Information, Source.Client);
-          // Logger.Log($"{request2.PayLoad.Serialize()}");
-          request2.PayLoad.Transactions.Clear();
-           string jsonRequest1 = request2.Serialize();
-           
-           Logger.Log($"{jsonRequest1}", LogLevel.Information, Source.Client);
-           
-           /*Console.WriteLine($"---------- {jsonRequest1}");
-           
-           string encryptedMessage1 = secureConnectionManager.DecryptMessage(request1.PayLoad.EncryptedPayload, sessionkey);
-           PayLoad deserializedPayload = PayLoad.DeserializePayLoad(encryptedMessage1);
-           
-           List<KnownPeersModel> knownPeers1 = deserializedPayload.KnownPeers;
 
-           foreach (var knownPeersModel in knownPeers1)
-           {
-               Console.WriteLine($"---------- {knownPeersModel.Address}");
-
-           }*/
-
+           string jsonRequest1 = await EncryptRequest(request2);
+           Logger.Log(jsonRequest1, LogLevel.Information, Source.Client);
            
-           
-           
-           string serverIp = "192.168.220.56";
+           string serverIp = "192.168.17.99";
+           string homeIp = "192.168.220.56";
            int serverPort = 8080;
 
            try
            {
                using (TcpClient client = new TcpClient())
                {
-                   Console.WriteLine("Подключение к серверу...");
-                   await client.ConnectAsync(serverIp, serverPort);
+                   Logger.Log($"Connecting to the server {homeIp}", LogLevel.Information, Source.Client);
+                   await client.ConnectAsync(homeIp, serverPort);
 
                    using (NetworkStream stream = client.GetStream())
                    {
-                       // Отправка данных
                        byte[] dataToSend = Encoding.UTF8.GetBytes(jsonRequest1);
-                       Console.WriteLine($"Отправка запроса: {jsonRequest1}");
+                       Logger.Log($"Sending a request: {jsonRequest1.Length} bytes", LogLevel.Information, Source.Client);
                        await stream.WriteAsync(dataToSend, 0, dataToSend.Length);
-                       Console.WriteLine("Запрос отправлен.");
+                       Logger.Log("Request sent.", LogLevel.Information, Source.Client);
 
                        Response response = await ReadResponseAsync(stream);
                        
@@ -211,30 +233,58 @@ namespace Node_02
            }
            catch (Exception ex)
            {
-               Console.WriteLine($"Ошибка: {ex.Message}");
+               Logger.Log($"Error: {ex.Message}");
            }
         }
-        
+
+        public static async Task<string> EncryptRequest(Request request)
+        {
+            RedisService redisService = new RedisService();
+            SecureConnectionManager secureConnectionManager = new SecureConnectionManager();
+            string sessionkeystr = await redisService.GetStringAsync("cf161569-00a0-4b9e-9670-a52c1f81e612");
+            byte[] sessionkeybytes = Convert.FromBase64String(sessionkeystr);
+            if (sessionkeybytes.Length > 32)
+            {
+                Array.Resize(ref sessionkeybytes, 32); 
+            }
+            byte[] encryptedMessage = secureConnectionManager.EncryptMessage(request.PayLoad.Serialize(), sessionkeybytes); 
+            request.PayLoad.EncryptedPayload = encryptedMessage;
+            request.PayLoad.Transactions.Clear();
+            string jsonRequest = request.Serialize();
+            
+           
+            Logger.Log($"{jsonRequest}", LogLevel.Information, Source.Client);
+            
+            return jsonRequest;
+        }
+
+        public static async Task<string> DecryptRequest(Request request)
+        {           
+            SecureConnectionManager secureConnectionManager = new SecureConnectionManager();
+            byte[] sessionkey = secureConnectionManager.GenerateSessionKey();    
+            string encryptedMessage1 = secureConnectionManager.DecryptMessage(request.PayLoad.EncryptedPayload, sessionkey);
+            PayLoad deserializedPayload = PayLoad.DeserializePayLoad(encryptedMessage1);
+            
+            request.PayLoad.EncryptedPayload = deserializedPayload.EncryptedPayload;
+            return request.Serialize();
+        }
+
+
         public static async Task<Response> ReadResponseAsync(Stream stream)
         {
             try
             {
-                byte[] buffer = new byte[1024];
-
-                // Чтение данных из потока
+                byte[] buffer = new byte[2024];
                 int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
                 if (bytesRead == 0)
                 {
-                    Console.WriteLine("Server did not send a response.");
+                    Logger.Log("Server did not send a response.");
                     return null;
                 }
-
-                // Извлечение только полученных байт
+                
                 byte[] responseData = new byte[bytesRead];
                 Array.Copy(buffer, responseData, bytesRead);
                 
-
-                // Десериализация объекта Response из байт
                 Response response = DeserializeFromBytes<Response>(responseData);
                 return response;
             }

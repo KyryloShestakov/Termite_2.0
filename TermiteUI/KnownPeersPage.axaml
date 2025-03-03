@@ -1,0 +1,67 @@
+<Control xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:termiteUi="clr-namespace:TermiteUI"
+         x:Class="TermiteUI.KnownPeersPage"
+         x:DataType="termiteUi:KnownPeersPage">
+
+    <Grid>
+        <!-- Разделяем заголовок и прокручиваемый список -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Для заголовка -->
+            <RowDefinition Height="*" />    <!-- Для списка с прокруткой -->
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Known Peers" FontSize="18" Margin="10" Grid.Row="0" />
+
+        <!-- Список узлов -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding Peers}" Width="1500" Background="Transparent"
+                     HorizontalAlignment="Left">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" CornerRadius="5" BorderBrush="LightGray" Padding="10" Margin="10" Background="#FFF">
+                            <StackPanel>
+                                <!-- Каждое поле на отдельной строке -->
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Node ID: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding NodeId}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="IP Address: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding IpAddress}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Port: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Port}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Last Seen: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding LastSeen}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Status: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Status}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Software Version: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding SoftwareVersion}" Margin="5,0" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                    <TextBlock Text="Node Type: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding NodeType}" Margin="5,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </Grid>
+</Control>

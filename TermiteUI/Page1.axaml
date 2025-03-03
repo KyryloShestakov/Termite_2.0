@@ -1,14 +1,40 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:termiteUi="clr-namespace:TermiteUI"
-         x:Class="TermiteUI.Page1"
-         x:DataType="termiteUi:Page1">
-<Grid>
-    <StackPanel>
-        <Button Content="Start server" Command="{Binding StartServer}"></Button>
-        <Button Content="Start client" Command="{Binding StartClient}"></Button>
-        <Button Content="Stop server" Command="{Binding StopServer}"></Button>
-        <Button Content="Stop client" Command="{Binding StopClient}"></Button>
-    </StackPanel>
-</Grid>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:termiteUi="clr-namespace:TermiteUI"
+             x:Class="TermiteUI.Page1"
+             x:DataType="termiteUi:Page1">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="1" Spacing="15" HorizontalAlignment="Left" Margin="10">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Start server" Command="{Binding StartServer}"
+                        Width="350" Height="40" Background="#3B82F6" Foreground="White"
+                        CornerRadius="8"  HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center"  />
+
+                <Button Content="Stop server" Command="{Binding StopServer}"
+                        Width="350" Height="40" Background="#3B82F6" Foreground="White"
+                        CornerRadius="8"  HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center" />
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Start client" Command="{Binding StartClient}"
+                        Width="350" Height="40" Background="#3B82F6" Foreground="White"
+                        CornerRadius="8"  HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center" />
+
+                <Button Content="Stop client" Command="{Binding StopClient}"
+                        Width="350" Height="40" Background="#3B82F6" Foreground="White"
+                        CornerRadius="8"   HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </UserControl>

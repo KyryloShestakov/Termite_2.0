@@ -77,6 +77,10 @@ namespace DataLib.Migrations
                     b.Property<decimal>("Fee")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PublicKey")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Receiver")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -120,6 +124,51 @@ namespace DataLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PeersList");
+                });
+
+            modelBuilder.Entity("ModelsLib.NetworkModels.MyPrivatePeerInfoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AddressWallet")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IpAddress")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("LastSeen")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NodeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NodeType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Port")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PrivateKey")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PublicKey")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SoftwareVersion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MyPrivatePeerInfo");
                 });
 
             modelBuilder.Entity("ModelsLib.NetworkModels.PeerInfoModel", b =>

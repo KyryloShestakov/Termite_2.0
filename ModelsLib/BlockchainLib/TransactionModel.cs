@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelsLib.BlockchainLib;
 
-public class TransactionModel
+public class TransactionModel : IModel
 {
     public string Id { get; set; } 
     public string Sender { get; set; }
@@ -14,7 +14,9 @@ public class TransactionModel
     public string Signature { get; set; }
     public string? BlockId { get; set; } = null;
     [NotMapped]
-    public Object Data { get; set; }
+    public Object? Data { get; set; } = null;
     [NotMapped]
-    public SmartContractModel Contract { get; set; } = null;
+    public SmartContractModel? Contract { get; set; } = null;
+
+    public string PublicKey { get; set; }
 }

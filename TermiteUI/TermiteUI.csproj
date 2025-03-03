@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -38,6 +39,15 @@
       <Compile Update="CTPage.axaml.cs">
         <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
       </Compile>
+      <Compile Update="CTViewModel.cs">
+        <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="BlockchainViewModel.cs">
+        <DependentUpon>BlockchainPage.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="MainWindowViewModel.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -50,6 +60,7 @@
     <ItemGroup>
       <ProjectReference Include="..\BlockchainLib\BlockchainLib.csproj" />
       <ProjectReference Include="..\Client\Client.csproj" />
+      <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
       <ProjectReference Include="..\Server\Server.csproj" />
       <ProjectReference Include="..\StorageLib\StorageLib.csproj" />
     </ItemGroup>

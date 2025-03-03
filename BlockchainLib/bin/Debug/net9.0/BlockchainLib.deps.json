@@ -809,6 +809,9 @@
         }
       },
       "ModelsLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "runtime": {
           "ModelsLib.dll": {
             "assemblyVersion": "1.0.0",

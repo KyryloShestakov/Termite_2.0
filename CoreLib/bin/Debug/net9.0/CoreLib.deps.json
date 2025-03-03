@@ -9,7 +9,6 @@
       "CoreLib/1.0.0": {
         "dependencies": {
           "Client": "1.0.0",
-          "ConsensusLib": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "9.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
@@ -817,6 +816,7 @@
       "Client/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -824,17 +824,6 @@
         },
         "runtime": {
           "Client.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "ConsensusLib/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0"
-        },
-        "runtime": {
-          "ConsensusLib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -849,6 +838,9 @@
         }
       },
       "ModelsLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "runtime": {
           "ModelsLib.dll": {
             "assemblyVersion": "1.0.0",
@@ -1326,11 +1318,6 @@
       "sha512": ""
     },
     "Client/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ConsensusLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

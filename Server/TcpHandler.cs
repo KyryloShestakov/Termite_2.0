@@ -49,6 +49,7 @@ public class TcpHandler : ResponseService
             }
             catch (Exception e)
             {
+                
                 Logger.Log($"Error in receiving message: {e.Message}", LogLevel.Error, Source.Server);
                 break;
             }
@@ -59,13 +60,14 @@ public class TcpHandler : ResponseService
     {
         if (tcpClient == null) throw new ArgumentNullException(nameof(tcpClient));
         if (IsDisposed) throw new ObjectDisposedException(nameof(tcpClient));
-
+        
         NetworkStream stream = tcpClient.GetStream();
+
         byte[] buffer = new byte[8024];
 
         try
         {
-            if (!tcpClient.Connected)
+            if (!tcpClient.Client.Connected)
             {
                 Logger.Log("Client is not connected", LogLevel.Warning, Source.Server);
                 return string.Empty;
@@ -76,26 +78,34 @@ public class TcpHandler : ResponseService
                 Logger.Log("Network stream is not available for reading.", LogLevel.Warning, Source.Server);
                 return string.Empty;
             }
+            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+
+           // int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
             
-            cancellationToken.ThrowIfCancellationRequested();
+            string request = await reader.ReadLineAsync() ?? throw new InvalidOperationException();
             
-            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-            if (bytesRead == 0)
-            {
-                Logger.Log("No data received, connection might be closed.", LogLevel.Warning, Source.Server);
-                return string.Empty;
-            }
-            Logger.Log($"Received {bytesRead} bytes", LogLevel.Information, Source.Server);
-           
-            string receivedData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            // if (bytesRead == 0)
+            // {
+            //     Logger.Log("No data received, connection might be closed.", LogLevel.Warning, Source.Server);
+            //     return string.Empty;
+            // }
+            // Logger.Log($"Received {bytesRead} bytes", LogLevel.Information, Source.Server);
+            //
+            // string receivedData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            //
             Logger.Log("ReadAsync completed", LogLevel.Information, Source.Server);
                
-            return receivedData;
-
+            return request;
+    
         }
         catch (OperationCanceledException)
         {
             Logger.Log("Operation was canceled", LogLevel.Warning, Source.Server);
+            return string.Empty;
+        }
+        catch (SocketException ex)
+        {
+            Logger.Log($"Socket error: {ex.Message}", LogLevel.Error, Source.Server);
             return string.Empty;
         }
         catch (Exception ex)
@@ -103,7 +113,8 @@ public class TcpHandler : ResponseService
             Logger.Log($"Error while reading data: {ex.Message}", LogLevel.Error, Source.Server);
             throw;
         }
-
+        
+    
     }
 
     public async Task<TcpRequest> AwaitRequestAsync()
@@ -123,7 +134,7 @@ public class TcpHandler : ResponseService
             Logger.Log("Failed to dequeue a request", LogLevel.Warning, Source.Server);
             throw new InvalidOperationException("Failed to dequeue a request.");
         }
-
+        
         return tcpRequest;
     }
 
@@ -167,5 +178,6 @@ public class TcpHandler : ResponseService
         _currentClient?.Close();
         IsDisposed = true;
     }
+
 }
 

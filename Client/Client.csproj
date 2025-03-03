@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PeerLib\PeerLib.csproj" />
       <ProjectReference Include="..\RRLib\RRLib.csproj" />
       <ProjectReference Include="..\SecurityLib\SecurityLib.csproj" />
       <ProjectReference Include="..\StorageLib\StorageLib.csproj" />

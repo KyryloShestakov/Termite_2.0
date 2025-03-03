@@ -71,10 +71,11 @@ public abstract class Request
 public class PayLoad
 {
     public Dictionary<string, object> PayloadObject { get; set; } = null;
-    public List<KnownPeersModel> KnownPeers { get; set; } = null;
+    public List<PeerInfoModel> KnownPeers { get; set; } = null;
     public byte[] EncryptedPayload { get; set; } = null;
     public List<TransactionModel> Transactions { get; set; } = null;
     
+    public List<BlockModel> Blocks { get; set; } = null;
     public BlockModel Block { get; set; } = null;
 
     public bool IsEncrypted => EncryptedPayload?.Length > 0;
@@ -87,9 +88,9 @@ public class PayLoad
         PayloadObject = payloadObject ?? throw new ArgumentNullException(nameof(payloadObject));
     }
 
-    public PayLoad(List<KnownPeersModel> knownPeers)
+    public PayLoad(List<PeerInfoModel> knownPeers)
     {
-        KnownPeers = new List<KnownPeersModel>();
+        KnownPeers = new List<PeerInfoModel>();
         KnownPeers = knownPeers ?? throw new ArgumentNullException(nameof(knownPeers));
     }
 
@@ -99,9 +100,15 @@ public class PayLoad
         Transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
     }
 
+    public PayLoad(List<BlockModel> blocks)
+    {
+        Blocks = new List<BlockModel>();
+        Blocks = blocks ?? throw new ArgumentNullException(nameof(blocks));
+    }
+
     public PayLoad(BlockModel block)
     {
-        Block = block ?? throw new ArgumentNullException(nameof(block)); 
+        Block = block ?? throw new ArgumentNullException(nameof(block));
     }
 
 
@@ -111,13 +118,25 @@ public class PayLoad
     }
     
    
-    public static PayLoad DeserializePayLoad(string decryptedPayload)
+    public static PayLoad? DeserializePayLoad(string decryptedPayload)
     {
+        if (string.IsNullOrWhiteSpace(decryptedPayload))
+        {
+            Logger.Log("Decrypted payload is empty or null", LogLevel.Warning, Source.Server);
+            return null;
+        }
+
         try
         {
-            PayLoad deserializedPayload = JsonSerializer.Deserialize<PayLoad>(decryptedPayload);
+            Logger.Log($"Raw decrypted JSON: {decryptedPayload}", LogLevel.Information, Source.Server);
 
-            return deserializedPayload;
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<PayLoad>(decryptedPayload, options) 
+                   ?? throw new JsonException("Deserialized PayLoad is null.");
         }
         catch (JsonException jsonEx)
         {
@@ -130,8 +149,9 @@ public class PayLoad
             return null;
         }
     }
-    
 
+
+ 
 }
 
 public class ConnectionKey

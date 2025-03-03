@@ -529,6 +529,7 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -541,14 +542,42 @@
           "bin/placeholder/Client.dll": {}
         }
       },
+      "EnumsLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/EnumsLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EnumsLib.dll": {}
+        }
+      },
       "ModelsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ModelsLib.dll": {}
         },
         "runtime": {
           "bin/placeholder/ModelsLib.dll": {}
+        }
+      },
+      "PeerLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "TestDb": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PeerLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PeerLib.dll": {}
         }
       },
       "RRLib/1.0.0": {
@@ -599,6 +628,21 @@
         },
         "runtime": {
           "bin/placeholder/StorageLib.dll": {}
+        }
+      },
+      "TestDb/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "StorageLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TestDb.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TestDb.dll": {}
         }
       },
       "UtilitiesLib/1.0.0": {
@@ -1360,10 +1404,20 @@
       "path": "../Client/Client.csproj",
       "msbuildProject": "../Client/Client.csproj"
     },
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "path": "../EnumsLib/EnumsLib.csproj",
+      "msbuildProject": "../EnumsLib/EnumsLib.csproj"
+    },
     "ModelsLib/1.0.0": {
       "type": "project",
       "path": "../ModelsLib/ModelsLib.csproj",
       "msbuildProject": "../ModelsLib/ModelsLib.csproj"
+    },
+    "PeerLib/1.0.0": {
+      "type": "project",
+      "path": "../PeerLib/PeerLib.csproj",
+      "msbuildProject": "../PeerLib/PeerLib.csproj"
     },
     "RRLib/1.0.0": {
       "type": "project",
@@ -1379,6 +1433,11 @@
       "type": "project",
       "path": "../StorageLib/StorageLib.csproj",
       "msbuildProject": "../StorageLib/StorageLib.csproj"
+    },
+    "TestDb/1.0.0": {
+      "type": "project",
+      "path": "../TestDb/TestDb.csproj",
+      "msbuildProject": "../TestDb/TestDb.csproj"
     },
     "UtilitiesLib/1.0.0": {
       "type": "project",

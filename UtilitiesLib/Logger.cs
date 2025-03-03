@@ -54,10 +54,19 @@ public class Logger
     {
         try
         {
-            // Log message only if the log level is greater than or equal to the minimum level
+            string colorCode = level switch
+            {
+                LogLevel.Information => "\u001b[32m",  
+                LogLevel.Warning => "\u001b[33m",      
+                LogLevel.Error => "\u001b[31m",        
+                _ => "\u001b[0m"                       
+            };
+
+            string sourceColorCode = "\u001b[34m";
+
             if (level >= MinimumLogLevel)
             {
-                Console.WriteLine($" [{source}] [{level}] [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}");
+                Console.WriteLine($"{sourceColorCode}[{source}\u001b[0m] {colorCode}[{level}]{colorCode} [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}\u001b[0m");
             }
         }
         catch (Exception ex)
@@ -65,6 +74,8 @@ public class Logger
             Console.WriteLine($"Error logging message with level {level}: {ex.Message}");
         }
     }
+
+
     public static void Log(string message, LogLevel level, Source source, string messageType = null)
     {
         try
@@ -98,5 +109,7 @@ public enum Source
     Storage,
     Blockchain,
     App,
-    Validator
+    Validator,
+    PeerCore,
+    API
 }

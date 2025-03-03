@@ -1,10 +1,14 @@
+using System.Text.Json;
+using System.Transactions;
+using DataLib.DB.SqlLite.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
 using Utilities;
 
 namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
 {
-    public class BlocksBdService
+    public class BlocksBdService : IDbProvider
     {
         private readonly AppDbContext _context;
 
@@ -17,8 +21,9 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
         /// Adds a block to the database.
         /// </summary>
         /// <param name="blockModel">The block model to add.</param>
-        public async Task AddBlockAsync(BlockModel blockModel)
+        public async Task<bool> Add(IModel model)
         {
+            BlockModel blockModel = model as BlockModel;
             if (blockModel == null)
             {
                 Logger.Log("Attempted to add a null block to the database.", LogLevel.Error, Source.Storage);
@@ -31,6 +36,7 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
                 _context.Blocks.Add(blockModel);
                 await _context.SaveChangesAsync();
                 Logger.Log($"Block added to DB | id:{blockModel.Index}", LogLevel.Information, Source.Storage);
+                return true;
             }
             catch (Exception ex)
             {
@@ -39,47 +45,28 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
             }
         }
 
-        /// <summary>
-        /// Deletes a block by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the block to delete.</param>
-        public async Task DeleteBlockAsync(string id)
+        public async Task<IModel> Get(string id)
         {
             try
             {
-                var block = await _context.Blocks.FindAsync(id);
-                if (block != null)
-                {
-                    _context.Blocks.Remove(block);
-                    await _context.SaveChangesAsync();
-                    Logger.Log($"Block deleted from DB | id:{id}", LogLevel.Information, Source.Storage);
-                }
-                else
-                {
-                    Logger.Log($"Attempted to delete a non-existent block | id:{id}", LogLevel.Warning, Source.Storage);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"Error deleting block from DB: {ex.Message}", LogLevel.Error, Source.Storage);
-                throw;
-            }
-        }
+                IModel block = null;
 
-        /// <summary>
-        /// Retrieves a block by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the block to retrieve.</param>
-        /// <returns>The block model, or null if not found.</returns>
-        public async Task<BlockModel> GetBlockAsync(int id)
-        {
-            try
-            {
-                var block = await _context.Blocks.FindAsync(id);
+                if (id is string idString)
+                {
+                    // Для строкового ID
+                    block = await _context.Blocks.FindAsync(idString);
+                }
+                else if (Int32.Parse(id) is int idInt)
+                {
+                    // Для целочисленного ID
+                    block = await _context.Blocks.FirstOrDefaultAsync(b => b.Index == idInt);
+                }
+
                 if (block == null)
                 {
                     Logger.Log($"Block not found in DB | id:{id}", LogLevel.Warning, Source.Storage);
                 }
+
                 return block;
             }
             catch (Exception ex)
@@ -90,16 +77,18 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
         }
 
         /// <summary>
-        /// Retrieves all blocks from the database.
+        /// Retrieves a block by its ID.
         /// </summary>
-        /// <returns>A list of all block models.</returns>
-        public async Task<List<BlockModel>> GetAllBlocksAsync()
+        /// <param name="id">The ID of the block to retrieve.</param>
+        /// <returns>The block model, or null if not found.</returns>
+
+        public async Task<List<IModel>> GetAll()
         {
             try
             {
-                var blocks = await _context.Blocks.ToListAsync();
+                List<BlockModel> blocks = await _context.Blocks.ToListAsync();
                 Logger.Log($"Retrieved {blocks.Count} blocks from DB.", LogLevel.Information, Source.Storage);
-                return blocks;
+                return new List<IModel>(blocks);
             }
             catch (Exception ex)
             {
@@ -107,13 +96,39 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
                 throw;
             }
         }
-
         /// <summary>
-        /// Updates an existing block in the database.
+        /// Deletes a block by its ID.
         /// </summary>
-        /// <param name="blockModel">The block model with updated data.</param>
-        public async Task UpdateBlockAsync(BlockModel blockModel)
+        /// <param name="id">The ID of the block to delete.</param>
+
+        public async Task<bool> Delete(string id)
         {
+            try
+            {
+                var block = await _context.Blocks.FindAsync(id);
+                if (block != null)
+                {
+                    _context.Blocks.Remove(block);
+                    await _context.SaveChangesAsync();
+                    Logger.Log($"Block deleted from DB | id:{id}", LogLevel.Information, Source.Storage);
+                    return true;
+                }
+                else
+                {
+                    Logger.Log($"Attempted to delete a non-existent block | id:{id}", LogLevel.Warning, Source.Storage);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error deleting block from DB: {ex.Message}", LogLevel.Error, Source.Storage);
+                throw;
+            }
+        }
+
+        public async Task<bool> Update(string id, IModel model)
+        {
+            BlockModel blockModel = model as BlockModel;
             if (blockModel == null)
             {
                 Logger.Log("Attempted to update a null block in the database.", LogLevel.Error, Source.Storage);
@@ -138,16 +153,36 @@ namespace StorageLib.DB.SqlLite.Services.BlockchainDbServices
 
                     await _context.SaveChangesAsync();
                     Logger.Log($"Block updated in DB | id:{blockModel.Index}", LogLevel.Information, Source.Storage);
+                    return true;
                 }
                 else
                 {
                     Logger.Log($"Attempted to update a non-existent block | id:{blockModel.Index}", LogLevel.Warning, Source.Storage);
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error updating block in DB: {ex.Message}", LogLevel.Error, Source.Storage);
                 throw;
+            }
+        }
+
+        public async Task<bool> Exists(string id)
+        {
+            try
+            {
+                bool exists = await _context.Blocks.AnyAsync(p => p.Index.ToString() == id);
+        
+                Logger.Log($"Checking if peer exists in DB | id:{id} | Exists: {exists}", 
+                    LogLevel.Information, Source.Storage);
+        
+                return exists;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error checking if peer exists in DB: {ex.Message}", LogLevel.Error, Source.Storage);
+                return false;
             }
         }
     }

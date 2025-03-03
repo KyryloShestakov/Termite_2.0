@@ -1132,11 +1132,27 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "BlockchainLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BlockchainLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlockchainLib.dll": {}
+        }
+      },
       "Client/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
@@ -1149,14 +1165,42 @@
           "bin/placeholder/Client.dll": {}
         }
       },
+      "EnumsLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/EnumsLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EnumsLib.dll": {}
+        }
+      },
       "ModelsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ModelsLib.dll": {}
         },
         "runtime": {
           "bin/placeholder/ModelsLib.dll": {}
+        }
+      },
+      "PeerLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "TestDb": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PeerLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PeerLib.dll": {}
         }
       },
       "RRLib/1.0.0": {
@@ -3327,15 +3371,30 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "BlockchainLib/1.0.0": {
+      "type": "project",
+      "path": "../BlockchainLib/BlockchainLib.csproj",
+      "msbuildProject": "../BlockchainLib/BlockchainLib.csproj"
+    },
     "Client/1.0.0": {
       "type": "project",
       "path": "../Client/Client.csproj",
       "msbuildProject": "../Client/Client.csproj"
     },
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "path": "../EnumsLib/EnumsLib.csproj",
+      "msbuildProject": "../EnumsLib/EnumsLib.csproj"
+    },
     "ModelsLib/1.0.0": {
       "type": "project",
       "path": "../ModelsLib/ModelsLib.csproj",
       "msbuildProject": "../ModelsLib/ModelsLib.csproj"
+    },
+    "PeerLib/1.0.0": {
+      "type": "project",
+      "path": "../PeerLib/PeerLib.csproj",
+      "msbuildProject": "../PeerLib/PeerLib.csproj"
     },
     "RRLib/1.0.0": {
       "type": "project",
@@ -3365,6 +3424,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "BlockchainLib >= 1.0.0",
       "Client >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0",
@@ -3399,6 +3459,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+            "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj": {
+              "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj"
+            },
             "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj": {
               "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Client/Client.csproj"
             },

@@ -5,6 +5,7 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/PeerLib.runtimeconfig.json
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/PeerLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/PeerLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/EnumsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/RRLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/StorageLib.dll
@@ -12,6 +13,7 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/UtilitiesLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/RRLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/TestDb.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/EnumsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/ModelsLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/StorageLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/UtilitiesLib.pdb

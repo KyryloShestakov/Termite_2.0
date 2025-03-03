@@ -20,8 +20,9 @@ namespace BlockchainLib
         public string Signature { get; set; }
         public Object? Data { get; set; } = null;
         public SmartContract? Contract { get; set; } = null;
+        public string PublicKey { get; set; }
 
-        public Transaction(string sender, string receiver, decimal amount, decimal fee, string signature, Object data)
+        public Transaction(string sender, string receiver, decimal amount, decimal fee, string signature, Object data, string publicKey)
         {
             Id = Guid.NewGuid().ToString();
             Sender = sender;
@@ -31,6 +32,7 @@ namespace BlockchainLib
             Fee = fee;
             Signature = signature;
             Data = data;
+            PublicKey = publicKey;
         }
 
         public Transaction() { }
@@ -79,7 +81,8 @@ namespace BlockchainLib
                 Signature = transaction.Signature,
                 BlockId = transaction.BlockId,
                 Data = transaction.Data,
-                Contract = null
+                Contract = null,
+                PublicKey = transaction.PublicKey
             };
         }
 
@@ -98,7 +101,8 @@ namespace BlockchainLib
                 Signature = model.Signature,
                 BlockId = model.BlockId,
                 Data = model.Data,
-                Contract = null
+                Contract = null,
+                PublicKey = model.PublicKey
             };
         }
 

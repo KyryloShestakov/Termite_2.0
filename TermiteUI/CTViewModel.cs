@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using DataLib.DB.SqlLite.Interfaces;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
 using Newtonsoft.Json;
 using StorageLib.DB.SqlLite;
@@ -14,14 +17,13 @@ namespace TermiteUI;
 public class CTViewModel : UserControl
 {
     public ObservableCollection<TransactionModel> Transactions { get; set; }
-
-    private readonly BlocksBdService _blockService;
-
+    private readonly IDbProcessor _dbProcessor;
+    private readonly AppDbContext _appDbContext;
     public CTViewModel()
     {
-        _blockService = new BlocksBdService(new AppDbContext());
         Transactions = new ObservableCollection<TransactionModel>();
-        
+        _appDbContext = new AppDbContext();
+        _dbProcessor = new DbProcessor();
         LoadTransactionsAsync();
         Logger.Log($"{Transactions.Count} Transactions", LogLevel.Information, Source.App);
         
@@ -31,8 +33,8 @@ public class CTViewModel : UserControl
     {
         try
         {
-            var blocks = await _blockService.GetAllBlocksAsync();
-
+            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
+            List<BlockModel> blocks = models.Cast<BlockModel>().ToList();
            
                 foreach (var block in blocks)
                 {

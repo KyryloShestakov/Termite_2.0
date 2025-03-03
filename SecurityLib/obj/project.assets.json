@@ -1132,9 +1132,22 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "EnumsLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/EnumsLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EnumsLib.dll": {}
+        }
+      },
       "ModelsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ModelsLib.dll": {}
         },
@@ -3278,6 +3291,11 @@
         "system.threading.channels.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "EnumsLib/1.0.0": {
+      "type": "project",
+      "path": "../EnumsLib/EnumsLib.csproj",
+      "msbuildProject": "../EnumsLib/EnumsLib.csproj"
     },
     "ModelsLib/1.0.0": {
       "type": "project",

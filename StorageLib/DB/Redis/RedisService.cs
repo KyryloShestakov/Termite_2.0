@@ -147,9 +147,14 @@ public class RedisService
         foreach (var key in keys)
         {
             string serializedTransaction = await db.StringGetAsync(key);
-            
-            TransactionModel transaction = JsonConvert.DeserializeObject<TransactionModel>(serializedTransaction);
-            transactions.Add(transaction);
+
+            TransactionModel transaction = JsonConvert.DeserializeObject<TransactionModel?>(serializedTransaction);
+            if (transaction != null)
+            {
+                transactions.Add(transaction);
+            }
+
+            // transactions.Add(transaction);
         }
 
         return transactions;

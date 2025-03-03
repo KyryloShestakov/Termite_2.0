@@ -4,6 +4,65 @@
     "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj": {}
   },
   "projects": {
+    "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj",
+        "projectName": "EnumsLib",
+        "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj",
+        "packagesPath": "/Users/kyrylo_shestakov/.nuget/packages/",
+        "outputPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/kyrylo_shestakov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/ModelsLib.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -26,7 +85,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj": {
+                "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/EnumsLib/EnumsLib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

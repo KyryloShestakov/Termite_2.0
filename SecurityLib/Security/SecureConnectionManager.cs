@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
 using Utilities;
 
 namespace SecurityLib.Security
@@ -21,7 +22,6 @@ namespace SecurityLib.Security
             {
                 _privateKey = RSA.Create();  // Create a new RSA key pair
                 _publicKey = _privateKey.ExportParameters(false);  // Export public key
-                Logger.Log("SecureConnectionManager initialized successfully.", LogLevel.Information, Source.Secure);
             }
             catch (Exception ex)
             {
@@ -229,7 +229,9 @@ namespace SecurityLib.Security
                                 {
                                     string decryptedMessage = sr.ReadToEnd();  // Read decrypted message as string
                                     Logger.Log("Message decrypted successfully.", LogLevel.Information, Source.Secure);
-                                    return decryptedMessage;
+                                    string cleanedInput = decryptedMessage.Replace("\\u002B", "+").Replace("\\u002F", "/");
+
+                                    return cleanedInput;
                                 }
                             }
                         }

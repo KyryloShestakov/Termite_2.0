@@ -1,11 +1,15 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/bin/Debug/net9.0/ModelsLib.deps.json
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/bin/Debug/net9.0/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/bin/Debug/net9.0/ModelsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/bin/Debug/net9.0/EnumsLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/bin/Debug/net9.0/EnumsLib.pdb
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.csproj.AssemblyReference.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.GeneratedMSBuildEditorConfig.editorconfig
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.AssemblyInfoInputs.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.AssemblyInfo.cs
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.csproj.CoreCompileInputs.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.sourcelink.json
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.csproj.Up2Date
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/refint/ModelsLib.dll
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/ModelsLib/obj/Debug/net9.0/ModelsLib.pdb
