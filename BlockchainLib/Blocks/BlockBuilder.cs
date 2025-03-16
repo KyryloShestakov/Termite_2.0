@@ -35,12 +35,11 @@ namespace BlockchainLib.Blocks
             lastTransactionTime = DateTime.Now;
             _dbProcessor = new DbProcessor();
         }
-
         public async Task<Block> StartBuilding()
         {
             try
             {
-
+                
                 await _blockChain.LoadBlocksFromBd();
                 
                 if (await TryBuildBlock())
@@ -55,6 +54,15 @@ namespace BlockchainLib.Blocks
                     
                     Block block = await BuildBlockAsync();
                     Logger.Log($"Block created: {block.Id}",LogLevel.Information, Source.Blockchain);
+                    
+                    await _blockChain.AddBlockAsync(block);
+                    Logger.Log($"Block #{block.Index} added to blockchain.", LogLevel.Information, Source.Blockchain);
+
+                    BlockModel blockModel = block.ToBlockModel();
+            
+                    await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(blockModel));
+                    BlockChainCore blockChainCore = new BlockChainCore();
+                    await blockChainCore.RemoveTransactionsFromBlockFromSqlLite(block);
                     return block;
                 }
                 else
@@ -98,20 +106,36 @@ namespace BlockchainLib.Blocks
         {
             try
             {
-                string previousBlockHash = await _blockChain.GetLastBlockHashAsync();
+               // string previousBlockHash = await _blockChain.GetLastBlockHashAsync();
+               
+               
+               
+               
+                Block lastBlock = await _blockChain.GetLastBlockAsync();
+                Logger.Log($"Last block : {lastBlock.Id}", LogLevel.Error, Source.Blockchain);
+                string previousBlockHash = lastBlock.Hash;
+                
+                
+                
                 if (previousBlockHash == null) Logger.Log("Blockchain is empty", LogLevel.Warning, Source.Blockchain);
                 
-                int index = await _blockChain.GetLastIndexAsync() + 1;
+               // int index = await _blockChain.GetLastIndexAsync() + 1;
+               
+               int index = lastBlock.Index + 1;
+               int difficulty = GetCurrentDifficulty(index);                
+               Block block = new Block(index, new List<Transaction>(), previousBlockHash, string.Empty, difficulty, string.Empty, string.Empty);
                 
-                Block block = new Block(index, new List<Transaction>(), previousBlockHash, string.Empty, CurrentDifficulty, string.Empty, string.Empty);
-
+                
                 while (block.Transactions.Count < MaxTransactionLimit && _transactionMemoryPool.GetTransactionCount() > 0)
                 {
                     var tx = _transactionMemoryPool.GetHighestFeeTransaction();
                     tx.BlockId = block.Id;
                     block.Transactions.Add(tx);
                 }
-                
+                TransactionManager _transactionManager = new TransactionManager();
+                Transaction transactionReward = await _transactionManager.CreateAwardedTransaction(block);
+
+                block.Transactions.Add(transactionReward);
                 block.MerkleRoot = _merkleTree.CalculateMerkleRoot(block.Transactions);
                 Logger.Log("Merkle root calculated.", LogLevel.Information, Source.Blockchain);
 
@@ -181,6 +205,7 @@ namespace BlockchainLib.Blocks
         {
             try
             {
+                Logger.Log("Signing block.", LogLevel.Information , Source.Blockchain);
                 return _blockManager.SignBlock(block.Hash);
             }
             catch (Exception ex)
@@ -197,12 +222,12 @@ namespace BlockchainLib.Blocks
                 Logger.Log("Creating genesis block", LogLevel.Information, Source.Blockchain);
 
                 
-                int index = 1;
+                int index = 0;
                 string previousHash = "0";
-
                 var data = "first transaction";
+                
                 MyPrivatePeerInfoModel myInfo = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
-                Transaction transaction = new Transaction("GenesisBlock", "FirstPeer", 1000000, 1, "signed", data, myInfo.PublicKey);
+                Transaction transaction = new Transaction("GenesisBlock", myInfo.AddressWallet, 1000000, 0, "signed", data, myInfo.PublicKey);
                 List<Transaction> transactions = new List<Transaction>();
                 transactions.Add(transaction);
                 string merkleRoot = _merkleTree.CalculateMerkleRoot(transactions);
@@ -222,6 +247,10 @@ namespace BlockchainLib.Blocks
                 Logger.Log($"Error while creating genesis block: {ex.Message}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
+        }
+        public int GetCurrentDifficulty(int blockIndex)
+        {
+            return 2 + (blockIndex / 100);
         }
     }
 }

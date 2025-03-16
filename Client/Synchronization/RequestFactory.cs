@@ -23,11 +23,9 @@ namespace Client.Synchronization;
 public class RequestFactory
 {
     private readonly IDbProcessor _dbProcessor;
-    private readonly AppDbContext _appDbContext;
 
     public RequestFactory(IDbProcessor dbProcessor, AppDbContext appDbContext)
     {
-        _appDbContext = appDbContext;
        _dbProcessor = dbProcessor;
     }
 
@@ -35,7 +33,7 @@ public class RequestFactory
     {
         try
         {
-            IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(_appDbContext), CommandType.Get, new DbData(null, "default"));
+            IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
             MyPrivatePeerInfoModel peerInfoModel = model as MyPrivatePeerInfoModel;
             
             PeerInfoModel knownPeer = peer as PeerInfoModel;
@@ -76,7 +74,7 @@ public class RequestFactory
             string publicKey = System.Convert.ToBase64String(publickey);
             ConnectionKey connectionKey = new ConnectionKey { Key = publicKey };
             
-            IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(_appDbContext), CommandType.Get, new DbData(null, "default"));
+            IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
             MyPrivatePeerInfoModel peerInfoModel = model as MyPrivatePeerInfoModel;
 
             PeerInfoModel knownPeer = peer as PeerInfoModel;
@@ -113,12 +111,12 @@ public class RequestFactory
     {
         try
         {
-            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(_appDbContext), CommandType.GetAll);
+            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(new AppDbContext()), CommandType.GetAll);
             List<TransactionModel> transactions = models.Cast<TransactionModel>().ToList();
             
             PeerInfoModel knownPeer = peer as PeerInfoModel;
 
-            IModel myInfo = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(_appDbContext),
+            IModel myInfo = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()),
                 CommandType.Get, new DbData(null, "default"));
             
             MyPrivatePeerInfoModel peerInfoModel = myInfo as MyPrivatePeerInfoModel;
@@ -171,13 +169,13 @@ public class RequestFactory
     {
         try
         {
-            List<IModel> blocks = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(_appDbContext), CommandType.GetAll);
+            List<IModel> blocks = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
             if (blocks == null)
             {
                 Logger.Log("Error: blocks is null", LogLevel.Error, Source.Client);
                 return;
             }
-            MyPrivatePeerInfoModel peerInfoModel = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(_appDbContext), CommandType.Get, new DbData(null, "default"));
+            MyPrivatePeerInfoModel peerInfoModel = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
             if (peerInfoModel == null)
             {
                 Logger.Log("Error: peerInfoModel is null", LogLevel.Error, Source.Client);
@@ -221,6 +219,52 @@ public class RequestFactory
         catch (Exception e)
         {
             Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task CreateKnownPeersRequest(RequestPool requestPool, IModel peer)
+    {
+        try
+        {
+            List<IModel> models =
+                await _dbProcessor.ProcessService<List<IModel>>(new PeerInfoService(new AppDbContext()),
+                    CommandType.GetAll);
+            
+            List<PeerInfoModel> knownPeers = models.Cast<PeerInfoModel>().ToList();
+            MyPrivatePeerInfoModel peerInfoModel = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
+            if (peerInfoModel == null)
+            {
+                Logger.Log("Error: peerInfoModel is null", LogLevel.Error, Source.Client);
+                return;
+            }
+            PeerInfoModel knownPeer = peer as PeerInfoModel;
+            if (knownPeer == null)
+            {
+                Logger.Log("Error: peer is null or cannot be cast to PeerInfoModel", LogLevel.Error, Source.Client);
+                return;
+            }
+
+            var knownPeersRequest = new PeerInfoRequest()
+            {
+                RecipientId = knownPeer.NodeId,
+                ProtocolVersion = "2.0",
+                Route = new List<string> { "node1", "node2", "node3" },
+                Ttl = 10,
+                SenderId = peerInfoModel.NodeId,
+                RequestGroup = "Net",
+                Method = "POST",
+                PayLoad = new PayLoad
+                {
+                    KnownPeers = knownPeers
+                }
+            };
+            Logger.Log("Created known peers Request", LogLevel.Information, Source.Client);
+            requestPool.AddRequest(knownPeersRequest);
+        }
+        catch (Exception e)
+        {
+            Logger.Log($"Error creating Known Peers Request: {e.Message}", LogLevel.Error, Source.Client);
             throw;
         }
     }

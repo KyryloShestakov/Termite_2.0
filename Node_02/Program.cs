@@ -15,6 +15,7 @@ using SecurityLib.Security;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services;
+using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 using JsonException = System.Text.Json.JsonException;
 using Response = RRLib.Responses.Response;
@@ -153,30 +154,27 @@ namespace Node_02
            var dataString2 = data2.Data.ToString();
            string[] dataArray2 = dataString2.Split(",");
 
-          // Logger.Log(dataArray2[1]);
            string receiver = dataArray2[0].Substring(dataArray2[0].IndexOf("=") + 1).Trim();
            string receiver1 = receiver.Substring(0, receiver.Length - 2);
-           
+
+           MyPrivatePeerInfoModel myInfo = await dbProcessor.ProcessService<MyPrivatePeerInfoModel>(
+               new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
            
            var transaction = new TransactionModel
            {
                Id = Guid.NewGuid().ToString(),
-               Amount = 1000m,
+               Amount = 100m,
                Sender = "Nj5nVJNwssoo8XZi6aXmuwhuWRRNf22q5MCpo2LHMaChjrA93",
-               Receiver = "29DckhJXKKvKYQfBdY9s6PvaMn4hcTcxKKL4u5oZCNhmwhfLSw",
-               Fee = 0.1m,
+               Receiver = "2dVjmyEQHhfGe6pGmAYVJzM4WSwXsDJ8da6nCPMH3aS63xqeR1",
+               Fee = 100.0m,
                Signature = "Signed",
                Data = TypeOfTransaction,
-               PublicKey = "4e1BUTgGBfqVWZ2YKwCRoKqQRtwDCZkBWRtkgtqgivUvauiNVPzQf3YfdEK6Tkh71f3X3tYAokwwooPtRQN68zz5yksmaUXpuki2Ns87L4YjruMpPHYHMDmzA8uEzADTnXpLSgz6zSXbShnA2vkuLpZjynrrzHD3c1wJjBR9TDeiQf5V51XawTxRw7xguQmMejRkWL634XjdN5wjSrnWqut3HzPiXj6fc67wJkdvrF1t9CYZHcZ2dpSpVBVvEZ3i5JaAaWDFvZYgQCH1ejfZuF39CuNoU2XHLozaQvEZZ6HET8HiZB6BXitEJhN6gLC3gfX5YrZYRJdyknJ1VpvNP1zLymUjz3ViJmTSJwpAM8R2znpS4"
+               PublicKey = myInfo.PublicKey
            };
 
            string signature = transactionService.SignTransaction(transaction, dataArray[1]);
            transaction.Signature = signature;
            
-           
-           MyPrivatePeerInfoModel peerInfoModel = await 
-               dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(appDbContext),
-                   CommandType.Get, new DbData(null, "default"));
            
            var request2 = new TransactionRequest()
            {
@@ -184,7 +182,7 @@ namespace Node_02
                ProtocolVersion = "2.0",
                Route = new List<string> { "node1", "node2", "node3" },
                Ttl = 10,
-               SenderId = peerInfoModel.NodeId,
+               SenderId = myInfo.NodeId,
                RequestGroup = "Blockchain",
                Method = "POST",
                PayLoad = new PayLoad

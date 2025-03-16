@@ -48,8 +48,8 @@ namespace BlockchainLib
                 blockchainModel.Blocks = blockModel;
                 
                 IValidator validator = new BlockChainValidator();
-                bool isValid = await validator.Validate(blockchainModel);
-                if (!isValid) { return _serverResponseService.GetResponse(false, "Invalid block data."); }
+                Response isValid = await validator.Validate(blockchainModel);
+                if (isValid.Status != "Success") { return _serverResponseService.GetResponse(false, "Invalid block data."); }
                 
                 foreach (BlockModel block in blockModel)
                 {

@@ -1,0 +1,113 @@
+@startuml
+
+package "Client" {
+    class ClientTcp {
+        -DataSynchronizer _dataSynchronizer
+        -ConnectionManager _connectionManager
+        -IDbProcessor dbProcessor
+        -AppDbContext _appDbContext
+        +ClientTcp()
+        +RunAsync(): Task
+        +StopAsync(): Task
+    }
+    
+    interface IDbProcessor {
+        +Task<T> ProcessService<T>(IDbProvider dbProvider, CommandType commandType, DbData data = null)
+    }
+
+    class DataSynchronizer {
+        -IDbProcessor dbProcessor
+        -AppDbContext _appDbContext
+        -RequestFactory _requestFactory
+        -RequestExecutor _requestExecutor
+        +StartSynchronization(tcpClient: TcpClient, IModel: peer): Task
+    }
+    
+    class RequestExecutor {
+        - RequestHandler _requestHandler
+        - ResponseHandler _responseHandler
+        + Task StartExecution(TcpClient tcpClient, RequestPool _requestPool)
+        + Task HandleRequest(TcpClient tcpClient, NetworkStream networkStream, Request request)
+        + Task<string> EncryptRequest(Request request)
+        
+    }
+    
+    class RequestHandler {
+        + Task SendRequestAsync(TcpClient client, string request, NetworkStream stream)
+    }
+    
+    class ResponseHandler {
+        + Task ReceiveResponse(TcpClient tcpClient)
+    }
+
+    class ConnectionManager {
+        +InitializePeersAsync(): Task
+        +GetActivePeersList(): List<PeerInfoModel>
+        +RegisterConnection(ipAddress: string, port: int, tcpClient: TcpClient): void
+        +CloseAllConnections(): void
+        +List<PeerInfoModel> GetPeersList()
+        +void UpdatePeerStatus(string address, NodeStatus newStatus)
+        +List<PeerInfoModel> GetAvailablePeersForConnection(int maxConnectionsPerPeer)
+        +void LogPeers()
+        
+    }
+    
+    class Request {
+        -string Message { get; set; }
+    }
+    
+    class RequestFactory {
+        -IDbProcessor _idProcessor
+        + Task CreateMyPeerInfoRequest(RequestPool _requestPool, IModel peer)
+        + Task CreateKeyExchageRequest(RequestPool _requestPool, IModel peer)
+        + Task CreateTransactionRequest(RequestPool _requestPool, IModel peer)
+        + Task CreateBlockRequest(RequestPool _requestPool, IModel peer)
+    }
+
+    class DbProcessor implements IDbProcessor {
+        +Process(): void
+    }
+
+    class AppDbContext {
+        +SaveChanges(): void
+    }
+
+    class Logger {
+        +Log(message: string, level: LogLevel, source: Source): void
+    }
+
+    class PeerInfoModel {
+        +IpAddress: string
+        +Port: int
+    }
+
+    enum LogLevel {
+        Information
+        Warning
+        Error
+    }
+
+    enum Source {
+        Client
+        Server
+    }
+    
+   
+}
+
+ClientTcp --> DataSynchronizer : Uses
+ClientTcp --> ConnectionManager : Uses
+ClientTcp --> DbProcessor : Uses
+ClientTcp --> AppDbContext : Uses
+
+DataSynchronizer --> RequestFactory : Uses
+DataSynchronizer --> RequestExecutor : Uses
+
+RequestExecutor --> RequestHandler : Uses
+RequestExecutor --> ResponseHandler : Uses
+
+ConnectionManager --> PeerInfoModel : Uses
+Logger --> LogLevel : Uses
+Logger --> Source : Uses
+
+@enduml

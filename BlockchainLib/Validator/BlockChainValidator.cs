@@ -1,21 +1,28 @@
 ﻿using ModelsLib;
 using ModelsLib.BlockchainLib;
+using RRLib.Responses;
 using Utilities;
 
 namespace BlockchainLib.Validator 
 {
     public class BlockChainValidator : IValidator
     {
+        private ServerResponseService _serverResponseService;
         private readonly int MaxBlockSize = 10000;
-        
-        public async Task<bool> Validate(IModel model)
+
+        public BlockChainValidator()
+        {
+            _serverResponseService = new ServerResponseService();
+        }
+
+        public async Task<Response> Validate(IModel model)
         {
             try
             {
                 if (model is not BlockchainModel blockchain || blockchain.Blocks == null || !blockchain.Blocks.Any())
                 {
                     Logger.Log("Blockchain validation failed: Invalid or empty blockchain model.", LogLevel.Error, Source.Validator);
-                    return false;
+                    return _serverResponseService.GetResponse(false, "Blockchain validation failed.");
                 }
 
                 Logger.Log($"Starting validation of {blockchain.Blocks.Count} blocks", LogLevel.Information, Source.Validator);
@@ -28,28 +35,28 @@ namespace BlockchainLib.Validator
                     if (!ValidateBlock(currentBlock))
                     {
                         Logger.Log($"Block validation failed at index {currentBlock.Index}", LogLevel.Error, Source.Validator);
-                        return false;
+                        return _serverResponseService.GetResponse(false, "Block validation failed.");
                     }
 
                     if (!ValidateBlockLink(previousBlock, currentBlock))
                     {
                         Logger.Log($"Invalid link between block {previousBlock.Index} and {currentBlock.Index}", LogLevel.Error, Source.Validator);
-                        return false;
+                        return _serverResponseService.GetResponse(false, "Invalid link between blocks and blocks.");
                     }
                 }
 
                 if (!ValidateGenesisBlock(blockchain.Blocks.First()))
                 {
                     Logger.Log("Genesis block validation failed.", LogLevel.Error, Source.Validator);
-                    return false;
+                    return _serverResponseService.GetResponse(false, "Genesis block validation failed.");
                 }
 
-                return true;
+                return _serverResponseService.GetResponse(true, "Validation succeeded.");
             }
             catch (Exception ex)
             {
                 Logger.Log($"Blockchain validation error: {ex.Message}", LogLevel.Error, Source.Validator);
-                return false;
+                return _serverResponseService.GetResponse(false, "Blockchain validation error.", ex);
             }
         }
 

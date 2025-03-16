@@ -22,20 +22,38 @@ public class MainController : ControllerBase
     public async Task<IActionResult> GetAddressAndPrivateKey()
     {
         var result = await _service.GetAddressAndPrivateKey();
+        Logger.Log($"GetAddressAndPrivateKey: {result.Data}", LogLevel.Warning, Source.API);
         return Ok(result);
     }
 
     [HttpPost("PostTransaction")]
-    public async Task<IActionResult> PostTransaction([FromBody] TransactionModel transaction)
+    public async Task<IActionResult> PostTransaction([FromBody] TransactionRequest transaction)
     {
         if (transaction == null)
         {
             return BadRequest("Transaction data is missing.");
         }
-        
-        await _service.PostTransaction(transaction);
-        return Ok();
+        Logger.Log($"Received transaction: {transaction.Transaction.PublicKey}", LogLevel.Information, Source.Validator);
+
+        if (string.IsNullOrEmpty(transaction.Transaction.Id) ||
+            string.IsNullOrEmpty(transaction.Transaction.Sender) ||
+            string.IsNullOrEmpty(transaction.Transaction.Receiver) ||
+            string.IsNullOrEmpty(transaction.Transaction.PublicKey) ||
+            string.IsNullOrEmpty(transaction.Transaction.Signature))
+        {
+            return BadRequest("One or more required fields are missing.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        Response response = await _service.PostTransaction(transaction.Transaction);
+        Logger.Log($"PostTransaction: {response.Message}", LogLevel.Warning, Source.API);
+        return Ok(response);
     }
+
 
     [HttpPost("GetBalance")]
     public async Task<IActionResult> GetBalance([FromBody] BalanceRequest address)
@@ -62,12 +80,12 @@ public class MainController : ControllerBase
     }
     
     [HttpPost("GetTransactionsByAddress")]
-    public async Task<IActionResult> GetTransactionsById([FromBody] string address)
+    public async Task<IActionResult> GetTransactionsById([FromBody] TransactionById address)
     {
         try
         {
-            if (address == null) return BadRequest("address is missing.");
-            Response result = await _service.GetTransactionById(address);
+            if (address.address == null) return BadRequest("address is missing.");
+            Response result = await _service.GetTransactionById(address.address);
             return Ok(result);
         }
         catch (Exception e)
@@ -83,4 +101,14 @@ public class MainController : ControllerBase
 public class BalanceRequest
 {
     public string Address { get; set; }
+}
+
+public class TransactionRequest
+{
+    public TransactionModel Transaction { get; set; }
+}
+
+public class TransactionById
+{
+    public string address { get; set; }
 }

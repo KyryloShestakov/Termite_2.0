@@ -1,8 +1,9 @@
 using ModelsLib;
+using RRLib.Responses;
 
 namespace BlockchainLib.Validator;
 
 public interface IValidator
 {
-   Task<bool> Validate(IModel model);
+   Task<Response> Validate(IModel model);
 }

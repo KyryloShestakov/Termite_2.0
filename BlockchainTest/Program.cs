@@ -1,5 +1,6 @@
 ﻿using BlockchainLib;
 using BlockchainLib.Addresses;
+using BlockchainLib.Blocks;
 using ModelsLib.BlockchainLib;
 using RRLib.Responses;
 using StorageLib.DB.Redis;
@@ -11,7 +12,7 @@ public class Program
     {
         BlockChainCore blockChain = new BlockChainCore();
 
-        Timer timer = new Timer(TimerCallback, blockChain, 0, 1000);
+        Timer timer = new Timer(TimerCallback, blockChain, 0, 10000);
         
         Console.WriteLine("Blockchain started. Press Enter to exit.");
         Console.ReadLine();
@@ -22,8 +23,11 @@ public class Program
     {
         try
         {
-            BlockChainCore blockChain = (BlockChainCore)state;
-            blockChain.StartBlockchain();
+            // BlockChainCore blockChain = (BlockChainCore)state;
+            // blockChain.StartBlockchain();
+            
+            BlockBuilder blockBuilder = new BlockBuilder();
+            blockBuilder.StartBuilding();
             Logger.Log($"Blockchain processed", LogLevel.Information, Source.Blockchain);
         }
         catch (Exception ex)
