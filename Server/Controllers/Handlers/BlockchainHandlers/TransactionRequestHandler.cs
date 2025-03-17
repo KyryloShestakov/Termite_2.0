@@ -6,7 +6,8 @@
 using BlockchainLib; // Blockchain library that may handle blockchain-related operations
 using PeerLib.Services; // Peer service library for handling peer-to-peer communication and transactions
 using RRLib; // Library for handling response-related operations
-using RRLib.Responses; // Responses for server communication
+using RRLib.Responses;
+using Ter_Protocol_Lib; // Responses for server communication
 
 namespace Server.Controllers.Handlers.BlockchainHandlers
 {
@@ -23,26 +24,29 @@ namespace Server.Controllers.Handlers.BlockchainHandlers
         }
 
         // Asynchronous method that processes the incoming request based on the HTTP method
-        public async Task<Response> HandleRequestAsync(Request request)
+        public async Task<Response> HandleRequestAsync(TerProtocol<IRequest> request)
         {
+
+            TerProtocol<TransactionRequest> transactionRequest = request.Payload.Data as TerProtocol<TransactionRequest>;
+           
             // Switch based on the HTTP method to call the appropriate service method
-            switch (request.Method)
+            switch (request.Header.MethodType)
             {
-                case "GET":
+                case MethodType.Get:
                     // Handle the GET request by retrieving the transactions
-                    return await _transactionService.GetTransactions(request);
+                    return await _transactionService.GetTransactions(transactionRequest);
 
-                case "POST":
+                case MethodType.Post:
                     // Handle the POST request by posting a new transaction
-                    return await _transactionService.PostTransactions(request);
+                    return await _transactionService.PostTransactions(transactionRequest);
 
-                case "UPDATE":
+                case MethodType.Update:
                     // Handle the UPDATE request by updating an existing transaction
-                    return await _transactionService.UpdateTransactions(request);
+                    return await _transactionService.UpdateTransactions(transactionRequest);
 
-                case "DELETE":
+                case MethodType.Delete:
                     // Handle the DELETE request by deleting a specified transaction
-                    return await _transactionService.DeleteTransactions(request);
+                    return await _transactionService.DeleteTransactions(transactionRequest);
 
                 // If an unknown HTTP method is received, return an error response
                 default:

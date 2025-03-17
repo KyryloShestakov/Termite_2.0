@@ -9,4 +9,7 @@ public enum TerMessageType
     Consensus = 0x05,
     SyncRequest = 0x06,
     SyncResponse = 0x07,
+    KeyExchange = 0x08,
+    KnownPeers = 0x09,
+    PeerInfo = 0x0a,
 }

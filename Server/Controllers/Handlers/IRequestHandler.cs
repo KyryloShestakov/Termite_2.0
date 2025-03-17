@@ -1,5 +1,6 @@
 using RRLib;
 using RRLib.Responses;
+using Ter_Protocol_Lib;
 
 namespace Server.Controllers.Handlers;
 
@@ -13,5 +14,5 @@ public interface IRequestHandler
     /// </summary>
     /// <param name="request">The request object containing the necessary information for processing.</param>
     /// <returns>A <see cref="Response"/> object representing the result of the request handling.</returns>
-    Task<Response> HandleRequestAsync(Request request);
+    Task<Response> HandleRequestAsync(TerProtocol<IRequest> request);
 }

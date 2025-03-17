@@ -1,6 +1,7 @@
 using RRLib;
 using RRLib.Responses;
 using Server.Controllers.Handlers;
+using Ter_Protocol_Lib;
 using Utilities;
 
 namespace Server.Controllers
@@ -27,12 +28,12 @@ namespace Server.Controllers
         /// </summary>
         /// <param name="request">The incoming request to be handled.</param>
         /// <returns>Returns a Response object, which indicates the result of processing the request.</returns>
-        public async Task<Response> HandleRequestAsync(Request request)
+        public async Task<Response> HandleRequestAsync(TerProtocol<IRequest> request)
         {
             try
             {
                 // Get the handler for the specific request type
-                var handler = _requestHandlerFactory.GetHandler(request.RequestType);
+                var handler = _requestHandlerFactory.GetHandler(request.Header.MessageType);
                 
                 // If a handler is found, handle the request and return the response
                 if (handler != null)

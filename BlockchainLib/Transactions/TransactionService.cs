@@ -1,11 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
-using RRLib;
-using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
 using BlockchainLib;
 using Microsoft.Extensions.Logging;
 using ModelsLib.BlockchainLib;
+using Ter_Protocol_Lib;
 using Utilities;
 using LogLevel = Utilities.LogLevel;
 
@@ -24,12 +23,11 @@ namespace BlockchainLib
             _serverResponseService = new ServerResponseService();
         }
 
-        public async Task<Response> PostTransactions(Request request)
+        public async Task<Response> PostTransactions(TerProtocol<TransactionRequest> request)
         {
             try
             {
-                TransactionRequest transactionRequest = request as TransactionRequest;
-                List<TransactionModel> transactions = transactionRequest.GetTransactions();
+                List<TransactionModel> transactions = request.Payload.Data.Transactions;
 
                 foreach (var transaction in transactions)
                 {
@@ -47,17 +45,17 @@ namespace BlockchainLib
             }
         }
 
-        public async Task<Response> GetTransactions(Request request)
+        public async Task<Response> GetTransactions(TerProtocol<TransactionRequest> request)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Response> UpdateTransactions(Request request)
+        public async Task<Response> UpdateTransactions(TerProtocol<TransactionRequest> request)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Response> DeleteTransactions(Request request)
+        public async Task<Response> DeleteTransactions(TerProtocol<TransactionRequest> request)
         {
             throw new NotImplementedException();
         }

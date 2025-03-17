@@ -6,8 +6,8 @@ using System.Text.Json;
 using RRLib;
 using RRLib.Responses;
 using Server.Controllers;
-using Server.Executors;
 using Server.Requests;
+using Ter_Protocol_Lib;
 using Utilities;
 
 public class TcpServer
@@ -16,9 +16,9 @@ public class TcpServer
     private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly ConcurrentQueue<TcpRequest> _requestQueue;
     private readonly Controller _controller;
-    private readonly RequestExecutor _requestExecutor;
     private readonly SemaphoreSlim _connectionSemaphore;
-
+    private RequestManager _requestManager;
+    
     private const int MaxConnections = 5;
 
     public TcpServer()
@@ -27,8 +27,8 @@ public class TcpServer
         _cancellationTokenSource = new CancellationTokenSource();
         _requestQueue = new ConcurrentQueue<TcpRequest>();
         _controller = new Controller();
-        _requestExecutor = new RequestExecutor();
         _connectionSemaphore = new SemaphoreSlim(MaxConnections, MaxConnections);
+        _requestManager = new RequestManager();
     }
 
     public async Task StartAsync()
@@ -102,20 +102,17 @@ public class TcpServer
     {
         try
         {
-            Request? request = Request.Deserialize(tcpRequest.Message);
-            if (request == null)
+            var terRequest = TerProtocol<string>.Deserialize(tcpRequest.Message);
+            
+            if (terRequest == null)
             {
                 Logger.Log("Invalid request received.", LogLevel.Warning, Source.Server);
                 return null;
             }
-
-            if (request.PayLoad.IsEncrypted)
-            {
-                request = await _requestExecutor.DecryptRequest(request);
-            }
-            Logger.Log($"Received request of type: {request.RequestType}", LogLevel.Information, Source.Server);
-
-            return await _controller.HandleRequestAsync(request);
+            var decryptRequest = await _requestManager.DecryptRequest(terRequest);
+            Logger.Log($"Received request of type: {terRequest.Header.MessageType}", LogLevel.Information, Source.Server);
+            
+            return await _controller.HandleRequestAsync(decryptRequest);
         }
         catch (Exception ex)
         {
