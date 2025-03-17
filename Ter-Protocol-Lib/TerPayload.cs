@@ -1,6 +1,7 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using ModelsLib.BlockchainLib;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Ter_Protocol_Lib;
 
@@ -32,14 +33,15 @@ public class TerPayload<T>
         return terMessageType switch
         {
             TerMessageType.Handshake => JsonSerializer.Deserialize<HandshakeRequest>(payload),
-            TerMessageType.Transaction => JsonSerializer.Deserialize<List<TransactionModel>>(payload),
+            TerMessageType.Transaction => JsonSerializer.Deserialize<TransactionRequest>(payload),
+            TerMessageType.Block => JsonSerializer.Deserialize<BlockRequest>(payload),
             _ => throw new InvalidOperationException($"Unknown request type: {terMessageType}")
         };
     }
 }
 
 
-public class HandshakeRequest : Request
+public class HandshakeRequest
 {
     public string message = "hello";
 
@@ -49,11 +51,12 @@ public class HandshakeRequest : Request
     }
 }
 
-public class TransactionRequest : Request
-{
+public class TransactionRequest
+{ 
     public List<TransactionModel> Transactions { get; set; }
 }
 
-public class Request
+public class BlockRequest
 {
+    public List<BlockModel> Blocks { get; set; }
 }
