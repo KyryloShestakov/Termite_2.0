@@ -8,5 +8,5 @@ public enum TerMessageType
     PeerDiscovery = 0x04,
     Consensus = 0x05,
     SyncRequest = 0x06,
-    SyncResponse = 0x07
+    SyncResponse = 0x07,
 }

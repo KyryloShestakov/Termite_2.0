@@ -32,7 +32,8 @@ namespace DataLib.DB.SqlLite.Services.NetServices
         
         public async Task<IModel> Get(string id)
         {
-            PeerInfoModel peerInfoModel = await _context.PeersInfo.FindAsync(id);
+            var peerInfoModel = await _context.PeersInfo
+                .FirstOrDefaultAsync(p => p.NodeId == id); 
             var model = peerInfoModel as IModel;
             return model;
         }
