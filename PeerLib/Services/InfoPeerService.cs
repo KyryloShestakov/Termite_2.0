@@ -2,11 +2,10 @@ using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services;
 using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib.NetworkModels;
-using RRLib;
-using RRLib.Requests.NetRequests;
 using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services;
+using Ter_Protocol_Lib;
 using Utilities;
 
 namespace PeerLib.Services;
@@ -23,14 +22,10 @@ public class InfoPeerService
         _dbProcessor = new DbProcessor();
     }
 
-    public async Task<Response> PostPeerInfo(Request request)
+    public async Task<Response> PostPeerInfo(TerProtocol<PeerInfoRequest> request)
     {
-        if (request is not PeerInfoRequest peerInfoRequest)
-        {
-            return new ServerResponseService().GetResponse(false, "Invalid request type.");
-        }
 
-        var data = peerInfoRequest.GetPeerInfo();
+        var data = request.Payload.Data.Peers.First();
         var peerInfoModel = new PeerInfoModel
         {
             NodeId = data.NodeId,
@@ -42,7 +37,6 @@ public class InfoPeerService
             SoftwareVersion = data.SoftwareVersion
         };
 
-      //  await _peerInfoService.AddPeerInfoAsync(peerInfoModel);
         var result = await _dbProcessor.ProcessService<bool>(new PeerInfoService(new AppDbContext()), CommandType.Add, new DbData(peerInfoModel));
        
         return new ServerResponseService().GetResponse(true, $"New information about peer added successfully.{result}");
@@ -59,14 +53,9 @@ public class InfoPeerService
         return new ServerResponseService().GetResponse(true, "Peers retrieved successfully.", peers);
     }
 
-    public async Task<Response> GetPeerById(Request request)
+    public async Task<Response> GetPeerById(TerProtocol<DataRequest<string>> request)
     {
-        if (request is not PeerInfoRequest peerInfoRequest)
-        {
-            return new ServerResponseService().GetResponse(false, "Invalid request type.");
-        }
-
-        var peer = await _peerInfoService.Get(peerInfoRequest.GetPeerInfo().NodeId);
+        var peer = await _peerInfoService.Get(request.Payload.Data.Value);
         if (peer == null)
         {
             return new ServerResponseService().GetResponse(false, "Peer not found.");
@@ -75,54 +64,55 @@ public class InfoPeerService
         return new ServerResponseService().GetResponse(true, "Peer retrieved successfully.", peer);
     }
 
-    // UPDATE: Обновить информацию об узле
-    public async Task<Response> UpdatePeer(Request request)
+    public async Task<Response> UpdatePeer(TerProtocol<PeerInfoRequest> request)
     {
-        if (request is not PeerInfoRequest peerInfoRequest)
+        try
         {
-            return new ServerResponseService().GetResponse(false, "Invalid request type.");
-        }
+            List<PeerInfoModel> updatedData = request.Payload.Data.Peers;
 
-        var updatedData = peerInfoRequest.GetPeerInfo();
-        var peer = await _peerInfoService.Get(updatedData.NodeId);
-        
-        PeerInfoModel peerInfoModel = peer as PeerInfoModel;
-        
-        if (peer == null)
+            var peers = await _peerInfoService.GetAll();
+            List<PeerInfoModel> peersList = peers.Cast<PeerInfoModel>().ToList();
+            if (peersList == null || !peersList.Any())
+            {
+                return new ServerResponseService().GetResponse(false, "Peer not found.");
+            }
+
+            var updatedPeers = peersList
+                .Select(peer => new PeerInfoModel
+                {
+                    NodeId = peer.NodeId,
+                    IpAddress = updatedData.First().IpAddress,
+                    Port = updatedData.First().Port,
+                    LastSeen = updatedData.First().LastSeen,
+                    NodeType = updatedData.First().NodeType,
+                    Status = updatedData.First().Status,
+                    SoftwareVersion = updatedData.First().SoftwareVersion
+                })
+                .ToList();
+
+            await Task.WhenAll(updatedPeers.Select(peer => _peerInfoService.Update(peer.NodeId, peer)));
+
+            return new ServerResponseService().GetResponse(true, "Peers updated successfully.");
+        }
+        catch (Exception e)
         {
-            return new ServerResponseService().GetResponse(false, "Peer not found.");
+            Console.WriteLine(e);
+            throw;
         }
-
-        peerInfoModel.IpAddress = updatedData.IpAddress;
-        peerInfoModel.Port = updatedData.Port;
-        peerInfoModel.LastSeen = updatedData.LastSeen;
-        peerInfoModel.NodeType = updatedData.NodeType;
-        peerInfoModel.Status = updatedData.Status;
-        peerInfoModel.SoftwareVersion = updatedData.SoftwareVersion;
-
-        await _peerInfoService.Update(peerInfoModel.NodeId,peerInfoModel);
-
-        return new ServerResponseService().GetResponse(true, "Peer updated successfully.");
     }
 
-    // DELETE: Удалить информацию об узле
-    public async Task<Response> DeletePeer(Request request)
+    
+    public async Task<Response> DeletePeer(TerProtocol<DataRequest<string>> request)
     {
-        if (request is not PeerInfoRequest peerInfoRequest)
-        {
-            return new ServerResponseService().GetResponse(false, "Invalid request type.");
-        }
-
-        var data = peerInfoRequest.GetPeerInfo();
-        var peer = await _peerInfoService.Get(data.NodeId);
+        var data = request.Payload.Data.Value;
+        var peer = await _peerInfoService.Get(data);
         PeerInfoModel peerInfoModel = peer as PeerInfoModel;
         
         if (peer == null)
         {
             return new ServerResponseService().GetResponse(false, "Peer not found.");
         }
-
-        await _peerInfoService.Delete(peerInfoModel.NodeId);
+        await _dbProcessor.ProcessService<string>(new PeerInfoService(new AppDbContext()), CommandType.Delete, new DbData(null, peerInfoModel.NodeId));
 
         return new ServerResponseService().GetResponse(true, "Peer deleted successfully.");
     }

@@ -2,26 +2,26 @@ using BlockchainLib.Validator;
 using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib;
 using ModelsLib.BlockchainLib;
-using RRLib;
-using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
+using Ter_Protocol_Lib;
 using Utilities;
 
-namespace BlockchainLib
+namespace BlockchainLib.Blocks
 {
     public class BlockService
     {
         private BlockManager _blockManager;
-        private ServerResponseService _serverResponseService;
-        private Blockchain _blockchain;
+        private readonly ServerResponseService _serverResponseService;
+        private readonly Blockchain _blockchain;
         private readonly IDbProcessor _dbProcessor;
-        private AppDbContext _appDbContext;
+        private readonly AppDbContext _appDbContext;
 
         public BlockService()
         {
             // Initialize dependencies
+            _blockchain = new Blockchain();
             _blockManager = new BlockManager();
             _serverResponseService = new ServerResponseService();
             _appDbContext = new AppDbContext();
@@ -31,12 +31,12 @@ namespace BlockchainLib
         /// <summary>
         /// Adds a new block to the blockchain and database.
         /// </summary>
-        public async Task<Response> PostBlocks(BlockRequest request)
+        public async Task<Response> PostBlocks(TerProtocol<BlockRequest> request)
         {
             if (request == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            List<BlockModel> blockModel = request.GetBlocks();
+            List<BlockModel> blockModel = request.Payload.Data.Blocks;
 
             if (blockModel == null)
                 return _serverResponseService.GetResponse(false, "Invalid block data.");
@@ -54,12 +54,12 @@ namespace BlockchainLib
                 foreach (BlockModel block in blockModel)
                 {
                     bool existsInDb = await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Exists, new DbData(null, block.Id));
-                    Logger.Log($"Block {block.Id} exested in bd", LogLevel.Warning, Source.Blockchain);
+                    Logger.Log($"Block {block.Id} existed in bd", LogLevel.Warning, Source.Blockchain);
                     if (existsInDb) continue;
                     await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(block));
-                    Block blockNew = new Block();
-                    blockNew = Block.FromBlockModel(block);
-                    await _blockchain.AddBlockAsync(blockNew);
+                    Block blockForModel = new Block();
+                    blockForModel = Block.FromBlockModel(block);
+                    await _blockchain.AddBlockAsync(blockForModel);
                 }
                 
 
@@ -76,7 +76,7 @@ namespace BlockchainLib
         /// <summary>
         /// Retrieves all blocks from the database.
         /// </summary>
-        public async Task<Response> GetBlocks(BlockRequest request)
+        public async Task<Response> GetBlocks(TerProtocol<BlockRequest> request)
         {
             try
             {
@@ -95,21 +95,21 @@ namespace BlockchainLib
         /// <summary>
         /// Retrieves a specific block by its index.
         /// </summary>
-        public async Task<Response> GetBlockById(BlockRequest request)
+        public async Task<Response> GetBlockById(TerProtocol<DataRequest<string>> blockRequest)
         {
-            if (request == null)
+            if (blockRequest == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            BlockModel requestedBlock = request.GetBlock();
+            string index = blockRequest.Payload.Data.Value;
 
-            if (requestedBlock == null)
-                return _serverResponseService.GetResponse(false, "Invalid block data.");
+            if (index == null)
+                return _serverResponseService.GetResponse(false, "Invalid index.");
 
             try
             {
                 // Fetch the block by index
-                IModel model = await _dbProcessor.ProcessService<IModel>(new BlocksBdService(_appDbContext), CommandType.Get, new DbData(null, requestedBlock.Index.ToString()));
-                BlockModel blockModel = model as BlockModel;
+                IModel model = await _dbProcessor.ProcessService<IModel>(new BlocksBdService(_appDbContext), CommandType.Get, new DbData(null, index));
+                BlockModel blockModel = model as BlockModel ?? throw new InvalidOperationException();
                 if (blockModel == null)
                     return _serverResponseService.GetResponse(false, "Block not found.");
 
@@ -124,12 +124,12 @@ namespace BlockchainLib
         /// <summary>
         /// Updates an existing block in the database.
         /// </summary>
-        public async Task<Response> UpdateBlocks(BlockRequest request)
+        public async Task<Response> UpdateBlocks(TerProtocol<BlockRequest> request)
         {
             if (request == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            BlockModel blockModelToUpdate = request.GetBlock();
+            BlockModel blockModelToUpdate = request.Payload.Data.Blocks.First();
 
             if (blockModelToUpdate == null)
                 return _serverResponseService.GetResponse(false, "Invalid block data.");
@@ -155,12 +155,12 @@ namespace BlockchainLib
         /// <summary>
         /// Deletes a block from the database.
         /// </summary>
-        public async Task<Response> DeleteBlocks(BlockRequest request)
+        public async Task<Response> DeleteBlock(TerProtocol<BlockRequest> request)
         {
             if (request == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            BlockModel blockModelToDelete = request.GetBlock();
+            BlockModel blockModelToDelete = request.Payload.Data.Blocks.First();
 
             if (blockModelToDelete == null)
                 return _serverResponseService.GetResponse(false, "Invalid block data.");

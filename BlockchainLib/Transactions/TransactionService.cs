@@ -2,8 +2,12 @@ using System.Security.Cryptography;
 using System.Text;
 using RRLib.Responses;
 using BlockchainLib;
+using DataLib.DB.SqlLite.Interfaces;
 using Microsoft.Extensions.Logging;
+using ModelsLib;
 using ModelsLib.BlockchainLib;
+using StorageLib.DB.SqlLite;
+using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Ter_Protocol_Lib;
 using Utilities;
 using LogLevel = Utilities.LogLevel;
@@ -16,11 +20,14 @@ namespace BlockchainLib
     {
         private TransactionManager _transactionManager;
         private ServerResponseService _serverResponseService;
+        private readonly IDbProcessor _dbProcessor;
+        private readonly BlockManager _blockManager;
 
         public TransactionService()
         {
             _transactionManager = new TransactionManager();
             _serverResponseService = new ServerResponseService();
+            _dbProcessor = new DbProcessor();
         }
 
         public async Task<Response> PostTransactions(TerProtocol<TransactionRequest> request)
@@ -29,10 +36,16 @@ namespace BlockchainLib
             {
                 List<TransactionModel> transactions = request.Payload.Data.Transactions;
 
-                foreach (var transaction in transactions)
-                {
-                    Transaction newTransaction = await _transactionManager.CreateTransaction(transaction.Sender, transaction.Receiver, transaction.Amount, transaction.Fee, transaction.Signature, transaction.Data, transaction.PublicKey);
-                }
+                await Task.WhenAll(transactions
+                    .Select(transaction => _transactionManager.CreateTransaction(
+                        transaction.Sender,
+                        transaction.Receiver,
+                        transaction.Amount,
+                        transaction.Fee,
+                        transaction.Signature,
+                        transaction.Data,
+                        transaction.PublicKey)));
+
                 
                 Response response = _serverResponseService.GetResponse(true, "Transaction Created");
                 
@@ -40,12 +53,34 @@ namespace BlockchainLib
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.Log($"{e}", LogLevel.Error, Source.Blockchain);
                 throw;
             }
         }
 
-        public async Task<Response> GetTransactions(TerProtocol<TransactionRequest> request)
+        public async Task<Response> GetTransaction(TerProtocol<DataRequest<string>> request)
+        {
+            try
+            {
+                
+                List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
+                List<BlockModel> blocks = models.Cast<BlockModel>().ToList();
+         
+                var transaction = blocks
+                    .SelectMany(block => _blockManager.GetTransactionsFromBlock(block))
+                    .FirstOrDefault(t => t.Id == request.Payload.Data.Value);
+            
+                return transaction != null
+                    ? _serverResponseService.GetResponse(true, "Transaction was found", transaction)
+                    : _serverResponseService.GetResponse(false, "Transaction wasn't found", null);
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Error: {e.Message}", LogLevel.Error, Source.API);
+                throw;
+            }
+        }
+        public async Task<Response> GetTransactions(TerProtocol<DataRequest<string>> request)
         {
             throw new NotImplementedException();
         }

@@ -5,6 +5,7 @@ using RRLib.Requests.NetRequests;
 using RRLib.Responses;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
+using Ter_Protocol_Lib;
 using Utilities;
 
 namespace SecurityLib.Authentication;
@@ -23,7 +24,7 @@ public class KeyExchangeHandler
         _serverResponseService = new ServerResponseService(); 
     }
 
-    public async Task<Response> EstablishSessionWithNodeAsync(Request request)
+    public async Task<Response> EstablishSessionWithNodeAsync(TerProtocol<KeyRequest> request)
     {
         // Validate the input request
         if (request == null)
@@ -40,19 +41,18 @@ public class KeyExchangeHandler
             byte[] sessionKey = await Task.Run(() => _secureConnectionManager.GenerateSessionKey());
 
             // Cast request to KeyExchangeRequest to extract public key
-            KeyExchangeRequest keyExchangeRequest = request as KeyExchangeRequest;
-            if (keyExchangeRequest == null)
+            if (request == null)
             {
                 Logger.Log("Invalid request type for key exchange.", LogLevel.Error, Source.Secure);
                 throw new ArgumentException("Invalid request type for key exchange.");
             }
 
             // Extract and convert public key
-            ConnectionKey publicKey = keyExchangeRequest.GetPublicKey();
+            string publicKey = request.Payload.Data.Key;
             RSAParameters recipientPublicKey;
             try
             {
-                recipientPublicKey = SecureConnectionManager.ConvertFromBase64ToRSAParameters(publicKey.Key);
+                recipientPublicKey = SecureConnectionManager.ConvertFromBase64ToRSAParameters(publicKey);
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ public class KeyExchangeHandler
             // Store the encrypted session key in Redis
             try
             {
-                await _redisService.SetStringAsync(request.SenderId, Convert.ToBase64String(encryptedSessionKey));
+                await _redisService.SetStringAsync(request.Header.SenderId, Convert.ToBase64String(encryptedSessionKey));
                 Logger.Log($"New session key added to Redis successfully. {encryptedSessionKey.Length} bytes", LogLevel.Information, Source.Secure);
             }
             catch (Exception ex)

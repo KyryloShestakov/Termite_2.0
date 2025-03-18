@@ -40,16 +40,9 @@ namespace DataLib.DB.SqlLite.Services.NetServices
 
         public async Task<List<IModel>> GetAll()
         {
-            List<PeerInfoModel> models = await _context.PeersInfo.ToListAsync();
-            
-            List<IModel> list = new List<IModel>();
-            foreach (var model in models)
-            {
-                var modelInfo = model as IModel;
-                list.Add(modelInfo);
-            }
-            return list;
+            return await _context.PeersInfo.Cast<IModel>().ToListAsync();
         }
+
 
         public async Task<bool> Delete(string id)
         {

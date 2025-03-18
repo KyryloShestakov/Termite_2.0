@@ -22,7 +22,6 @@ public class RequestHandlerFactory
         {
             // Mapping request types to their corresponding handler instances
             { TerMessageType.KeyExchange, new AuthRequestHandler() },
-            { TerMessageType.KnownPeers, new KnownPeerRequestHandler() },
             { TerMessageType.Transaction, new TransactionRequestHandler() },
             { TerMessageType.Block, new BlockRequestHandler() },
             { TerMessageType.PeerInfo, new PeerInfoHandler() }

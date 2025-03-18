@@ -1,5 +1,6 @@
 using RRLib;
 using RRLib.Responses;
+using Ter_Protocol_Lib;
 using Utilities;
 
 namespace SecurityLib.Authentication;
@@ -17,7 +18,7 @@ public class AuthService
     // KeyExchange method calls the key exchange logic from the KeyExchangeHandler.
     // It passes the request and returns the response received from the handler.
     // In case of an error, it catches exceptions and returns an empty response.
-    public async Task<Response> KeyExchange(Request request)
+    public async Task<Response> KeyExchange(TerProtocol<KeyRequest> request)
     {
         try
         {

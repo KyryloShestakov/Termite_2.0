@@ -28,13 +28,13 @@ namespace Server.Controllers.Handlers.BlockchainHandlers
         {
 
             TerProtocol<TransactionRequest> transactionRequest = request.Payload.Data as TerProtocol<TransactionRequest>;
-           
+            TerProtocol<DataRequest<string>> dataRequest = request.Payload.Data as TerProtocol<DataRequest<string>>;
             // Switch based on the HTTP method to call the appropriate service method
             switch (request.Header.MethodType)
             {
                 case MethodType.Get:
                     // Handle the GET request by retrieving the transactions
-                    return await _transactionService.GetTransactions(transactionRequest);
+                    return await _transactionService.GetTransaction(dataRequest);
 
                 case MethodType.Post:
                     // Handle the POST request by posting a new transaction
@@ -47,7 +47,8 @@ namespace Server.Controllers.Handlers.BlockchainHandlers
                 case MethodType.Delete:
                     // Handle the DELETE request by deleting a specified transaction
                     return await _transactionService.DeleteTransactions(transactionRequest);
-
+                case MethodType.GetAll:
+                    return await _transactionService.GetTransactions(dataRequest);
                 // If an unknown HTTP method is received, return an error response
                 default:
                     // Default response for unsupported methods
