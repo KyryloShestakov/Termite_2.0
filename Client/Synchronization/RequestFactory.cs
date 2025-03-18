@@ -1,20 +1,13 @@
-using System.Net.Sockets;
-using System.Text.Json;
 using CommonRequestsLibrary.Requests;
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib;
 using ModelsLib.BlockchainLib;
 using ModelsLib.NetworkModels;
-using Newtonsoft.Json;
-using RRLib;
-using RRLib.Requests.BlockchainRequests;
-using RRLib.Requests.NetRequests;
 using SecurityLib.Security;
-using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
-using StorageLib.DB.SqlLite.Services;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
+using Ter_Protocol_Lib;
 using Utilities;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -29,42 +22,6 @@ public class RequestFactory
        _dbProcessor = dbProcessor;
     }
 
-    public async Task CreateMyPeerInfoRequest(RequestPool _requestPool, IModel peer)
-    {
-        try
-        {
-            IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
-            MyPrivatePeerInfoModel peerInfoModel = model as MyPrivatePeerInfoModel;
-            
-            PeerInfoModel knownPeer = peer as PeerInfoModel;
-            
-            var peerInfoRequest = new PeerInfoRequest
-            {
-                RecipientId = knownPeer.NodeId,
-                ProtocolVersion = "1.0",
-                Route = new List<string> { "node1", "node2", "node3" },
-                Ttl = 10,
-                SenderId = peerInfoModel.NodeId,
-                PayLoad = new PayLoad
-                {
-                    PayloadObject = new Dictionary<string, object>()
-                },
-                RequestGroup = "Net",
-                Method = "POST"
-            };
-            
-            peerInfoRequest.PayLoad.PayloadObject.Add("PeerInfo", peerInfoModel);
-            
-            Logger.Log("Created Peer Info Request", LogLevel.Information, Source.Client);
-            _requestPool.AddRequest(peerInfoRequest);
-        }
-        catch (Exception ex)
-        {
-            Logger.Log($"Error creating Peer Info Request: {ex.Message}", LogLevel.Error, Source.Client);
-            throw;
-        }
-    }
-
     public async Task CreateKeyExchageRequest(RequestPool _requestPool, IModel peer)
     {
         try
@@ -72,32 +29,18 @@ public class RequestFactory
             SecureConnectionManager secureConnectionManager = new SecureConnectionManager();
             byte[] publickey = secureConnectionManager.GetPublicKeyBytes();
             string publicKey = System.Convert.ToBase64String(publickey);
-            ConnectionKey connectionKey = new ConnectionKey { Key = publicKey };
             
             IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
             MyPrivatePeerInfoModel peerInfoModel = model as MyPrivatePeerInfoModel;
 
             PeerInfoModel knownPeer = peer as PeerInfoModel;
-            var keyExchangeRequest = new KeyExchangeRequest()
-            {
-                RecipientId = knownPeer.NodeId,
-                ProtocolVersion = "1.0",
-                Route = new List<string> { "node1", "node2", "node3" },
-                Ttl = 10,
-                SenderId = peerInfoModel.NodeId,
-                PayLoad = new PayLoad
-                {
-                    PayloadObject = new Dictionary<string, object>
-                    {
-                        { "PublicKey", connectionKey }
-                    }
-                },
-                RequestGroup = "Net",
-                Method = "POST"
-            };
+            
+            KeyRequest keyRequest = new KeyRequest(publicKey);
+            TerProtocol<object> terKeyExchangeRequest = new TerProtocol<object>(
+                new TerHeader(TerMessageType.KeyExchange, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(keyRequest));
             
             Logger.Log("Created keyExchange Request", LogLevel.Information, Source.Client);
-            _requestPool.AddRequest(keyExchangeRequest);
+            _requestPool.AddRequest(terKeyExchangeRequest);
         }
         catch (Exception e)
         {
@@ -121,12 +64,7 @@ public class RequestFactory
             
             MyPrivatePeerInfoModel peerInfoModel = myInfo as MyPrivatePeerInfoModel;
             
-            if (transactions == null || transactions.Count == 0)
-            {
-                _requestPool.AddRequest(new EmptyRequest("Empty"));
-            }
-            else
-            {
+            
                 var TypeOfTransaction = "Unconfirmed";
                 foreach (var transaction in transactions)
                 {
@@ -137,25 +75,15 @@ public class RequestFactory
                 {
                     Logger.Log("No transactions found in SqlLite", LogLevel.Warning, Source.Client);
                 }
-
-                var transactionRequest = new TransactionRequest
-                {
-                    RecipientId = knownPeer.NodeId,
-                    ProtocolVersion = "2.0",
-                    Route = new List<string> { "node1", "node2", "node3" },
-                    Ttl = 10,
-                    SenderId = peerInfoModel.NodeId,
-                    RequestGroup = "Blockchain",
-                    Method = "POST",
-                    PayLoad = new PayLoad
-                    {
-                        Transactions = transactions
-                    }
-                };
+                
+                TransactionRequest transactionRequestData = new TransactionRequest();
+                transactionRequestData.Transactions = transactions;
             
+                TerProtocol<object> terTransactionsRequest = new TerProtocol<object>(
+                    new TerHeader(TerMessageType.Transaction, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(transactionRequestData));
                 Logger.Log("Created Transaction Request", LogLevel.Information, Source.Client);
-                _requestPool.AddRequest(transactionRequest);
-            }
+                _requestPool.AddRequest(terTransactionsRequest);
+            
            
         }
         catch (Exception ex)
@@ -195,25 +123,16 @@ public class RequestFactory
                 block.TransactionsModel = JsonSerializer.Deserialize<List<TransactionModel>>(block.Transactions);
                 block.Transactions = "";
             }
-
             
-            var blockRequest = new BlockRequest()
-            {
-                RecipientId = knownPeer.NodeId,
-                ProtocolVersion = "2.0",
-                Route = new List<string> { "node1", "node2", "node3" },
-                Ttl = 10,
-                SenderId = peerInfoModel.NodeId,
-                RequestGroup = "Blockchain",
-                Method = "POST",
-                PayLoad = new PayLoad
-                {
-                    Blocks = blockModels
-                }
-            };
+            
+            BlockRequest blockRequestData = new BlockRequest();
+            blockRequestData.Blocks = blockModels;
+            
+            TerProtocol<object> terBlockRequest = new TerProtocol<object>(
+                new TerHeader(), new TerPayload<object>(blockRequestData));
             
             Logger.Log("Created block Request", LogLevel.Information, Source.Client);
-            _requestPool.AddRequest(blockRequest);
+            _requestPool.AddRequest(terBlockRequest);
             
         }
         catch (Exception e)
@@ -223,7 +142,7 @@ public class RequestFactory
         }
     }
 
-    public async Task CreateKnownPeersRequest(RequestPool requestPool, IModel peer)
+    public async Task CreatePeerInfoRequest(RequestPool requestPool, IModel peer)
     {
         try
         {
@@ -233,6 +152,19 @@ public class RequestFactory
             
             List<PeerInfoModel> knownPeers = models.Cast<PeerInfoModel>().ToList();
             MyPrivatePeerInfoModel peerInfoModel = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
+
+            var myInfo = new PeerInfoModel
+            {
+                NodeId = peerInfoModel.NodeId,
+                IpAddress = peerInfoModel.IpAddress,
+                LastSeen = peerInfoModel.LastSeen,
+                NodeType = peerInfoModel.NodeType,
+                Port = peerInfoModel.Port,
+                SoftwareVersion = peerInfoModel.SoftwareVersion,
+                Status = peerInfoModel.Status,
+            };
+            knownPeers.Add(myInfo);
+            
             if (peerInfoModel == null)
             {
                 Logger.Log("Error: peerInfoModel is null", LogLevel.Error, Source.Client);
@@ -245,22 +177,11 @@ public class RequestFactory
                 return;
             }
 
-            var knownPeersRequest = new PeerInfoRequest()
-            {
-                RecipientId = knownPeer.NodeId,
-                ProtocolVersion = "2.0",
-                Route = new List<string> { "node1", "node2", "node3" },
-                Ttl = 10,
-                SenderId = peerInfoModel.NodeId,
-                RequestGroup = "Net",
-                Method = "POST",
-                PayLoad = new PayLoad
-                {
-                    KnownPeers = knownPeers
-                }
-            };
+            TerProtocol<object> terPeerInfoRequest = new TerProtocol<object>(
+                new TerHeader(TerMessageType.PeerInfo,knownPeer.NodeId,MethodType.Post), new TerPayload<object>(knownPeers));
+            
             Logger.Log("Created known peers Request", LogLevel.Information, Source.Client);
-            requestPool.AddRequest(knownPeersRequest);
+            requestPool.AddRequest(terPeerInfoRequest);
         }
         catch (Exception e)
         {

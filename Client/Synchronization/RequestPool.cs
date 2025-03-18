@@ -1,5 +1,5 @@
 using System.Collections.Concurrent;
-using RRLib;
+using Ter_Protocol_Lib;
 using Utilities;
 
 namespace Client;
@@ -7,20 +7,20 @@ namespace Client;
 public class RequestPool
 {
     // Потокобезопасная коллекция для хранения запросов
-    private readonly ConcurrentQueue<Request> _requests;
+    private readonly ConcurrentQueue<TerProtocol<object>> _requests;
 
     public RequestPool()
     {
-        _requests = new ConcurrentQueue<Request>();
+        _requests = new ConcurrentQueue<TerProtocol<object>>();
     }
 
     /// <summary>ц
     /// Добавляет запрос в пул
     /// </summary>
     /// <param name="request">Запрос для добавления</param>
-    public void AddRequest(Request request)
+    public void AddRequest(TerProtocol<object> request)
     {
-        if (request.RequestType == "Empty")
+        if (request.Header.MessageType == TerMessageType.Empty)
         {
             Logger.Log("Request is null", LogLevel.Warning, Source.Client);
         }
@@ -36,11 +36,11 @@ public class RequestPool
     /// Получает и удаляет следующий запрос из пула
     /// </summary>
     /// <returns>Следующий запрос, если он есть; null, если пусто</returns>
-    public Request? GetNextRequest()
+    public TerProtocol<object>? GetNextRequest()
     {
         if (_requests.TryDequeue(out var request)) // Удаляет запрос из очереди, если он есть
         {
-            Logger.Log($"Request dequeued: {request.Method}. Remaining requests: {_requests.Count}", LogLevel.Information, Source.Client);
+            Logger.Log($"Request dequeued: {request.Header.MethodType}. Remaining requests: {_requests.Count}", LogLevel.Information, Source.Client);
             return request;
         }
         else
@@ -59,7 +59,7 @@ public class RequestPool
     /// Получает все запросы в виде списка без удаления
     /// </summary>
     /// <returns>Список запросов</returns>
-    public List<Request> GetAllRequests()
+    public List<TerProtocol<object>> GetAllRequests()
     {
         return _requests.ToList();
     }

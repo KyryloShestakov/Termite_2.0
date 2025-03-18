@@ -1,12 +1,9 @@
-using System.Linq;
 using System.Net.Sockets;
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
 using EnumsLib;
 using ModelsLib;
 using ModelsLib.NetworkModels;
-using PeerLib.Services;
-using StorageLib.DB.SqlLite.Services;
 using StorageLib.DB.SqlLite;
 using Utilities;
 
@@ -27,7 +24,7 @@ public class ConnectionManager
     }
 
     /// <summary>
-    /// Асинхронно инициализирует список известных узлов.
+    /// Asynchronously initializes the list of known nodes.
     /// </summary>
     public async Task InitializePeersAsync()
     {
@@ -42,9 +39,7 @@ public class ConnectionManager
         Logger.Log($"Loaded {_peers.Count} peers from database.", LogLevel.Information, Source.Client);
     }
 
-    /// <summary>
-    /// Возвращает список известных узлов.
-    /// </summary>
+    
     public List<PeerInfoModel> GetPeersList()
     {
         lock (_peers)
@@ -52,10 +47,7 @@ public class ConnectionManager
             return new List<PeerInfoModel>(_peers);
         }
     }
-
-    /// <summary>
-    /// Возвращает список активных узлов.
-    /// </summary>
+    
     public List<PeerInfoModel> GetActivePeersList()
     {
         lock (_peers)
@@ -79,9 +71,7 @@ public class ConnectionManager
         }
     }
 
-    /// <summary>
-    /// Обновляет статус узла.
-    /// </summary>
+    
     public void UpdatePeerStatus(string address, NodeStatus newStatus)
     {
         lock (_peers)
@@ -99,9 +89,7 @@ public class ConnectionManager
         }
     }
 
-    /// <summary>
-    /// Проверяет и возвращает список свободных узлов для подключения.
-    /// </summary>
+   
     public List<PeerInfoModel> GetAvailablePeersForConnection(int maxConnectionsPerPeer)
     {
         lock (_peers)
@@ -116,9 +104,7 @@ public class ConnectionManager
         }
     }
 
-    /// <summary>
-    /// Логирует список всех известных узлов.
-    /// </summary>
+    
     public void LogPeers()
     {
         lock (_peers)

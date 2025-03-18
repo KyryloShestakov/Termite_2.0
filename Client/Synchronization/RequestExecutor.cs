@@ -1,15 +1,15 @@
 using System.Net.Sockets;
-using Client.Synchronization;
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib.NetworkModels;
-using RRLib;
-using RRLib.Requests.BlockchainRequests;
+using Newtonsoft.Json;
 using RRLib.Requests.NetRequests;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
+using Ter_Protocol_Lib;
 using Utilities;
+using PeerInfoRequest = Ter_Protocol_Lib.PeerInfoRequest;
 
 namespace Client;
 
@@ -57,46 +57,43 @@ public class RequestExecutor
         }
     }
 
-    private async Task HandleRequest(TcpClient tcpClient, NetworkStream networkStream, Request request)
+    private async Task HandleRequest(TcpClient tcpClient, NetworkStream networkStream, TerProtocol<object> request)
     {
 
-        switch (request.RequestType)
+        switch (request.Header.MessageType)
         {
-            case "PeerInfo":
-                PeerInfoRequest peerInfoRequest = request as PeerInfoRequest;
-                string peerInfoRequestJson = peerInfoRequest.Serialize();
-                string peerInfoEncrypted = await EncryptRequest(peerInfoRequest);
-                await _requestHandler.SendRequestAsync(tcpClient, peerInfoEncrypted, networkStream);
+            case TerMessageType.PeerInfo:
+                string peerInfoEncrypted = await EncryptRequest(request);
+                request.Payload.Data = peerInfoEncrypted;
+                string jsonPeer = request.Serialize();
+                await _requestHandler.SendRequestAsync(tcpClient,jsonPeer, networkStream);
                 await _responseHandler.ReceiveResponse(tcpClient);
                 break;
-            case "KeyExchange":
-                KeyExchangeRequest keyExchangeRequest = request as KeyExchangeRequest;
-                string keyExchangeRequestJson = keyExchangeRequest.Serialize();
-                await _requestHandler.SendRequestAsync(tcpClient, keyExchangeRequestJson, networkStream);
+            case TerMessageType.KeyExchange:
+                string keyExchangeEncrypted = await EncryptRequest(request);
+                request.Payload.Data = keyExchangeEncrypted;
+                string jsonKey = request.Serialize();
+                await _requestHandler.SendRequestAsync(tcpClient, jsonKey, networkStream);
                 await _responseHandler.ReceiveResponse(tcpClient);
                 break;
-            case "KnownPeers":
-                KnownPeersRequest knownPeersRequest = request as KnownPeersRequest;
-                string knownPeersRequestJson = await EncryptRequest(knownPeersRequest);
-                await _requestHandler.SendRequestAsync(tcpClient, knownPeersRequestJson, networkStream);
+            case TerMessageType.Block:
+                string blockRequestJsonEncrypted = await EncryptRequest(request);
+                request.Payload.Data = blockRequestJsonEncrypted;
+                string jsonBlock = request.Serialize();
+                await _requestHandler.SendRequestAsync(tcpClient, jsonBlock, networkStream);
                 await _responseHandler.ReceiveResponse(tcpClient);
                 break;
-            case "Block":
-                BlockRequest blockRequest = request as BlockRequest;
-                string blockRequestJsonEncrypted = await EncryptRequest(blockRequest);
-                await _requestHandler.SendRequestAsync(tcpClient, blockRequestJsonEncrypted, networkStream);
-                await _responseHandler.ReceiveResponse(tcpClient);
-                break;
-            case "Transaction":
-                TransactionRequest transactionRequest = request as TransactionRequest;
-                string transactionRequestEncrypted = await EncryptRequest(transactionRequest);
-                await _requestHandler.SendRequestAsync(tcpClient, transactionRequestEncrypted, networkStream);
+            case TerMessageType.Transaction:
+                string transactionRequestEncrypted = await EncryptRequest(request);
+                request.Payload.Data = transactionRequestEncrypted;
+                string jsonTransaction = request.Serialize();
+                await _requestHandler.SendRequestAsync(tcpClient, jsonTransaction, networkStream);
                 await _responseHandler.ReceiveResponse(tcpClient);
                 break;
         }
     }
     
-    private static async Task<string> EncryptRequest(Request request)
+    private static async Task<string> EncryptRequest(TerProtocol<object> request)
     {
         SecureConnectionManager _secureConnectionManager = new SecureConnectionManager();
         try
@@ -113,22 +110,19 @@ public class RequestExecutor
             {
                 byte[] sessionkey = _secureConnectionManager.GenerateSessionKey();   
             }
-            byte[] sessionkeybytes = Convert.FromBase64String(sessionkeystr);
-            if (sessionkeybytes.Length > 32)
+            byte[] sessionKeyBytes = Convert.FromBase64String(sessionkeystr);
+            if (sessionKeyBytes.Length > 32)
             {
-                Array.Resize(ref sessionkeybytes, 32); 
+                Array.Resize(ref sessionKeyBytes, 32); 
             }
            
-            byte[] encryptedMessage = _secureConnectionManager.EncryptMessage(request.PayLoad.Serialize(), sessionkeybytes); 
-            request.PayLoad.EncryptedPayload = encryptedMessage;
+            string serializedTransactions = JsonConvert.SerializeObject(request.Payload);
+            byte[] encryptedMessage = _secureConnectionManager.EncryptMessage(serializedTransactions, sessionKeyBytes);
+            string encryptedMessageBase64 = Convert.ToBase64String(encryptedMessage);
            
             Logger.Log($"Encrypted message: {Convert.ToBase64String(encryptedMessage)}", LogLevel.Information, Source.Client);
-            request.PayLoad.Transactions = null;
-            request.PayLoad.Blocks = null;
             
-            string jsonRequest = request.Serialize();
-           
-           return jsonRequest;
+            return encryptedMessageBase64;
         }
         catch (Exception e)
         {

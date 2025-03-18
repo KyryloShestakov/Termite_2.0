@@ -12,4 +12,5 @@ public enum TerMessageType
     KeyExchange = 0x08,
     KnownPeers = 0x09,
     PeerInfo = 0x0a,
+    Empty = 0x0b,
 }
