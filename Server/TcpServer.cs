@@ -3,11 +3,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using ModelsLib.BlockchainLib;
 using RRLib;
 using RRLib.Responses;
 using Server.Controllers;
 using Server.Requests;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 public class TcpServer
@@ -109,10 +110,18 @@ public class TcpServer
                 Logger.Log("Invalid request received.", LogLevel.Warning, Source.Server);
                 return null;
             }
-            var decryptRequest = await _requestManager.DecryptRequest(terRequest);
+            
+            string decryptRequest = await _requestManager.DecryptRequest(terRequest.Payload);
+            var obj = RequestSerializer.DeserializeData(terRequest.Header.MessageType, decryptRequest);
+
             Logger.Log($"Received request of type: {terRequest.Header.MessageType}", LogLevel.Information, Source.Server);
             
-            return await _controller.HandleRequestAsync(decryptRequest);
+            
+            TerProtocol<object> terProtocol =
+                new TerProtocol<object>(terRequest.Header, new TerPayload<object>(obj));
+            
+            Response response = await _controller.HandleRequestAsync(terProtocol);
+            return response;
         }
         catch (Exception ex)
         {
@@ -126,8 +135,8 @@ public class TcpServer
         while (!_cancellationTokenSource.Token.IsCancellationRequested)
         {
             while (_requestQueue.TryDequeue(out var request))
-            {
-                await ProcessRequestAsync(request);
+            { 
+                //await ProcessRequestAsync(request);
             }
             await Task.Delay(100);
         }

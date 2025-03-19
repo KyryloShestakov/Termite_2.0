@@ -14,7 +14,7 @@ public class TransactionModel : IModel
     public string Signature { get; set; }
     public string? BlockId { get; set; } = null;
     [NotMapped]
-    public Object? Data { get; set; } = null;
+    public object? Data { get; set; } = null;
     [NotMapped]
     public SmartContractModel? Contract { get; set; } = null;
 

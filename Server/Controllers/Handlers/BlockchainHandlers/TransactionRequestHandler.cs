@@ -3,11 +3,13 @@
 // and interacts with the TransactionService to perform the appropriate action.
 // If an unsupported method is received, it returns an error response indicating "Unknown Method."
 
-using BlockchainLib; // Blockchain library that may handle blockchain-related operations
+using BlockchainLib;
+using ModelsLib.BlockchainLib; // Blockchain library that may handle blockchain-related operations
 using PeerLib.Services; // Peer service library for handling peer-to-peer communication and transactions
 using RRLib; // Library for handling response-related operations
 using RRLib.Responses;
-using Ter_Protocol_Lib; // Responses for server communication
+using Ter_Protocol_Lib.Requests;
+using Utilities; // Responses for server communication
 
 namespace Server.Controllers.Handlers.BlockchainHandlers
 {
@@ -24,37 +26,38 @@ namespace Server.Controllers.Handlers.BlockchainHandlers
         }
 
         // Asynchronous method that processes the incoming request based on the HTTP method
-        public async Task<Response> HandleRequestAsync(TerProtocol<IRequest> request)
+        public async Task<Response> HandleRequestAsync(TerProtocol<object> request)
         {
-
-            TerProtocol<TransactionRequest> transactionRequest = request.Payload.Data as TerProtocol<TransactionRequest>;
-            TerProtocol<DataRequest<string>> dataRequest = request.Payload.Data as TerProtocol<DataRequest<string>>;
-            // Switch based on the HTTP method to call the appropriate service method
-            switch (request.Header.MethodType)
-            {
-                case MethodType.Get:
-                    // Handle the GET request by retrieving the transactions
-                    return await _transactionService.GetTransaction(dataRequest);
-
-                case MethodType.Post:
-                    // Handle the POST request by posting a new transaction
-                    return await _transactionService.PostTransactions(transactionRequest);
-
-                case MethodType.Update:
-                    // Handle the UPDATE request by updating an existing transaction
-                    return await _transactionService.UpdateTransactions(transactionRequest);
-
-                case MethodType.Delete:
-                    // Handle the DELETE request by deleting a specified transaction
-                    return await _transactionService.DeleteTransactions(transactionRequest);
-                case MethodType.GetAll:
-                    return await _transactionService.GetTransactions(dataRequest);
-                // If an unknown HTTP method is received, return an error response
-                default:
-                    // Default response for unsupported methods
-                    var response = new ServerResponseService().GetResponse(false, "Unknown Method.");
-                    return response;
-            }
+            string json = request.Payload.Serialize();
+            var obj = RequestSerializer.DeserializeData(request.Header.MessageType,json);
+            
+            TransactionRequest txRequest = (TransactionRequest)obj;
+            
+            Logger.Log($"{txRequest.Transactions.Count.ToString()}", LogLevel.Warning, Source.Server);
+            
+                switch (obj)
+                {
+                    case TransactionRequest transaction:
+                        TerProtocol<object> terProtocol = new TerProtocol<object>(request.Header, new TerPayload<object>(txRequest));
+                        switch (request.Header.MethodType)
+                        {
+                            case MethodType.Post:
+                                Response transactionResponse = await _transactionService.PostTransactions(terProtocol);
+                                return transactionResponse;
+                                break;
+                               
+                                    
+                            default:
+                                Logger.Log("Unknown command.", LogLevel.Warning, Source.Server);
+                                break;
+                                }
+                        break;
+                    
+                    default:
+                        Console.WriteLine("Unsupported request type.");
+                        break;
+                }
+                return new ServerResponseService().GetResponse(true, "Request processed successfully.");
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace Ter_Protocol_Lib;
+namespace Ter_Protocol_Lib.Requests;
 
 public class DataRequest<T> : IRequest
 {

@@ -5,7 +5,7 @@ using ModelsLib.NetworkModels;
 using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 namespace PeerLib.Services;

@@ -1,7 +1,7 @@
 using RRLib;
 using Server.Controllers.Handlers.BlockchainHandlers;
 using Server.Controllers.Handlers.NetHandlers;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 
 namespace Server.Controllers.Handlers;
 

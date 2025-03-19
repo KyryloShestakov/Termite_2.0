@@ -7,9 +7,9 @@ using RRLib.Requests.NetRequests;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
-using PeerInfoRequest = Ter_Protocol_Lib.PeerInfoRequest;
+using PeerInfoRequest = Ter_Protocol_Lib.Requests.PeerInfoRequest;
 
 namespace Client;
 

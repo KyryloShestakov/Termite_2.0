@@ -18,11 +18,11 @@ namespace BlockchainLib
         public DateTime Timestamp { get; set; }
         public decimal Fee { get; set; }
         public string Signature { get; set; }
-        public Object? Data { get; set; } = null;
+        public object? Data { get; set; } = null;
         public SmartContract? Contract { get; set; } = null;
         public string PublicKey { get; set; }
 
-        public Transaction(string sender, string receiver, decimal amount, decimal fee, string signature, Object data, string publicKey)
+        public Transaction(string sender, string receiver, decimal amount, decimal fee, string signature, object data, string publicKey)
         {
             Id = Guid.NewGuid().ToString();
             Sender = sender;

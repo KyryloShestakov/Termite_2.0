@@ -1,5 +1,5 @@
 using System.Collections.Concurrent;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 namespace Client;

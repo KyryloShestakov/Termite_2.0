@@ -1,7 +1,7 @@
 ﻿using System.Text.Json; // Import System.Text.Json for JSON serialization and deserialization
 using Utilities; // Import custom utilities, likely containing logging functionality
 
-namespace Ter_Protocol_Lib; // Defines the namespace for organizing code in the Ter_Protocol_Lib library
+namespace Ter_Protocol_Lib.Requests; // Defines the namespace for organizing code in the Ter_Protocol_Lib library
 
 /// <summary>
 /// The TerProtocol<T> class represents a protocol message consisting of a header and a payload.
@@ -30,6 +30,10 @@ public class TerProtocol<T>
     {
         Header = header ?? throw new ArgumentNullException(nameof(header));
         Payload = payload ?? throw new ArgumentNullException(nameof(payload));
+    }
+
+    public TerProtocol()
+    {
     }
 
     /// <summary>

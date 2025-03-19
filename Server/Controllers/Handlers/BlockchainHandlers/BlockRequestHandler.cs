@@ -2,7 +2,8 @@ using BlockchainLib;
 using BlockchainLib.Blocks;
 using RRLib;
 using RRLib.Responses;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
+using Utilities;
 
 namespace Server.Controllers.Handlers.BlockchainHandlers;
 
@@ -15,32 +16,34 @@ public class BlockRequestHandler : IRequestHandler
         _blockService = new BlockService();
     }
 
-    public async Task<Response> HandleRequestAsync(TerProtocol<IRequest> request)
+    public async Task<Response> HandleRequestAsync(TerProtocol<object> request)
     {
         
-        TerProtocol<DataRequest<string>> blockRequest1 = request.Payload.Data as TerProtocol<DataRequest<string>>;
+        string json = request.Payload.Serialize();
+        var obj = RequestSerializer.DeserializeData(request.Header.MessageType,json);
+            
+        BlockRequest bRequest = (BlockRequest)obj;
         
-       
-        TerProtocol<BlockRequest> blockRequest = request.Payload.Data as TerProtocol<BlockRequest>;
-
-        TerProtocol<DataRequest<string>> blockSimpleRequest = request.Payload.Data as TerProtocol<DataRequest<string>>;
-
-        
-        switch (blockRequest.Header.MethodType)
+        switch (obj)
         {
-            case MethodType.Get:
-                return await _blockService.GetBlocks(blockRequest);
-            case MethodType.GetById:
-                return await _blockService.GetBlockById(blockSimpleRequest);
-            case MethodType.Post:
-                return await _blockService.PostBlocks(blockRequest);
-            case MethodType.Update:
-                return await _blockService.UpdateBlocks(blockRequest);
-            case MethodType.Delete:
-                return await _blockService.DeleteBlock(blockRequest);
+            case BlockRequest blockRequest:
+                TerProtocol<object> terProtocol = new TerProtocol<object>(request.Header, new TerPayload<object>(bRequest));
+                switch (request.Header.MethodType)
+                {
+                    case MethodType.Post:
+                        await _blockService.PostBlocks(terProtocol);
+                        break;
+                                    
+                    default:
+                        Logger.Log("Unknown command.", LogLevel.Warning, Source.Server);
+                        break;
+                }
+                break;
+                    
             default:
-                var response = new ServerResponseService().GetResponse(false, "Unknown Method.");
-                return response;
+                Console.WriteLine("Unsupported request type.");
+                break;
         }
+        return new Response();
     }
 }

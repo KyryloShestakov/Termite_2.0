@@ -5,7 +5,7 @@ using RRLib.Requests.NetRequests;
 using RRLib.Responses;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 namespace SecurityLib.Authentication;

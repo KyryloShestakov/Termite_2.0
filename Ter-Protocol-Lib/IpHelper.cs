@@ -3,7 +3,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using Utilities;
 
-namespace Ter_Protocol_Lib;
+namespace Ter_Protocol_Lib.Requests;
 
 public class IpHelper
 {

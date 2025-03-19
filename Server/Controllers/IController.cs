@@ -1,6 +1,6 @@
 using RRLib;
 using RRLib.Responses;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 
 namespace Server.Controllers
 {
@@ -15,6 +15,6 @@ namespace Server.Controllers
         /// </summary>
         /// <param name="request">The request object containing details of the request.</param>
         /// <returns>A task representing the asynchronous operation, with a Response as the result.</returns>
-        Task<Response> HandleRequestAsync(TerProtocol<IRequest> request);
+        Task<Response> HandleRequestAsync(TerProtocol<object> request);
     }
 }

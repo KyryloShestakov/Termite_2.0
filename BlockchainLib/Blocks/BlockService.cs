@@ -5,7 +5,7 @@ using ModelsLib.BlockchainLib;
 using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 namespace BlockchainLib.Blocks
@@ -31,27 +31,27 @@ namespace BlockchainLib.Blocks
         /// <summary>
         /// Adds a new block to the blockchain and database.
         /// </summary>
-        public async Task<Response> PostBlocks(TerProtocol<BlockRequest> request)
+        public async Task<Response> PostBlocks(TerProtocol<object> request)
         {
             if (request == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
+            
+            BlockRequest blockRequest = (BlockRequest)request.Payload.Data;
 
-            List<BlockModel> blockModel = request.Payload.Data.Blocks;
-
-            if (blockModel == null)
+            if (blockRequest == null)
                 return _serverResponseService.GetResponse(false, "Invalid block data.");
             
             try
             {
                 // Validate block
                 BlockchainModel blockchainModel = new BlockchainModel();
-                blockchainModel.Blocks = blockModel;
+                blockchainModel.Blocks = blockRequest.Blocks;
                 
                 IValidator validator = new BlockChainValidator();
                 Response isValid = await validator.Validate(blockchainModel);
                 if (isValid.Status != "Success") { return _serverResponseService.GetResponse(false, "Invalid block data."); }
                 
-                foreach (BlockModel block in blockModel)
+                foreach (BlockModel block in blockchainModel.Blocks)
                 {
                     bool existsInDb = await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Exists, new DbData(null, block.Id));
                     Logger.Log($"Block {block.Id} existed in bd", LogLevel.Warning, Source.Blockchain);

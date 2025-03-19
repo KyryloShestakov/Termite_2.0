@@ -5,7 +5,7 @@ using DataLib.DB.SqlLite.Services.NetServices; // Imports network-related databa
 using ModelsLib.NetworkModels; // Imports network-related models
 using StorageLib.DB.SqlLite; // Imports database storage services for SQLite
 
-namespace Ter_Protocol_Lib; // Defines the namespace for organizing the protocol-related classes
+namespace Ter_Protocol_Lib.Requests; // Defines the namespace for organizing the protocol-related classes
 
 /// <summary>
 /// Represents the header of a protocol message, containing metadata such as sender, recipient, and timestamps.

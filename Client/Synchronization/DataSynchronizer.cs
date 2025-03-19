@@ -37,9 +37,9 @@ public class DataSynchronizer
 
             //await _requestFactory.CreateKeyExchageRequest(_requestPool, peer);
             //await _requestFactory.CreateMyPeerInfoRequest(_requestPool, peer);
-            //await _requestFactory.CreateTransactionRequest(_requestPool, peer);
+            await _requestFactory.CreateTransactionRequest(_requestPool, peer);
             //await _requestFactory.CreateBlockRequest(_requestPool, peer);
-            await _requestFactory.CreatePeerInfoRequest(_requestPool, peer);
+            //await _requestFactory.CreatePeerInfoRequest(_requestPool, peer);
            
            await _requestExecutor.StartExecution(tcpClient, _requestPool);
            

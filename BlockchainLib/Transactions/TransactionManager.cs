@@ -33,7 +33,7 @@ namespace BlockchainLib
             decimal amount,
             decimal fee,
             string signature,
-            Object data,
+            object data,
             string pubKey)
         {
             // Validation of input parameters
@@ -74,6 +74,7 @@ namespace BlockchainLib
             // Transaction creation
             Transaction transaction = new Transaction(senderAddress, recipientAddress, amount, fee, signature, data, pubKey);
             string transactionType = data?.ToString();
+            
             switch (transactionType)
             {
                 case "Unconfirmed":
@@ -89,7 +90,7 @@ namespace BlockchainLib
                     {
                         Logger.Log($"Transaction {transaction.Id} was not created", LogLevel.Warning, Source.Blockchain);
                     }
-                   // Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,Source.Storage);
+                    Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,Source.Storage);
                     break;
 
                 case "Confirmed":

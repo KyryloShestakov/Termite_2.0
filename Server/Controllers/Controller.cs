@@ -1,7 +1,7 @@
 using RRLib;
 using RRLib.Responses;
 using Server.Controllers.Handlers;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 namespace Server.Controllers
@@ -28,7 +28,7 @@ namespace Server.Controllers
         /// </summary>
         /// <param name="request">The incoming request to be handled.</param>
         /// <returns>Returns a Response object, which indicates the result of processing the request.</returns>
-        public async Task<Response> HandleRequestAsync(TerProtocol<IRequest> request)
+        public async Task<Response> HandleRequestAsync(TerProtocol<object> request)
         {
             try
             {

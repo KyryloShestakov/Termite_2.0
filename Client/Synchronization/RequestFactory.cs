@@ -7,7 +7,7 @@ using ModelsLib.NetworkModels;
 using SecurityLib.Security;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -77,7 +77,7 @@ public class RequestFactory
                 }
                 
                 TransactionRequest transactionRequestData = new TransactionRequest();
-                transactionRequestData.Transactions = transactions;
+                transactionRequestData.Transactions = transactions.Take(2).ToList();
             
                 TerProtocol<object> terTransactionsRequest = new TerProtocol<object>(
                     new TerHeader(TerMessageType.Transaction, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(transactionRequestData));

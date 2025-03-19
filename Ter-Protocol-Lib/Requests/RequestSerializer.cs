@@ -1,7 +1,9 @@
 using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using Utilities;
 
-namespace Ter_Protocol_Lib;
+namespace Ter_Protocol_Lib.Requests;
 
 /// <summary>
 /// The RequestSerializer class handles dynamic deserialization of JSON data into objects based on message type.
@@ -48,14 +50,16 @@ public static class RequestSerializer
     /// <exception cref="InvalidOperationException">Thrown if the message type is unknown.</exception>
     public static object? DeserializeData(TerMessageType messageType, string payload)
     {
-        // Check if the message type exists in the dictionary
+        var node = JsonNode.Parse(payload);
+        var transactions = node["Data"];
+        
         if (RequestTypes.TryGetValue(messageType, out var requestType))
         {
-            // Deserialize the JSON payload into the appropriate object type
-            return JsonSerializer.Deserialize(payload, requestType);
+            object? obj = JsonSerializer.Deserialize(transactions, requestType);
+            return obj;
         }
-        
-        // If the message type is unknown, throw an exception
+
         throw new InvalidOperationException($"Unknown request type: {messageType}");
     }
+
 }

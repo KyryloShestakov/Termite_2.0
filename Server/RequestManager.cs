@@ -1,13 +1,14 @@
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib.NetworkModels;
+using Newtonsoft.Json.Linq;
 using RRLib.Requests.BlockchainRequests;
 using SecurityLib.Security;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
-using Ter_Protocol_Lib;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
-using TransactionRequest = Ter_Protocol_Lib.TransactionRequest;
+using TransactionRequest = Ter_Protocol_Lib.Requests.TransactionRequest;
 
 namespace Server.Controllers;
 
@@ -24,17 +25,10 @@ public class RequestManager
         _secureConnectionManager = new SecureConnectionManager();
     }
 
-    public async Task<TerProtocol<IRequest>> DecryptRequest(TerProtocol<string> terProtocol)
+    public async Task<string> DecryptRequest(TerPayload<string> terProtocol)
     {
-        
-
         try
         {
-            if (terProtocol?.Payload?.Data == null)
-            {
-                throw new ArgumentNullException(nameof(terProtocol.Payload), "Payload is null or empty.");
-            }
-            
             var myInfo = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(
                 new MyPrivatePeerInfoService(new AppDbContext()), 
                 CommandType.Get, 
@@ -61,21 +55,15 @@ public class RequestManager
             }
            
             
-            byte[] encryptedData = Convert.FromBase64String(terProtocol.Payload.Data);
+            byte[] encryptedData = Convert.FromBase64String(terProtocol.Data);
             
             string decryptedPayload = _secureConnectionManager.DecryptMessage(encryptedData, sessionKeyBytes);
 
             Logger.Log("Decryption successful", LogLevel.Information, Source.Server);
             
-            var obj = RequestSerializer.DeserializeData(terProtocol.Header.MessageType, decryptedPayload);
-                
-            return obj switch
-            {
-                TransactionRequest transaction => new TerProtocol<IRequest>(terProtocol.Header, new TerPayload<IRequest>(transaction)),
-                
-                _ => throw new InvalidOperationException($"Unknown message type: {terProtocol.Header.MessageType}")
-            };
-
+            Logger.Log($"Decrypted data: {decryptedPayload}", LogLevel.Information, Source.Server);
+            
+            return decryptedPayload;
         }
         catch (FormatException fe)
         {

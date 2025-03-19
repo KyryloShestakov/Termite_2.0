@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Ter_Protocol_Lib;
+namespace Ter_Protocol_Lib.Requests;
 
 /// <summary>
 /// The TerPayload<T> class is designed to wrap data (Data) into a generic structure.
@@ -30,4 +30,9 @@ public class TerPayload<T>
     /// and object creation without arguments.
     /// </summary>
     public TerPayload() { }
+
+    public string Serialize()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
