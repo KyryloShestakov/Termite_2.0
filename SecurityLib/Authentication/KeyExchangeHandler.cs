@@ -7,6 +7,7 @@ using SecurityLib.Security;
 using StorageLib.DB.Redis;
 using Ter_Protocol_Lib.Requests;
 using Utilities;
+using KeyExchangeRequest = Ter_Protocol_Lib.Requests.KeyExchangeRequest;
 
 namespace SecurityLib.Authentication;
 
@@ -24,8 +25,9 @@ public class KeyExchangeHandler
         _serverResponseService = new ServerResponseService(); 
     }
 
-    public async Task<Response> EstablishSessionWithNodeAsync(TerProtocol<KeyRequest> request)
+    public async Task<Response> EstablishSessionWithNodeAsync(TerProtocol<object> request)
     {
+        KeyExchangeRequest keyExchangeRequest = (KeyExchangeRequest)request.Payload.Data;
         // Validate the input request
         if (request == null)
         {
@@ -48,7 +50,7 @@ public class KeyExchangeHandler
             }
 
             // Extract and convert public key
-            string publicKey = request.Payload.Data.Key;
+            string publicKey = keyExchangeRequest.Key;
             RSAParameters recipientPublicKey;
             try
             {

@@ -1,10 +1,10 @@
 namespace Ter_Protocol_Lib.Requests;
 
-public class KeyRequest : IRequest
+public class KeyExchangeRequest : IRequest
 {
     public string Key { get; set; }
 
-    public KeyRequest(string key)
+    public KeyExchangeRequest(string key)
     {
         Key = key;
     }
