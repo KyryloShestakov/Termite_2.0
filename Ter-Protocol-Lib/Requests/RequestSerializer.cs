@@ -1,7 +1,8 @@
 using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Nodes;
+using Newtonsoft.Json;
 using Utilities;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Ter_Protocol_Lib.Requests;
 
@@ -51,11 +52,11 @@ public static class RequestSerializer
     public static object? DeserializeData(TerMessageType messageType, string payload)
     {
         var node = JsonNode.Parse(payload);
-        var transactions = node["Data"];
+        var data = node["Data"];
         
         if (RequestTypes.TryGetValue(messageType, out var requestType))
         {
-            object? obj = JsonSerializer.Deserialize(transactions, requestType);
+            object? obj = JsonSerializer.Deserialize(data, requestType);
             return obj;
         }
 

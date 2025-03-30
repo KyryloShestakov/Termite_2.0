@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using BlockchainLib.Validator;
 using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib;
 using ModelsLib.BlockchainLib;
@@ -77,6 +78,7 @@ namespace BlockchainLib
 
                 List<BlockModel> blocks = models.Cast<BlockModel>().OrderBy(b => b.Index).ToList();
 
+                
                 foreach (var blockModel in blocks)
                 {
                     Logger.Log($"Block #{blockModel.Index} was adeded", LogLevel.Warning, Source.Blockchain);

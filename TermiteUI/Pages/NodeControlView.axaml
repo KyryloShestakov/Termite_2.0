@@ -1,8 +1,9 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:termiteUi="clr-namespace:TermiteUI"
-             x:Class="TermiteUI.Page1"
-             x:DataType="termiteUi:Page1">
+             xmlns:pages="clr-namespace:TermiteUI.Pages"
+             x:Class="TermiteUI.Pages.NodeControlView"
+             x:DataType="pages:NodeControlView">
 
     <Grid>
         <Grid.RowDefinitions>

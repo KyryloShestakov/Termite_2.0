@@ -12,9 +12,7 @@ using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 
 namespace BlockchainLib
-{
-
-
+{ 
     public class TransactionManager : ITransactionManager
     {
         private TransactionMemoryPool _memoryPool;

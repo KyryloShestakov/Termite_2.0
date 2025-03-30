@@ -1,0 +1,38 @@
+@startuml
+    class Service {
+        -IRepository _repository
+        -AddressService _addressService
+        +Task<Response> GetAddressAndPrivateKey()
+        +Task<Response> PostTransaction(TransactionModel transactionModel)
+        +Task<Response> GetBalance(string address)
+        +Task<Response> GetTransaction(string transactionId)
+        +Task<Response> GetTransactionById(string address)
+    }
+    class MainController {
+        -Service _service
+        +Task<IActionResult> GetAddressAndPrivateKey()
+        +Task<IActionResult> PostTransaction([FromBody] TransactionRequest transaction)
+        +Task<IActionResult> GetBalance([FromBody] BalanceRequest address)
+        +Task<IActionResult> GetTransaction([FromBody] string transactionId)
+        +Task<IActionResult> GetTransactionsById([FromBody] TransactionById address)
+        
+    }
+    interface IRepository {
+        +Task<Response> GetAddressAndPrivateKey();
+        +Task<Response> AddTransaction(TransactionModel transaction);
+        +Task<Response> GetTransaction(string transactionId);
+        +Task<Response> GetTransactionsByAddress(string address);
+    }
+    class Repository {
+        -IDbProcessor _dbProcessor
+        -ServerResponseService _serverResponseService
+        -AddressService _addressService
+        -IValidator _validator
+        -BlockManager _blockManager
+        +Task<Response> GetAddressAndPrivateKey()
+        +Task<Response> AddTransaction(TransactionModel transaction)
+        +Task<Response> GetTransaction(string transactionId)
+        +Task<Response> GetTransactionsByAddress(string address)
+    }
+    
+@enduml

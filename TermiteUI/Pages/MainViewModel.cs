@@ -1,12 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using StorageLib.DB.SqlLite;
-using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
+using TermiteUI.Pages.Blockchain;
 
-namespace TermiteUI;
+namespace TermiteUI.Pages;
 
 
-    public partial class MainWindowViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         // Свойство для текущего содержимого (страницы)
         private object _currentView;
@@ -26,15 +25,15 @@ namespace TermiteUI;
         public IRelayCommand NavigateToPage6 { get; }
         public IRelayCommand NavigateToPage7 { get; }
 
-        public MainWindowViewModel()
+        public MainViewModel()
         {
-            CurrentView = new Page1();
+            CurrentView = new NodeControlView();
 
-            NavigateToPage1 = new RelayCommand(() => CurrentView = new Page1());
-            NavigateToPage2 = new RelayCommand(() => CurrentView = new MinePage());
-            NavigateToPage3 = new RelayCommand(() => CurrentView = new CTPage());
-            NavigateToPage4 = new RelayCommand(() => CurrentView = new BlockchainPage());
-            NavigateToPage5 = new RelayCommand(() => CurrentView = new WalletPage());
+            NavigateToPage1 = new RelayCommand(() => CurrentView = new NodeControlView());
+            NavigateToPage2 = new RelayCommand(() => CurrentView = new MinerView());
+            NavigateToPage3 = new RelayCommand(() => CurrentView = new TransactionView());
+            NavigateToPage4 = new RelayCommand(() => CurrentView = new BlockchainView());
+            NavigateToPage5 = new RelayCommand(() => CurrentView = new WalletView());
             NavigateToPage6 = new RelayCommand(() => CurrentView = new MyInfoPage());
             NavigateToPage7= new RelayCommand(() => CurrentView = new KnownPeersPage());
         }

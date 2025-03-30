@@ -1,29 +1,25 @@
 <Control xmlns="https://github.com/avaloniaui"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:termiteUi="clr-namespace:TermiteUI"
-         x:Class="TermiteUI.CTPage"
-         x:DataType="termiteUi:CTViewModel">
+         xmlns:termiteUi="clr-namespace:TermiteUI.Pages.Blockchain"
+         x:Class="TermiteUI.Pages.Blockchain.TransactionView"
+         x:DataType="termiteUi:TransactionModel">
 
     <Grid>
-        <!-- Создаём строки для организации элементов -->
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" /> <!-- Для заголовка -->
-            <RowDefinition Height="*" />    <!-- Для списка с прокруткой -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!-- Заголовок -->
+        
         <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" Grid.Row="0" />
-
-        <!-- Список с прокруткой -->
+        
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ListBox ItemsSource="{Binding Transactions}" Width="1500" Background="Transparent"
                      HorizontalAlignment="Left">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <!-- Используем Border для оформления карточки -->
                         <Border BorderThickness="1" CornerRadius="5" BorderBrush="Beige" Padding="10" Margin="10" Background="#FFF">
                             <StackPanel>
-                                <!-- Каждое поле на отдельной строке -->
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
                                     <TextBlock Text="Receiver: " FontWeight="Bold" />
                                     <TextBlock Text="{Binding Receiver}" Margin="5,0" />

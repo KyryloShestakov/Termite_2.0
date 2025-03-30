@@ -12,17 +12,15 @@ using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 
-namespace TermiteUI;
+namespace TermiteUI.Pages.Blockchain;
 
-public class CTViewModel : UserControl
+public class TransactionModel : UserControl
 {
-    public ObservableCollection<TransactionModel> Transactions { get; set; }
+    public ObservableCollection<ModelsLib.BlockchainLib.TransactionModel> Transactions { get; set; }
     private readonly IDbProcessor _dbProcessor;
-    private readonly AppDbContext _appDbContext;
-    public CTViewModel()
+    public TransactionModel()
     {
-        Transactions = new ObservableCollection<TransactionModel>();
-        _appDbContext = new AppDbContext();
+        Transactions = new ObservableCollection<ModelsLib.BlockchainLib.TransactionModel>();
         _dbProcessor = new DbProcessor();
         LoadTransactionsAsync();
         Logger.Log($"{Transactions.Count} Transactions", LogLevel.Information, Source.App);
@@ -55,15 +53,15 @@ public class CTViewModel : UserControl
         }
     }
 
-    private List<TransactionModel> GetTransactionsFromBlock(BlockModel block)
+    private List<ModelsLib.BlockchainLib.TransactionModel> GetTransactionsFromBlock(BlockModel block)
     {
-        var transactions = new List<TransactionModel>();
+        var transactions = new List<ModelsLib.BlockchainLib.TransactionModel>();
 
         if (!string.IsNullOrEmpty(block.Transactions))
         {
             try
             {
-                transactions = JsonConvert.DeserializeObject<List<TransactionModel>>(block.Transactions);
+                transactions = JsonConvert.DeserializeObject<List<ModelsLib.BlockchainLib.TransactionModel>>(block.Transactions);
             }
             catch (Exception ex)
             {

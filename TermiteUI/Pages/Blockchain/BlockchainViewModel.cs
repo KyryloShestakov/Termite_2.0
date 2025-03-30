@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Controls;
 using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib;
 using ModelsLib.BlockchainLib;
@@ -11,7 +10,7 @@ using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 
-namespace TermiteUI;
+namespace TermiteUI.Pages.Blockchain;
 
 public class BlockchainViewModel
 {

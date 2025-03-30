@@ -2,16 +2,15 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using BlockchainLib.Addresses;
 
-namespace TermiteUI;
+namespace TermiteUI.Pages.Blockchain;
 
-public partial class WalletPage : UserControl, INotifyPropertyChanged
+public partial class WalletView : UserControl, INotifyPropertyChanged
 {
-    public WalletPage()
+    public WalletView()
     {
         InitializeComponent();
         _addressManager = new AddressManager();
@@ -69,5 +68,11 @@ public partial class WalletPage : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+
 }
 

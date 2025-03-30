@@ -21,6 +21,14 @@ package "Client" {
         -RequestFactory _requestFactory
         -RequestExecutor _requestExecutor
         +StartSynchronization(tcpClient: TcpClient, IModel: peer): Task
+        +Task CheckDataLoop(TcpClient tcpClient, IModel peer)
+        +Task CheckData(TcpClient tcpClient, IModel peer)
+        +LogDataComparison(InfoSyncRequest foreignData, InfoSyncRequest myData)
+        +Task<InfoSyncRequest> GetForeignData(TcpClient tcpClient, IModel peer)
+        +Task<InfoSyncRequest> GetMyData(TcpClient tcpClient, IModel peer)
+        +Task<List<BlockModel>> GetBlocksData()
+        +Task<List<TransactionModel>> GetTransactionsData()
+        +Task ValidateAndRequestBlocks(IModel peer)
     }
     
     class RequestExecutor {
@@ -62,6 +70,14 @@ package "Client" {
         + Task CreateKeyExchageRequest(RequestPool _requestPool, IModel peer)
         + Task CreateTransactionRequest(RequestPool _requestPool, IModel peer)
         + Task CreateBlockRequest(RequestPool _requestPool, IModel peer)
+        + Task CreateGetInfoForSyncRequest(RequestPool requestPool)
+    }
+    
+    class RequestPool {
+        -ConcurrentQueue<TerProtocol<object>> _requests;
+        +void AddRequest(TerProtocol<object> request)
+        +TerProtocol<object>? GetNextRequest()
+        +List<TerProtocol<object>> GetAllRequests()
     }
 
     class DbProcessor implements IDbProcessor {

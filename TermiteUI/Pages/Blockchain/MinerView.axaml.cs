@@ -4,13 +4,13 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using BlockchainLib;
-using StorageLib.DB.Redis;
 using Utilities;
 
-namespace TermiteUI;
+namespace TermiteUI.Pages.Blockchain;
 
-public partial class MinePage : UserControl, INotifyPropertyChanged
+public partial class MinerView : UserControl, INotifyPropertyChanged
 {
     private int _unconfirmedTransactionsCount;
     private Timer _timer;
@@ -28,7 +28,7 @@ public partial class MinePage : UserControl, INotifyPropertyChanged
         }
     }
 
-    public MinePage()
+    public MinerView()
     {
         InitializeComponent();
         DataContext = this;
@@ -76,4 +76,10 @@ public partial class MinePage : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+
 }

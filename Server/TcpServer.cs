@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using ModelsLib.BlockchainLib;
-using RRLib;
 using RRLib.Responses;
 using Server.Controllers;
 using Server.Requests;
@@ -113,7 +111,6 @@ public class TcpServer
             
             string decryptRequest = await _requestManager.DecryptRequest(terRequest.Payload);
             var obj = RequestSerializer.DeserializeData(terRequest.Header.MessageType, decryptRequest);
-
             Logger.Log($"Received request of type: {terRequest.Header.MessageType}", LogLevel.Information, Source.Server);
             
             

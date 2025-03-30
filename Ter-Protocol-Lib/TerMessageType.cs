@@ -12,5 +12,7 @@ public enum TerMessageType
     KeyExchange = 0x08,
     KnownPeers = 0x09,
     PeerInfo = 0x0a,
-    Empty = 0x0b,
+    Empty = 0x0b, 
+    Blockchain = 0x0c,
+    InfoSync = 0x0d,
 }

@@ -35,9 +35,9 @@ public class RequestFactory
 
             PeerInfoModel knownPeer = peer as PeerInfoModel;
             
-            KeyRequest keyRequest = new KeyRequest(publicKey);
+            KeyExchangeRequest keyExchangeRequest = new KeyExchangeRequest(publicKey);
             TerProtocol<object> terKeyExchangeRequest = new TerProtocol<object>(
-                new TerHeader(TerMessageType.KeyExchange, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(keyRequest));
+                new TerHeader(TerMessageType.KeyExchange, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(keyExchangeRequest));
             
             Logger.Log("Created keyExchange Request", LogLevel.Information, Source.Client);
             _requestPool.AddRequest(terKeyExchangeRequest);
@@ -50,48 +50,57 @@ public class RequestFactory
        
     }
 
-    public async Task CreateTransactionRequest(RequestPool _requestPool, IModel peer)
+    public async Task CreateTransactionRequest(RequestPool _requestPool, IModel peer, List<string> transactionIds = null)
+{
+    try
     {
-        try
+        List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(new AppDbContext()), CommandType.GetAll);
+        List<TransactionModel> transactions = models.Cast<TransactionModel>().ToList();
+        
+        PeerInfoModel knownPeer = peer as PeerInfoModel;
+        
+        IModel myInfo = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()),
+            CommandType.Get, new DbData(null, "default"));
+        
+        MyPrivatePeerInfoModel peerInfoModel = myInfo as MyPrivatePeerInfoModel;
+        
+        var TypeOfTransaction = "Unconfirmed";
+        foreach (var transaction in transactions)
         {
-            List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(new AppDbContext()), CommandType.GetAll);
-            List<TransactionModel> transactions = models.Cast<TransactionModel>().ToList();
-            
-            PeerInfoModel knownPeer = peer as PeerInfoModel;
-
-            IModel myInfo = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()),
-                CommandType.Get, new DbData(null, "default"));
-            
-            MyPrivatePeerInfoModel peerInfoModel = myInfo as MyPrivatePeerInfoModel;
-            
-            
-                var TypeOfTransaction = "Unconfirmed";
-                foreach (var transaction in transactions)
-                {
-                    transaction.Data = TypeOfTransaction;
-                }
-
-                if (transactions == null || !transactions.Any())
-                {
-                    Logger.Log("No transactions found in SqlLite", LogLevel.Warning, Source.Client);
-                }
-                
-                TransactionRequest transactionRequestData = new TransactionRequest();
-                transactionRequestData.Transactions = transactions.Take(2).ToList();
-            
-                TerProtocol<object> terTransactionsRequest = new TerProtocol<object>(
-                    new TerHeader(TerMessageType.Transaction, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(transactionRequestData));
-                Logger.Log("Created Transaction Request", LogLevel.Information, Source.Client);
-                _requestPool.AddRequest(terTransactionsRequest);
-            
-           
+            transaction.Data = TypeOfTransaction;
         }
-        catch (Exception ex)
+
+        if (transactions == null || !transactions.Any())
         {
-            Logger.Log($"Error creating Transaction Request: {ex.Message}", LogLevel.Error, Source.Client);
-            throw;
+            Logger.Log("No transactions found in SqlLite", LogLevel.Warning, Source.Client);
         }
+
+        if (transactionIds != null && transactionIds.Any())
+        {
+            transactions = transactions.Where(t => transactionIds.Contains(t.Id)).ToList();
+        }
+
+        if (!transactions.Any())
+        {
+            Logger.Log("No matching transactions found", LogLevel.Warning, Source.Client);
+        }
+
+        TransactionRequest transactionRequestData = new TransactionRequest();
+        transactionRequestData.Transactions = transactions;
+        
+        TerProtocol<object> terTransactionsRequest = new TerProtocol<object>(
+            new TerHeader(TerMessageType.Transaction, knownPeer.NodeId, MethodType.Post), new TerPayload<object>(transactionRequestData));
+        
+        Logger.Log("Created Transaction Request", LogLevel.Information, Source.Client);
+        _requestPool.AddRequest(terTransactionsRequest);
     }
+    catch (Exception ex)
+    {
+        Logger.Log($"Error creating Transaction Request: {ex.Message}", LogLevel.Error, Source.Client);
+        throw;
+    }
+}
+
 
     public async Task CreateBlockRequest(RequestPool _requestPool, IModel peer)
     {
@@ -189,4 +198,24 @@ public class RequestFactory
             throw;
         }
     }
+
+    public async Task CreateGetTransactionRequest(RequestPool requestPool)
+    {
+        Guid guid = new Guid("ab90ee9b-babe-4bcc-a41f-4bd0fee16d3b");
+        TransactionRequest transactionRequest = new TransactionRequest();
+        transactionRequest.Id = guid;
+        TerProtocol<object> getTx = new TerProtocol<object>(new TerHeader(TerMessageType.Transaction,"ab90ee9b-babe-4bcc-a41f-4bd0fee16d3b", MethodType.Get ), new TerPayload<object>(transactionRequest));
+        
+        requestPool.AddRequest(getTx);
+    }
+
+    public async Task CreateGetInfoForSyncRequest(RequestPool requestPool)
+    {
+        TerProtocol<object> getInfo = new TerProtocol<object>(
+            new TerHeader(TerMessageType.InfoSync, "ab90ee9b-babe-4bcc-a41f-4bd0fee16d3b", MethodType.Get),
+            new TerPayload<object>());
+        requestPool.AddRequest(getInfo);
+    }
+
+
 }

@@ -6,7 +6,7 @@ class TcpServer {
     - CancellationTokenSource _cancellationTokenSource
     - ConcurrentQueue<TcpRequest> _requestQueue
     - Controller _controller
-    - RequestExecutor _requestExecutor
+    - RequestManager _requestManager
     - SemaphoreSlim _connectionSemaphore
     - const int MaxConnections
     + TcpServer()
@@ -33,7 +33,7 @@ class Response {
     class Controller {
         - RequestHandlerFactory _requestHandlerFactory
         + Controller()
-        + async Task<Response> HandleRequestAsync(Request request)
+        + async Task<Response> HandleRequestAsync(TerProtocol<object> terProtocol)
     }
 
    class RequestHandlerFactory {
@@ -47,53 +47,53 @@ class Response {
     }
 
     interface IController {
-        + HandleRequestAsync(Request request))
+        + HandleRequestAsync(TerProtocol<object> terProtocol)
     }
 
     class AuthRequestHandler {
-        + Task<Response> HandleRequestAsync(Request request))
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
     
     class KnownPeerRequestHandler {
-        + Task<Response> HandleRequestAsync(Request request)
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
     
     interface IRequestHandler {
-        + Task<Response> HandleRequestAsync(Request request)
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
     
     class TransactionRequestHandler {
-        + Task<Response> HandleRequestAsync(Request request)
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
     
     class BlockRequestHandler {
-        + Task<Response> HandleRequestAsync(Request request)
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
     
     class PeerInfoHandler {
-        + Task<Response> HandleRequestAsync(Request request)
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
     }
 
 
-TcpServer --> TcpRequest : Enqueues
-TcpServer --> Controller : Uses
-Controller -> ServerResponseService
-Controller --> Response : Returns
-Controller ..> IController
-Controller -> RequestHandlerFactory : Uses
-
-
-AuthRequestHandler ..> IRequestHandler
-KnownPeerRequestHandler ..> IRequestHandler
-TransactionRequestHandler ..> IRequestHandler
-BlockRequestHandler ..> IRequestHandler
-PeerInfoHandler ..> IRequestHandler
-
-RequestHandlerFactory --> IRequestHandler : Uses
-RequestHandlerFactory --> AuthRequestHandler : Uses
-RequestHandlerFactory --> KnownPeerRequestHandler : Uses
-RequestHandlerFactory --> TransactionRequestHandler : Uses
-RequestHandlerFactory --> BlockRequestHandler : Uses
-RequestHandlerFactory --> PeerInfoHandler : Uses
+'TcpServer --> TcpRequest : Enqueues
+'TcpServer --> Controller : Uses
+'Controller -> ServerResponseService
+'Controller --> Response : Returns
+'Controller ..> IController
+'Controller -> RequestHandlerFactory : Uses
+'
+'
+'AuthRequestHandler ..> IRequestHandler
+'KnownPeerRequestHandler ..> IRequestHandler
+'TransactionRequestHandler ..> IRequestHandler
+'BlockRequestHandler ..> IRequestHandler
+'PeerInfoHandler ..> IRequestHandler
+'
+'RequestHandlerFactory --> IRequestHandler : Uses
+'RequestHandlerFactory --> AuthRequestHandler : Uses
+'RequestHandlerFactory --> KnownPeerRequestHandler : Uses
+'RequestHandlerFactory --> TransactionRequestHandler : Uses
+'RequestHandlerFactory --> BlockRequestHandler : Uses
+'RequestHandlerFactory --> PeerInfoHandler : Uses
 }
 @enduml

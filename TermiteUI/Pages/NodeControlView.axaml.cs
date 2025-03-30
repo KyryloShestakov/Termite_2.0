@@ -1,21 +1,20 @@
-using Avalonia.Controls;
-using Client;
-using Server;
-using Utilities;
-using ReactiveUI;
 using System.Reactive;
-using CoreLib;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Client;
+using ReactiveUI;
+using Utilities;
 
-namespace TermiteUI
+namespace TermiteUI.Pages
 {
-    public partial class Page1 : UserControl
+    public partial class NodeControlView : UserControl
     {
         public ReactiveCommand<Unit, Unit> StartServerCommand { get; }
         public ReactiveCommand<Unit, Unit> StartClientCommand { get; }
         public ReactiveCommand<Unit, Unit> StopServerCommand { get; }
         public ReactiveCommand<Unit, Unit> StopClientCommand { get; }
 
-        public Page1()
+        public NodeControlView()
         {
             InitializeComponent();
             DataContext = this;
@@ -53,6 +52,11 @@ namespace TermiteUI
             ClientTcp client = new ClientTcp();
             client.StopAsync();
             Logger.Log("Client stopped.", LogLevel.Information, Source.App);
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
     }
 }

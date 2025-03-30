@@ -19,9 +19,8 @@ public class Repository : IRepository
     private IDbProcessor _dbProcessor;
     private ServerResponseService _serverResponseService;
     private readonly AddressService _addressService;
-    private TransactionValidator _validator;
+    private IValidator _validator;
     private BlockManager _blockManager;
-    private TransactionService _transactionService;
 
 
     public Repository()
@@ -31,7 +30,6 @@ public class Repository : IRepository
         _validator = new TransactionValidator();
         _serverResponseService = new ServerResponseService();
         _blockManager = new BlockManager();
-        _transactionService = new TransactionService();
     }
 
     public async Task<Response> GetAddressAndPrivateKey()

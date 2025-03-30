@@ -13,7 +13,7 @@ namespace BlockchainLib.Validator;
 
 public class TransactionValidator : IValidator
 {
-    ServerResponseService _serverResponseService;
+    private ServerResponseService _serverResponseService;
 
     public TransactionValidator()
     {

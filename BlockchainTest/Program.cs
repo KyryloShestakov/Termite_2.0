@@ -23,9 +23,6 @@ public class Program
     {
         try
         {
-            // BlockChainCore blockChain = (BlockChainCore)state;
-            // blockChain.StartBlockchain();
-            
             BlockBuilder blockBuilder = new BlockBuilder();
             blockBuilder.StartBuilding();
             Logger.Log($"Blockchain processed", LogLevel.Information, Source.Blockchain);

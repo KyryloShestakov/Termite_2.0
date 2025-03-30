@@ -59,41 +59,15 @@ public class RequestExecutor
 
     private async Task HandleRequest(TcpClient tcpClient, NetworkStream networkStream, TerProtocol<object> request)
     {
-
-        switch (request.Header.MessageType)
-        {
-            case TerMessageType.PeerInfo:
-                string peerInfoEncrypted = await EncryptRequest(request);
-                request.Payload.Data = peerInfoEncrypted;
-                string jsonPeer = request.Serialize();
-                await _requestHandler.SendRequestAsync(tcpClient,jsonPeer, networkStream);
-                await _responseHandler.ReceiveResponse(tcpClient);
-                break;
-            case TerMessageType.KeyExchange:
-                string keyExchangeEncrypted = await EncryptRequest(request);
-                request.Payload.Data = keyExchangeEncrypted;
-                string jsonKey = request.Serialize();
-                await _requestHandler.SendRequestAsync(tcpClient, jsonKey, networkStream);
-                await _responseHandler.ReceiveResponse(tcpClient);
-                break;
-            case TerMessageType.Block:
-                string blockRequestJsonEncrypted = await EncryptRequest(request);
-                request.Payload.Data = blockRequestJsonEncrypted;
-                string jsonBlock = request.Serialize();
-                await _requestHandler.SendRequestAsync(tcpClient, jsonBlock, networkStream);
-                await _responseHandler.ReceiveResponse(tcpClient);
-                break;
-            case TerMessageType.Transaction:
-                string transactionRequestEncrypted = await EncryptRequest(request);
-                request.Payload.Data = transactionRequestEncrypted;
-                string jsonTransaction = request.Serialize();
-                await _requestHandler.SendRequestAsync(tcpClient, jsonTransaction, networkStream);
-                await _responseHandler.ReceiveResponse(tcpClient);
-                break;
-        }
+        string requestEnc = await EncryptRequest(request);
+        request.Payload.Data = requestEnc;
+        string jsonKey = request.Serialize();
+        await _requestHandler.SendRequestAsync(tcpClient, jsonKey, networkStream);
+        await _responseHandler.ReceiveResponse(tcpClient);
     }
     
-    private static async Task<string> EncryptRequest(TerProtocol<object> request)
+
+    public async Task<string> EncryptRequest(TerProtocol<object> request)
     {
         SecureConnectionManager _secureConnectionManager = new SecureConnectionManager();
         try

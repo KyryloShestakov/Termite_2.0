@@ -24,7 +24,8 @@ public class RequestHandlerFactory
             { TerMessageType.KeyExchange, new AuthRequestHandler() },
             { TerMessageType.Transaction, new TransactionRequestHandler() },
             { TerMessageType.Block, new BlockRequestHandler() },
-            { TerMessageType.PeerInfo, new PeerInfoHandler() }
+            { TerMessageType.PeerInfo, new PeerInfoHandler() },
+            { TerMessageType.InfoSync, new BlockchainHandler() }
         };
     }
 

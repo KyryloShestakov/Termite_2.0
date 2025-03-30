@@ -18,7 +18,7 @@ public class AuthService
     // KeyExchange method calls the key exchange logic from the KeyExchangeHandler.
     // It passes the request and returns the response received from the handler.
     // In case of an error, it catches exceptions and returns an empty response.
-    public async Task<Response> KeyExchange(TerProtocol<KeyRequest> request)
+    public async Task<Response> KeyExchange(TerProtocol<object> request)
     {
         try
         {

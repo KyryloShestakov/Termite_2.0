@@ -53,9 +53,12 @@ public class InfoPeerService
         return new ServerResponseService().GetResponse(true, "Peers retrieved successfully.", peers);
     }
 
-    public async Task<Response> GetPeerById(TerProtocol<DataRequest<string>> request)
+    public async Task<Response> GetPeerById(TerProtocol<object> request)
     {
-        var peer = await _peerInfoService.Get(request.Payload.Data.Value);
+        TransactionRequest txRequest = (TransactionRequest)request.Payload.Data;
+        Guid? guidId = txRequest.Id;
+        string id = guidId.ToString();
+        var peer = await _peerInfoService.Get(id);
         if (peer == null)
         {
             return new ServerResponseService().GetResponse(false, "Peer not found.");
@@ -102,10 +105,12 @@ public class InfoPeerService
     }
 
     
-    public async Task<Response> DeletePeer(TerProtocol<DataRequest<string>> request)
+    public async Task<Response> DeletePeer(TerProtocol<object> request)
     {
-        var data = request.Payload.Data.Value;
-        var peer = await _peerInfoService.Get(data);
+        TransactionRequest txRequest = (TransactionRequest)request.Payload.Data;
+        Guid? guidId = txRequest.Id;
+        string id = guidId.ToString();
+        var peer = await _peerInfoService.Get(id);
         PeerInfoModel peerInfoModel = peer as PeerInfoModel;
         
         if (peer == null)

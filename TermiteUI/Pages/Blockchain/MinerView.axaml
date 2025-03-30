@@ -3,9 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:termiteUi="clr-namespace:TermiteUI"
+             xmlns:blockchain="clr-namespace:TermiteUI.Pages.Blockchain"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TermiteUI.MinePage"
-             x:DataType="termiteUi:MinePage"
+             x:Class="TermiteUI.Pages.Blockchain.MinerView"
+             x:DataType="blockchain:MinerView"
              >
     <Grid>
         <StackPanel Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">

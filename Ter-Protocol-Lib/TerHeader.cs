@@ -1,6 +1,3 @@
-using System.Net; // Provides classes for working with IP addresses and network endpoints
-using System.Net.NetworkInformation; // Provides access to network-related information
-using DataLib.DB.SqlLite.Interfaces; // Imports interfaces for SQLite database interactions
 using DataLib.DB.SqlLite.Services.NetServices; // Imports network-related database services
 using ModelsLib.NetworkModels; // Imports network-related models
 using StorageLib.DB.SqlLite; // Imports database storage services for SQLite
@@ -65,7 +62,7 @@ public class TerHeader
     /// <summary>
     /// Database processor for interacting with the SQLite database.
     /// </summary>
-    private readonly IDbProcessor _dbProcessor;
+    private DbProcessor _dbProcessor;
 
     /// <summary>
     /// Constructs a TerHeader object with specified message type, recipient ID, and method type.
@@ -86,9 +83,16 @@ public class TerHeader
         RecipientId = recipientId;
 
         // Asynchronously fetch external IP, recipient's IP, and public key
-        SetExterrnalIpAsync();
-        SetRecipientIpAsync(recipientId);
-        SetPublicKeyAsync();
+        _ = InitializeAsync(recipientId);
+    }
+    
+    private async Task InitializeAsync(string recipientId)
+    {
+        await Task.WhenAll(
+            SetExterrnalIpAsync(),
+            SetRecipientIpAsync(recipientId),
+            SetPublicKeyAsync()
+        );
     }
 
     /// <summary>
@@ -100,8 +104,12 @@ public class TerHeader
     /// Retrieves the recipient's IP address from the database asynchronously.
     /// </summary>
     /// <param name="recipientId">The unique identifier of the recipient.</param>
-    private async void SetRecipientIpAsync(string recipientId)
+    private async Task SetRecipientIpAsync(string recipientId)
     {
+        if (string.IsNullOrEmpty(recipientId))
+        {
+            throw new ArgumentException("RecipientId cannot be null or empty", nameof(recipientId));
+        }
         PeerInfoModel recipientPeerInfo = await _dbProcessor.ProcessService<PeerInfoModel>(
             new PeerInfoService(new AppDbContext()), 
             CommandType.Get, 
@@ -113,7 +121,7 @@ public class TerHeader
     /// <summary>
     /// Retrieves the sender's external IP address asynchronously.
     /// </summary>
-    private async void SetExterrnalIpAsync()
+    private async Task SetExterrnalIpAsync()
     {
         MyIpAddress = await _ipHelper.GetExternalAddress();
     }
@@ -121,7 +129,7 @@ public class TerHeader
     /// <summary>
     /// Retrieves the sender's public key and node ID from the database asynchronously.
     /// </summary>
-    private async void SetPublicKeyAsync()
+    private async Task SetPublicKeyAsync()
     {
         MyPrivatePeerInfoModel myInfo = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(
             new MyPrivatePeerInfoService(new AppDbContext()), 

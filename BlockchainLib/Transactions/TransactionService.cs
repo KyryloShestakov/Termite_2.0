@@ -1,5 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
+using BlockchainLib.Validator;
 using RRLib.Responses;
 using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib;
@@ -26,6 +28,7 @@ namespace BlockchainLib
             _transactionManager = new TransactionManager();
             _serverResponseService = new ServerResponseService();
             _dbProcessor = new DbProcessor();
+            _blockManager = new BlockManager();
         }
 
         public async Task<Response> PostTransactions(TerProtocol<object> request)
@@ -37,7 +40,17 @@ namespace BlockchainLib
                 if (txRequest is TransactionRequest tx)
                 {
                     List<TransactionModel> transactions = txRequest.Transactions;
-
+                    
+                    IValidator validator = new TransactionValidator();
+                    foreach (var transaction in transactions)
+                    { 
+                       Response result = await validator.Validate(transaction);
+                       if (result.Status != "Success")
+                       {
+                           return _serverResponseService.GetResponse(false, "", transaction);
+                       }
+                    }
+                    
                     transactions.ForEach(transaction => transaction.Data = "Unconfirmed");
 
                     if (transactions == null || transactions.Count == 0)
@@ -69,17 +82,21 @@ namespace BlockchainLib
             }
         }
 
-        public async Task<Response> GetTransaction(TerProtocol<DataRequest<string>> request)
+        public async Task<Response> GetTransaction(TerProtocol<object> request)
         {
             try
             {
+                TransactionRequest txRequest = (TransactionRequest)request.Payload.Data;
+                Guid? guidId = txRequest.Id;
+                string id = txRequest.Id.ToString();
+                Logger.Log($"Id: {JsonSerializer.Serialize(txRequest)}", LogLevel.Warning, Source.Blockchain);
                 
                 List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
                 List<BlockModel> blocks = models.Cast<BlockModel>().ToList();
-         
+                
                 var transaction = blocks
                     .SelectMany(block => _blockManager.GetTransactionsFromBlock(block))
-                    .FirstOrDefault(t => t.Id == request.Payload.Data.Value);
+                    .FirstOrDefault(t => t.Id == id);
             
                 return transaction != null
                     ? _serverResponseService.GetResponse(true, "Transaction was found", transaction)
@@ -91,17 +108,30 @@ namespace BlockchainLib
                 throw;
             }
         }
-        public async Task<Response> GetTransactions(TerProtocol<DataRequest<string>> request)
+        public async Task<Response> GetTransactions(TerProtocol<object> request)
+        {
+            try
+            {
+                List<IModel> models =
+                    await _dbProcessor.ProcessService<List<IModel>>(new TransactionBdService(new AppDbContext()),
+                        CommandType.GetAll);
+                List<TransactionModel> transactionModels = models.Cast<TransactionModel>().ToList();
+
+                return _serverResponseService.GetResponse(true, "Transactions were found", transactionModels);
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"{e.Message}", LogLevel.Error, Source.Blockchain);
+                throw;
+            }
+        }
+
+        public async Task<Response> UpdateTransactions(TerProtocol<object> request)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Response> UpdateTransactions(TerProtocol<DataRequest<string>> request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Response> DeleteTransactions(TerProtocol<DataRequest<string>> request)
+        public async Task<Response> DeleteTransactions(TerProtocol<object> request)
         {
             throw new NotImplementedException();
         }

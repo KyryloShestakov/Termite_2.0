@@ -95,12 +95,12 @@ namespace BlockchainLib.Blocks
         /// <summary>
         /// Retrieves a specific block by its index.
         /// </summary>
-        public async Task<Response> GetBlockById(TerProtocol<DataRequest<string>> blockRequest)
+        public async Task<Response> GetBlockById(TerProtocol<object> blockRequest)
         {
             if (blockRequest == null)
                 return _serverResponseService.GetResponse(false, "Invalid request: request cannot be null.");
 
-            string index = blockRequest.Payload.Data.Value;
+            string index = blockRequest.Payload.Data.ToString();
 
             if (index == null)
                 return _serverResponseService.GetResponse(false, "Invalid index.");

@@ -3,9 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:termiteUi="clr-namespace:TermiteUI"
+             xmlns:blockchain="clr-namespace:TermiteUI.Pages.Blockchain"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TermiteUI.WalletPage"
-             x:DataType="termiteUi:WalletPage">
+             x:Class="TermiteUI.Pages.Blockchain.WalletView"
+             x:DataType="blockchain:WalletView">
     
     <UserControl.Styles>
         <Style Selector="TextBlock">

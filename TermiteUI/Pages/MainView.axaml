@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:TermiteUI.Pages"
+        mc:Ignorable="d"
+        x:Class="TermiteUI.Pages.MainView"
+        Title="TermiteUI" 
+        Width="1000" 
+        Height="650"
+        x:DataType="pages:MainViewModel"
+        Background="Transparent"
+        
+        >
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Termite Peer"
+                   FontSize="24" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Grid.ColumnSpan="2"
+                   FontWeight="Bold"
+                   Foreground="Azure"/>
+        
+        <StackPanel Grid.Row="1" Grid.Column="0" Spacing="10"  Margin="10">
+            <Button Name="Button"  Content="Start peer" Command="{Binding NavigateToPage1}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Start mine" Command="{Binding NavigateToPage2}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Confirmed Transactions" Command="{Binding NavigateToPage3}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Known peers" Command="{Binding NavigateToPage7}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Wallet" Command="{Binding NavigateToPage5}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Info about my peer" Command="{Binding NavigateToPage6}" Width="180" HorizontalAlignment="Left"/>
+            <Button Content="Blockchain" Command="{Binding NavigateToPage4}" Width="180" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="1" Margin="10">
+            <ContentControl Content="{Binding CurrentView}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Border>
+    </Grid>
+</Window>
