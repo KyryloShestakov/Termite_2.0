@@ -1,6 +1,7 @@
 using API.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLib.BlockchainLib;
+using Newtonsoft.Json.Linq;
 using RRLib.Responses;
 using Utilities;
 using LogLevel = Utilities.LogLevel;
@@ -22,8 +23,18 @@ public class MainController : ControllerBase
     public async Task<IActionResult> GetAddressAndPrivateKey()
     {
         var result = await _service.GetAddressAndPrivateKey();
-        Logger.Log($"GetAddressAndPrivateKey: {result.Data}", LogLevel.Warning, Source.API);
-        return Ok(result);
+        
+        if (result.Status == "success")
+        {
+            Logger.Log($"GetAddressAndPrivateKey: {result.Data}", LogLevel.Warning, Source.API);
+
+
+            return Ok(result);
+        }
+        else
+        {
+            return BadRequest("Failed to generate address and keys.");
+        }
     }
 
     [HttpPost("PostTransaction")]
@@ -112,3 +123,6 @@ public class TransactionById
 {
     public string address { get; set; }
 }
+
+
+

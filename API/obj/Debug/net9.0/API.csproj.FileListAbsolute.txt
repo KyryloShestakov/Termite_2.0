@@ -80,3 +80,5 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/obj/Debug/net9.0/API.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/obj/Debug/net9.0/API.genruntimeconfig.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/obj/Debug/net9.0/ref/API.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/bin/Debug/net9.0/Ter-Protocol-Lib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/bin/Debug/net9.0/Ter-Protocol-Lib.pdb

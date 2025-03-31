@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3PTxqEHmb/M=",
+  "dgSpecHash": "rW0oXbn0v/4=",
   "success": true,
   "projectFilePath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/API/API.csproj",
   "expectedPackageFiles": [
@@ -39,12 +39,5 @@
     "/Users/kyrylo_shestakov/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/kyrylo_shestakov/.nuget/packages/system.text.json/9.0.0/system.text.json.9.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  "logs": []
 }
