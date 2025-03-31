@@ -132,8 +132,6 @@ namespace TermiteUI_2
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            Console.WriteLine("RaiseCanExecuteChanged triggered");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
