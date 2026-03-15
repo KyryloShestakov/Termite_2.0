@@ -24,3 +24,5 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/Debug/net9.0/SecurityLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/Debug/net9.0/SecurityLib.genruntimeconfig.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/obj/Debug/net9.0/ref/SecurityLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/Ter-Protocol-Lib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/SecurityLib/bin/Debug/net9.0/Ter-Protocol-Lib.pdb

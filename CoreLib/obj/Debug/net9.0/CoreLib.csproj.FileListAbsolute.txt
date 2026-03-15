@@ -39,3 +39,5 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/obj/Debug/net9.0/CoreLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/obj/Debug/net9.0/CoreLib.genruntimeconfig.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/obj/Debug/net9.0/ref/CoreLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/bin/Debug/net9.0/Ter-Protocol-Lib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/CoreLib/bin/Debug/net9.0/Ter-Protocol-Lib.pdb

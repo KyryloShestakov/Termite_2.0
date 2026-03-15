@@ -29,3 +29,5 @@
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/obj/Debug/net9.0/PeerLib.pdb
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/obj/Debug/net9.0/PeerLib.genruntimeconfig.cache
 /Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/obj/Debug/net9.0/ref/PeerLib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/Ter-Protocol-Lib.dll
+/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/bin/Debug/net9.0/Ter-Protocol-Lib.pdb

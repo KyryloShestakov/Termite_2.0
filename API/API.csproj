@@ -12,15 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\Interfaces\" />
-      <Folder Include="Application\Requests\" />
-      <Folder Include="Application\Validators\" />
-      <Folder Include="Domain\Entities\" />
-      <Folder Include="Domain\Exceptions\" />
-      <Folder Include="Infrastructure\Services\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\BlockchainLib\BlockchainLib.csproj" />
     </ItemGroup>
 

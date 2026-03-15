@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RRLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff52e4042af105ca734168d476575f8c61670d9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a7e112457c7e8e95e8291b6f142d2da935ff56f")]
 [assembly: System.Reflection.AssemblyProductAttribute("RRLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RRLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
