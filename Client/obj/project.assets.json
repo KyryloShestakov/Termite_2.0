@@ -1132,6 +1132,22 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "BlockchainLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "EnumsLib": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BlockchainLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlockchainLib.dll": {}
+        }
+      },
       "EnumsLib/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -1161,6 +1177,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "TestDb": "1.0.0"
         },
         "compile": {
@@ -1193,6 +1210,7 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
           "StorageLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "UtilitiesLib": "1.0.0"
         },
         "compile": {
@@ -1218,6 +1236,22 @@
         },
         "runtime": {
           "bin/placeholder/StorageLib.dll": {}
+        }
+      },
+      "Ter-Protocol-Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Ter-Protocol-Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ter-Protocol-Lib.dll": {}
         }
       },
       "TestDb/1.0.0": {
@@ -3338,6 +3372,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "BlockchainLib/1.0.0": {
+      "type": "project",
+      "path": "../BlockchainLib/BlockchainLib.csproj",
+      "msbuildProject": "../BlockchainLib/BlockchainLib.csproj"
+    },
     "EnumsLib/1.0.0": {
       "type": "project",
       "path": "../EnumsLib/EnumsLib.csproj",
@@ -3368,6 +3407,11 @@
       "path": "../StorageLib/StorageLib.csproj",
       "msbuildProject": "../StorageLib/StorageLib.csproj"
     },
+    "Ter-Protocol-Lib/1.0.0": {
+      "type": "project",
+      "path": "../Ter-Protocol-Lib/Ter-Protocol-Lib.csproj",
+      "msbuildProject": "../Ter-Protocol-Lib/Ter-Protocol-Lib.csproj"
+    },
     "TestDb/1.0.0": {
       "type": "project",
       "path": "../TestDb/TestDb.csproj",
@@ -3381,6 +3425,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "BlockchainLib >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
@@ -3417,6 +3462,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+            "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj": {
+              "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/BlockchainLib/BlockchainLib.csproj"
+            },
             "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj": {
               "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/PeerLib/PeerLib.csproj"
             },
@@ -3486,13 +3534,5 @@
         "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

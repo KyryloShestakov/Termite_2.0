@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
+using API;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using BlockchainLib;
@@ -26,11 +27,10 @@ namespace TermiteUI_2
         private int _countOfBlocks;
         private string _idOfLastBlock;
         private string _balance;
-        private bool _isNodeRunning;
-
         private TcpServer _tcpServer;
         private ClientTcp _clientTcp;
         private Timer _miningTimer;
+        private ApiHost _apiServer;
 
         public string Balance
         {
@@ -71,30 +71,16 @@ namespace TermiteUI_2
             }
         }
 
-        public bool IsNodeRunning
-        {
-            get => _isNodeRunning;
-            set
-            {
-                if (_isNodeRunning != value)
-                {
-                    _isNodeRunning = value;
-                    OnPropertyChanged(nameof(IsNodeRunning));
-                    StartNodeCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
-       
-
         public RelayCommand StartNodeCommand { get; set; }
 
         public MainWindow()
         {
+            // Команда инициализируется до установки DataContext
+            StartNodeCommand = new RelayCommand(StartNode);
+
             InitializeComponent();
             DataContext = this;
-            IsNodeRunning = false;
-            StartNodeCommand = new RelayCommand(ToggleNode, CanToggleNode);
+
             GetCountOfBlocks();
             GetBalance();
         }
@@ -128,47 +114,14 @@ namespace TermiteUI_2
             Balance = balance.ToString("F2");
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public void StartNode()
         {
-            StartServer();
-            StartClient();
-            StartMining();
+            // При необходимости включи сервер и клиент
+            // StartServer();
+            // StartClient();
             StartApi();
-        }
-
-        public void StopNode()
-        {
-            StopServer();
-            StopClient();
-            StopMining();
-            StopApi();
-        }
-
-        private void ToggleNode()
-        {
-            Logger.Log("ToggleNode called", LogLevel.Information, Source.App);
-
-            if (IsNodeRunning)
-            {
-                StopNode();
-            }
-            else
-            {
-                StartNode();
-            }
-            IsNodeRunning = !IsNodeRunning;
-        }
-
-        private bool CanToggleNode()
-        {
-            return true;
+            StartMining();
+            Logger.Log("Node started.", LogLevel.Information, Source.App);
         }
 
         private void StartServer()
@@ -185,24 +138,11 @@ namespace TermiteUI_2
             Logger.Log("Client started.", LogLevel.Information, Source.App);
         }
 
-        private void StopServer()
-        {
-            _tcpServer?.Stop();
-            Logger.Log("Server stopped.", LogLevel.Information, Source.App);
-        }
-
-        private void StopClient()
-        {
-            _clientTcp?.StopAsync();
-            Logger.Log("Client stopped.", LogLevel.Information, Source.App);
-        }
-
         private void StartMining()
         {
             BlockChainCore blockChain = new BlockChainCore();
             _miningTimer = new Timer(TimerCallback, blockChain, 0, 10000);
-            Console.WriteLine("Blockchain started. Press Enter to exit.");
-            Console.ReadLine();
+            Logger.Log("Mining started.", LogLevel.Information, Source.App);
         }
 
         private static void TimerCallback(object state)
@@ -215,21 +155,25 @@ namespace TermiteUI_2
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error in blockchain processing: {ex.Message}");
+                Logger.Log($"Error in blockchain processing: {ex.Message}", LogLevel.Error, Source.Blockchain);
             }
-        }
-
-        private void StopMining()
-        {
-            _miningTimer?.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private void StartApi()
         {
+            if (_apiServer == null)
+            {
+                _apiServer = new ApiHost();
+                _apiServer.Start(); // метод запуска, который блокирует или асинхронный
+                Logger.Log("API started.", LogLevel.Information, Source.App);
+            }
         }
 
-        private void StopApi()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -241,24 +185,16 @@ namespace TermiteUI_2
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
+            _canExecute = canExecute ?? (() => true);
         }
 
-        public bool CanExecute(object parameter)
-        {
-            Console.WriteLine("CanExecute called, IsNodeRunning: ");
-            return true;
-        }
+        public bool CanExecute(object parameter) => _canExecute();
 
         public void Execute(object parameter) => _execute();
 
         public event EventHandler CanExecuteChanged;
 
-        public void RaiseCanExecuteChanged()
-        {
+        public void RaiseCanExecuteChanged() =>
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
     }
-
-
 }

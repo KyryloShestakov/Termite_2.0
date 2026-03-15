@@ -106,12 +106,9 @@ namespace BlockchainLib.Blocks
         {
             try
             {
-               // string previousBlockHash = await _blockChain.GetLastBlockHashAsync();
-               
-               
-               
-               
+              
                 Block lastBlock = await _blockChain.GetLastBlockAsync();
+                
                 Logger.Log($"Last block : {lastBlock.Id}", LogLevel.Error, Source.Blockchain);
                 string previousBlockHash = lastBlock.Hash;
                 
@@ -250,7 +247,7 @@ namespace BlockchainLib.Blocks
         }
         public int GetCurrentDifficulty(int blockIndex)
         {
-            return 2 + (blockIndex / 100);
+            return 2 + (blockIndex / 1000);
         }
     }
 }

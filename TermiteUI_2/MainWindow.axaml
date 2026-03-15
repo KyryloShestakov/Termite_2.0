@@ -9,9 +9,7 @@
         Width="800" Height="500"
         x:DataType="termiteUi2:MainWindow"
         Title="Node Dashboard">
-    <Window.Resources>
-        <termiteUi2:BoolToButtonTextConverter x:Key="BoolToButtonTextConverter"/>
-    </Window.Resources>
+   
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
             <!-- Title Section -->
@@ -41,7 +39,7 @@
                         </StackPanel>
                     </Grid>
                     <Button
-                            Content="{Binding IsNodeRunning, Converter={StaticResource BoolToButtonTextConverter}}"
+                           Content="Start node"
                             Command="{Binding StartNodeCommand}"
 
                             Background="#FFA500" 
@@ -52,13 +50,7 @@
                 </StackPanel>
             </Border>
             
-            <!-- Edge Compute Section -->
-            <Border Background="#23263A" CornerRadius="10" Padding="10" Margin="10">
-                <StackPanel>
-                    <TextBlock Text="Edge Compute" Foreground="#00D4FF" FontSize="16"/>
-                    <TextBlock Text="Compute tasks will start as soon as they are assigned." Foreground="Gray" FontSize="14" Margin="0,5"/>
-                </StackPanel>
-            </Border>
+        
         </StackPanel>
     </Grid>
 </Window>

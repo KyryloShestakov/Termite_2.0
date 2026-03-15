@@ -36,6 +36,12 @@
                         CornerRadius="8"   HorizontalContentAlignment="Center" 
                         VerticalContentAlignment="Center" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Start Api" Command="{Binding StartApi}"
+                        Width="350" Height="40" Background="#3B82F6" 
+                        Foreground="White" CornerRadius="8" HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

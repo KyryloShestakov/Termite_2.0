@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TestStun")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ffda3c34f27508197e188b345521cbf16de30e4a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff52e4042af105ca734168d476575f8c61670d9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("TestStun")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TestStun")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

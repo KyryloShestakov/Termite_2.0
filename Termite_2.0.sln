@@ -52,7 +52,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStun", "TestStun\TestSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{60539A9D-92B3-440E-81DC-F942ACC488A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TermiteUI_2.0", "TermiteUI_2.0\TermiteUI_2.0.csproj", "{1BD89515-4672-41C0-A2E1-01EBB6E03F75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TermiteUI_2", "TermiteUI_2\TermiteUI_2.csproj", "{1BD89515-4672-41C0-A2E1-01EBB6E03F75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ter-Protocol-Lib", "Ter-Protocol-Lib\Ter-Protocol-Lib.csproj", "{12187939-9955-4C94-87E3-367E771F7433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +146,10 @@ Global
 		{1BD89515-4672-41C0-A2E1-01EBB6E03F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BD89515-4672-41C0-A2E1-01EBB6E03F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BD89515-4672-41C0-A2E1-01EBB6E03F75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12187939-9955-4C94-87E3-367E771F7433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12187939-9955-4C94-87E3-367E771F7433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12187939-9955-4C94-87E3-367E771F7433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12187939-9955-4C94-87E3-367E771F7433}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4800F466-8D81-4C90-A504-28AFF5E0B505} = {CD0194AB-21EA-426A-BD89-66A288DDED10}

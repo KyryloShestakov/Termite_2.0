@@ -378,8 +378,23 @@
       "System.IO.Pipelines/5.0.1": {},
       "System.Memory/4.5.3": {},
       "System.Text.Json/9.0.0": {},
+      "BlockchainLib/1.0.0": {
+        "dependencies": {
+          "EnumsLib": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0"
+        },
+        "runtime": {
+          "BlockchainLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Client/1.0.0": {
         "dependencies": {
+          "BlockchainLib": "1.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
@@ -417,6 +432,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "TestDb": "1.0.0"
         },
         "runtime": {
@@ -445,6 +461,7 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
           "StorageLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "UtilitiesLib": "1.0.0"
         },
         "runtime": {
@@ -465,6 +482,20 @@
         },
         "runtime": {
           "StorageLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ter-Protocol-Lib/1.0.0": {
+        "dependencies": {
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "Ter-Protocol-Lib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -691,6 +722,11 @@
       "path": "system.text.json/9.0.0",
       "hashPath": "system.text.json.9.0.0.nupkg.sha512"
     },
+    "BlockchainLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Client/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -722,6 +758,11 @@
       "sha512": ""
     },
     "StorageLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ter-Protocol-Lib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

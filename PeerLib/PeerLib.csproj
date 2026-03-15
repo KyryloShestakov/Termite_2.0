@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RRLib\RRLib.csproj" />
+      <ProjectReference Include="..\Ter-Protocol-Lib\Ter-Protocol-Lib.csproj" />
       <ProjectReference Include="..\TestDb\TestDb.csproj" />
     </ItemGroup>
 

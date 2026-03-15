@@ -1,4 +1,5 @@
 using System.Reactive;
+using API;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Client;
@@ -13,6 +14,9 @@ namespace TermiteUI.Pages
         public ReactiveCommand<Unit, Unit> StartClientCommand { get; }
         public ReactiveCommand<Unit, Unit> StopServerCommand { get; }
         public ReactiveCommand<Unit, Unit> StopClientCommand { get; }
+        private ApiHost _apiServer;
+
+        public ReactiveCommand<Unit, Unit> StartApiCommand { get; }
 
         public NodeControlView()
         {
@@ -24,6 +28,7 @@ namespace TermiteUI.Pages
             StartClientCommand = ReactiveCommand.Create(StartClient);
             StopServerCommand = ReactiveCommand.Create(StopServer);
             StopClientCommand = ReactiveCommand.Create(StopClient);
+            StartApiCommand = ReactiveCommand.Create(StartApi);
         }
 
         public void StartServer()
@@ -57,6 +62,16 @@ namespace TermiteUI.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        public void StartApi()
+        {
+            if (_apiServer == null)
+            {
+                _apiServer = new ApiHost();
+                _apiServer.Start(); // метод запуска, который блокирует или асинхронный
+                Logger.Log("API started.", LogLevel.Information, Source.App);
+            }
         }
     }
 }

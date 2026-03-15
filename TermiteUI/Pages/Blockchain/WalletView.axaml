@@ -11,7 +11,7 @@
     <UserControl.Styles>
         <Style Selector="TextBlock">
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="Foreground" Value="#2D2D2D" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Margin" Value="0,0,0,10" />
         </Style>
 

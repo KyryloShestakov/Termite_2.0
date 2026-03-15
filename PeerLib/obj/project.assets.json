@@ -1189,6 +1189,22 @@
           "bin/placeholder/StorageLib.dll": {}
         }
       },
+      "Ter-Protocol-Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Ter-Protocol-Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ter-Protocol-Lib.dll": {}
+        }
+      },
       "TestDb/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -3327,6 +3343,11 @@
       "path": "../StorageLib/StorageLib.csproj",
       "msbuildProject": "../StorageLib/StorageLib.csproj"
     },
+    "Ter-Protocol-Lib/1.0.0": {
+      "type": "project",
+      "path": "../Ter-Protocol-Lib/Ter-Protocol-Lib.csproj",
+      "msbuildProject": "../Ter-Protocol-Lib/Ter-Protocol-Lib.csproj"
+    },
     "TestDb/1.0.0": {
       "type": "project",
       "path": "../TestDb/TestDb.csproj",
@@ -3344,6 +3365,7 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
       "RRLib >= 1.0.0",
+      "Ter-Protocol-Lib >= 1.0.0",
       "TestDb >= 1.0.0"
     ]
   },
@@ -3375,6 +3397,9 @@
           "projectReferences": {
             "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj": {
               "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/RRLib/RRLib.csproj"
+            },
+            "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Ter-Protocol-Lib/Ter-Protocol-Lib.csproj": {
+              "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/Ter-Protocol-Lib/Ter-Protocol-Lib.csproj"
             },
             "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj": {
               "projectPath": "/Users/kyrylo_shestakov/RiderProjects/Termite_2.0/TestDb/TestDb.csproj"
@@ -3433,13 +3458,5 @@
         "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/9.0.101/libexec/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

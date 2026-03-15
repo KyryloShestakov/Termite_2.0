@@ -36,7 +36,7 @@ namespace BlockchainLib.Addresses
                 {
                     Address = address,
                     PrivateKey = privateKey,
-                    PubicKey = publicKey
+                    PublicKey = publicKey
                 };
 
                 // Log the successful generation of the address and private key

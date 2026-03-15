@@ -18,38 +18,38 @@
             <StackPanel>
                 <!-- Привязка информации о узле, все данные на одной строке -->
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Node id: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.NodeId}" FontSize="16" />
+                    <TextBlock Text="Node id: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.NodeId}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="IP Address: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.IpAddress}" FontSize="16" />
+                    <TextBlock Text="IP Address: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.IpAddress}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Port: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.Port}" FontSize="16" />
+                    <TextBlock Text="Port: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.Port}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Last Seen: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.LastSeen}" FontSize="16" />
+                    <TextBlock Text="Last Seen: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.LastSeen}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Status: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.Status}" FontSize="16" />
+                    <TextBlock Text="Status: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.Status}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Software Version: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.SoftwareVersion}" FontSize="16" />
+                    <TextBlock Text="Software Version: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.SoftwareVersion}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Node Type: " FontSize="16" FontWeight="Bold" />
-                    <TextBlock Text="{Binding PeerInfo.NodeType}" FontSize="16" />
+                    <TextBlock Text="Node Type: " FontSize="16" FontWeight="Bold" Foreground="Black"/>
+                    <TextBlock Text="{Binding PeerInfo.NodeType}" FontSize="16" Foreground="Black"/>
                 </StackPanel>
 
                 <!-- <StackPanel Orientation="Horizontal" Spacing="5"> -->

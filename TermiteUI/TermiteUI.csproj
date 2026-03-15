@@ -12,6 +12,7 @@
         <PackageReference Include="Avalonia" Version="11.2.1" />
         <PackageReference Include="Avalonia.BuildServices" Version="0.0.31" />
         <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -33,35 +34,63 @@
         <UpToDateCheckInput Update="ConfirmedTransactionPage.axaml">
         <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
       </UpToDateCheckInput>
+        
     </ItemGroup>
     
     <ItemGroup>
-      <Compile Update="CTPage.axaml.cs">
-        <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
+      <Compile Update="Pages\MainView.axaml.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
-      <Compile Update="CTViewModel.cs">
-        <DependentUpon>ConfirmedTransactionPage.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="BlockchainViewModel.cs">
+      <Compile Update="Pages\Blockchain\BlockchainView.axaml.cs">
         <DependentUpon>BlockchainPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
-      <Compile Update="MainWindowViewModel.cs">
-        <DependentUpon>MainWindow.axaml</DependentUpon>
+      <Compile Update="Pages\Blockchain\BlockchainViewModel.cs">
+        <DependentUpon>BlockchainView.axaml</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Page Include="BlockchainPage.axaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
+      <Compile Update="Pages\Blockchain\TransactionModel.cs">
+        <DependentUpon>TransactionView.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\Blockchain\TransactionView.axaml.cs">
+        <DependentUpon>TransactionView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Pages\MainViewModel.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\Blockchain\MinerView.axaml.cs">
+        <DependentUpon>MinerView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Pages\NodeControlView.axaml.cs">
+        <DependentUpon>NodeControlView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Pages\Blockchain\WalletView.axaml.cs">
+        <DependentUpon>WalletView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\API\API.csproj" />
       <ProjectReference Include="..\BlockchainLib\BlockchainLib.csproj" />
       <ProjectReference Include="..\Client\Client.csproj" />
       <ProjectReference Include="..\CoreLib\CoreLib.csproj" />
       <ProjectReference Include="..\Server\Server.csproj" />
       <ProjectReference Include="..\StorageLib\StorageLib.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Page Include="Pages\Blockchain\BlockchainView.axaml">
+        <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Pages\Network\" />
+      <Folder Include="Resources\" />
     </ItemGroup>
 </Project>

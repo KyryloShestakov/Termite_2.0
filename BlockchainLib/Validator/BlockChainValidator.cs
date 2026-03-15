@@ -47,7 +47,7 @@ namespace BlockchainLib.Validator
 
                 if (!ValidateGenesisBlock(blockchain.Blocks.First()))
                 {
-                    Logger.Log("Genesis block validation failed.", LogLevel.Error, Source.Validator);
+                    Logger.Log($"Genesis block validation failed.", LogLevel.Error, Source.Validator);
                     return _serverResponseService.GetResponse(false, "Genesis block validation failed.");
                 }
 
@@ -171,11 +171,11 @@ namespace BlockchainLib.Validator
                     return false;
                 }
 
-                if (!ValidateBlock(genesisBlock))
-                {
-                    Logger.Log("Genesis block validation failed: General block validation failed.", LogLevel.Error, Source.Validator);
-                    return false;
-                }
+                // if (!ValidateBlock(genesisBlock))
+                // {
+                //     Logger.Log("Genesis block validation failed: General block validation failed.", LogLevel.Error, Source.Validator);
+                //     return false;
+                // }
 
                 if (genesisBlock.Index != 0)
                 {

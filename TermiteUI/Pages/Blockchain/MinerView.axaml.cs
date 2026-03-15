@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using BlockchainLib;
+using BlockchainLib.Blocks;
 using Utilities;
 
 namespace TermiteUI.Pages.Blockchain;
@@ -60,13 +61,13 @@ public partial class MinerView : UserControl, INotifyPropertyChanged
     {
         try
         {
-            BlockChainCore blockChain = (BlockChainCore)state;
-            blockChain.StartBlockchain();
-            Logger.Log("Blockchain processed", LogLevel.Information, Source.Blockchain);
+            BlockBuilder blockBuilder = new BlockBuilder();
+            blockBuilder.StartBuilding();
+            Logger.Log($"Blockchain processed", LogLevel.Information, Source.Blockchain);
         }
         catch (Exception ex)
         {
-            Logger.Log($"Error in blockchain processing: {ex.Message}", LogLevel.Error, Source.Blockchain);
+            Logger.Log($"Error in blockchain processing: {ex.Message}");
         }
     }
 

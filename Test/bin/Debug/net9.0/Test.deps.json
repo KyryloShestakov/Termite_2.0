@@ -11,7 +11,9 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
-          "RRLib": "1.0.0"
+          "RRLib": "1.0.0",
+          "SecurityLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0"
         },
         "runtime": {
           "Test.dll": {}
@@ -832,6 +834,21 @@
           }
         }
       },
+      "SecurityLib/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
+          "RRLib": "1.0.0",
+          "StorageLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "SecurityLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "StorageLib/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "9.0.0",
@@ -843,6 +860,20 @@
         },
         "runtime": {
           "StorageLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ter-Protocol-Lib/1.0.0": {
+        "dependencies": {
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "Ter-Protocol-Lib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1239,7 +1270,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "SecurityLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "StorageLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ter-Protocol-Lib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

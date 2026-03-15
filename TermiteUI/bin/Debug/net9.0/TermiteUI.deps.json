@@ -13,6 +13,7 @@
           "Avalonia.Desktop": "11.2.1",
           "Avalonia.Diagnostics": "11.2.1",
           "Avalonia.Fonts.Inter": "11.2.1",
+          "Avalonia.Svg": "11.2.0.2",
           "Avalonia.Themes.Fluent": "11.2.1",
           "BlockchainLib": "1.0.0",
           "Client": "1.0.0",
@@ -218,6 +219,18 @@
           }
         }
       },
+      "Avalonia.Svg/11.2.0.2": {
+        "dependencies": {
+          "Avalonia": "11.2.1",
+          "Svg.Model": "2.0.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/Avalonia.Svg.dll": {
+            "assemblyVersion": "11.2.0.2",
+            "fileVersion": "11.2.0.2"
+          }
+        }
+      },
       "Avalonia.Themes.Fluent/11.2.1": {
         "dependencies": {
           "Avalonia": "11.2.1"
@@ -281,6 +294,14 @@
           "lib/net8.0/DynamicData.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.4.44987"
+          }
+        }
+      },
+      "ExCSS/4.2.3": {
+        "runtime": {
+          "lib/net7.0/ExCSS.dll": {
+            "assemblyVersion": "4.2.3.0",
+            "fileVersion": "4.2.3.0"
           }
         }
       },
@@ -578,6 +599,14 @@
           }
         }
       },
+      "ShimSkiaSharp/2.0.0.4": {
+        "runtime": {
+          "lib/net8.0/ShimSkiaSharp.dll": {
+            "assemblyVersion": "2.0.0.4",
+            "fileVersion": "2.0.0.4"
+          }
+        }
+      },
       "SkiaSharp/2.88.8": {
         "dependencies": {
           "SkiaSharp.NativeAssets.Win32": "2.88.8",
@@ -809,6 +838,29 @@
           }
         }
       },
+      "Svg.Custom/2.0.0.4": {
+        "dependencies": {
+          "ExCSS": "4.2.3"
+        },
+        "runtime": {
+          "lib/net8.0/Svg.Custom.dll": {
+            "assemblyVersion": "2.0.0.4",
+            "fileVersion": "2.0.0.4"
+          }
+        }
+      },
+      "Svg.Model/2.0.0.4": {
+        "dependencies": {
+          "ShimSkiaSharp": "2.0.0.4",
+          "Svg.Custom": "2.0.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/Svg.Model.dll": {
+            "assemblyVersion": "2.0.0.4",
+            "fileVersion": "2.0.0.4"
+          }
+        }
+      },
       "System.ComponentModel.Annotations/5.0.0": {},
       "System.IO.Pipelines/8.0.0": {},
       "System.Memory/4.5.3": {},
@@ -836,7 +888,8 @@
         "dependencies": {
           "EnumsLib": "1.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
-          "RRLib": "1.0.0"
+          "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0"
         },
         "runtime": {
           "BlockchainLib.dll": {
@@ -847,6 +900,7 @@
       },
       "Client/1.0.0": {
         "dependencies": {
+          "BlockchainLib": "1.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "PeerLib": "1.0.0",
           "RRLib": "1.0.0",
@@ -897,6 +951,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "TestDb": "1.0.0"
         },
         "runtime": {
@@ -925,6 +980,7 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.0",
           "RRLib": "1.0.0",
           "StorageLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "UtilitiesLib": "1.0.0"
         },
         "runtime": {
@@ -943,6 +999,7 @@
           "RRLib": "1.0.0",
           "SecurityLib": "1.0.0",
           "StorageLib": "1.0.0",
+          "Ter-Protocol-Lib": "1.0.0",
           "UtilitiesLib": "1.0.0"
         },
         "runtime": {
@@ -963,6 +1020,20 @@
         },
         "runtime": {
           "StorageLib.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ter-Protocol-Lib/1.0.0": {
+        "dependencies": {
+          "ModelsLib": "1.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StorageLib": "1.0.0",
+          "UtilitiesLib": "1.0.0"
+        },
+        "runtime": {
+          "Ter-Protocol-Lib.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1084,6 +1155,13 @@
       "path": "avalonia.skia/11.2.1",
       "hashPath": "avalonia.skia.11.2.1.nupkg.sha512"
     },
+    "Avalonia.Svg/11.2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6BdUl2w3p/+3S3+Dqn6HEwJ8O/8yfyfd54haVAvdk71LD+UkmWcVqqiLLAmq6yi1qdsf5ax1V3cEkd6dtcweSg==",
+      "path": "avalonia.svg/11.2.0.2",
+      "hashPath": "avalonia.svg.11.2.0.2.nupkg.sha512"
+    },
     "Avalonia.Themes.Fluent/11.2.1": {
       "type": "package",
       "serviceable": true,
@@ -1125,6 +1203,13 @@
       "sha512": "sha512-CjJUF3u8V7QseHlumOBajFUYM9YKlI6QhDKz5MMyeckPeU6QyMExDJhGsJqIk6RYYLaPNLsk5qkzxEgDWv/lsg==",
       "path": "dynamicdata/9.0.4",
       "hashPath": "dynamicdata.9.0.4.nupkg.sha512"
+    },
+    "ExCSS/4.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SyeAfu2wL5247sipJoPUzQfjiwQtfSd8hN4IbgoyVcDx4PP6Dud4znwPRibWQzLtTlUxYYcbf5f4p+EfFC7KtQ==",
+      "path": "excss/4.2.3",
+      "hashPath": "excss.4.2.3.nupkg.sha512"
     },
     "HarfBuzzSharp/7.3.0.2": {
       "type": "package",
@@ -1308,6 +1393,13 @@
       "path": "reactiveui/20.1.63",
       "hashPath": "reactiveui.20.1.63.nupkg.sha512"
     },
+    "ShimSkiaSharp/2.0.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7UDQA2c0k56I8yvgHWoRTq4JUOLU9alajszvixR4IDhXgTJaEHqXqzu618Dh26K31zvKMR4ndc9y+OhtuDdhqQ==",
+      "path": "shimskiasharp/2.0.0.4",
+      "hashPath": "shimskiasharp.2.0.0.4.nupkg.sha512"
+    },
     "SkiaSharp/2.88.8": {
       "type": "package",
       "serviceable": true,
@@ -1384,6 +1476,20 @@
       "sha512": "sha512-WaoulkOqOC9jHepca3JZKFTqndCWab5uYS7qCzmiQDlrTkFaDN7eLSlEfHycBxipRnQY9ppZM7QSsWAwUEGblw==",
       "path": "stackexchange.redis/2.8.16",
       "hashPath": "stackexchange.redis.2.8.16.nupkg.sha512"
+    },
+    "Svg.Custom/2.0.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RTA2brxnCbPi+hR8Z6qRGNA0aB7CGR2dBn57xmK3KXbuZPmiV1OUEjuI5++oMN6HcnEMIXSa8UkHTanjNt3eMA==",
+      "path": "svg.custom/2.0.0.4",
+      "hashPath": "svg.custom.2.0.0.4.nupkg.sha512"
+    },
+    "Svg.Model/2.0.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u3O0EW7w4PUI7hyYKeH9F5hm1KDgRnz3KRutwTyRwGia/MqCuYF6nf9HeNiw7rOuX0tR14wa8peQ/rw9RpWSOQ==",
+      "path": "svg.model/2.0.0.4",
+      "hashPath": "svg.model.2.0.0.4.nupkg.sha512"
     },
     "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",
@@ -1473,6 +1579,11 @@
       "sha512": ""
     },
     "StorageLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ter-Protocol-Lib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

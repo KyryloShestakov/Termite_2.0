@@ -2,7 +2,8 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:termiteUi="clr-namespace:TermiteUI.Pages.Blockchain"
          x:Class="TermiteUI.Pages.Blockchain.TransactionView"
-         x:DataType="termiteUi:TransactionModel">
+         x:DataType="termiteUi:TransactionModel"
+         >
 
     <Grid>
         
@@ -11,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" Grid.Row="0" />
+        <TextBlock Text="Confirmed transactions" FontSize="18" Margin="10" Grid.Row="0" Foreground="White"/>
         
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ListBox ItemsSource="{Binding Transactions}" Width="1500" Background="Transparent"
@@ -21,29 +22,29 @@
                         <Border BorderThickness="1" CornerRadius="5" BorderBrush="Beige" Padding="10" Margin="10" Background="#FFF">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <TextBlock Text="Receiver: " FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Receiver}" Margin="5,0" />
+                                    <TextBlock Text="Receiver: " FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding Receiver}" Margin="5,0" Foreground="Black"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <TextBlock Text="Amount: " FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Amount}" Margin="5,0" />
-                                    <TextBlock Text="TER" FontWeight="Bold" />
+                                    <TextBlock Text="Amount: " FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding Amount}" Margin="5,0" Foreground="Black" />
+                                    <TextBlock Text="TER" FontWeight="Bold" Foreground="Black"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <TextBlock Text="Sender: " FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Sender}" Margin="5,0" />
+                                    <TextBlock Text="Sender: " FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding Sender}" Margin="5,0" Foreground="Black"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <TextBlock Text="Timestamp: " FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Timestamp}" Margin="5,0" />
+                                    <TextBlock Text="Timestamp: " FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding Timestamp}" Margin="5,0" Foreground="Black" />
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <TextBlock Text="Block id: " FontWeight="Bold" />
-                                    <TextBlock Text="{Binding BlockId}" Margin="5,0" />
+                                    <TextBlock Text="Block id: " FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding BlockId}" Margin="5,0" Foreground="Black" />
                                 </StackPanel> 
                                 
                             </StackPanel>

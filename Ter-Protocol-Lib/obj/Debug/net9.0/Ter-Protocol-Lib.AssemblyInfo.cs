@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ter-Protocol-Lib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+373697f333ee5b2aab3064f63868cf3cadf3ee28")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff52e4042af105ca734168d476575f8c61670d9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ter-Protocol-Lib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ter-Protocol-Lib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

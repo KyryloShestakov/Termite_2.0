@@ -3,16 +3,33 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="TermiteUI/App.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/BlockchainPage.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/BlockchainPage2.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/ButtonStyle.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/ConfirmedTransactionPage.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/KnownPeersPage.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/MainWindow.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/MinePage.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/MyInfoPage.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/Page1.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Page2.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/Blockchain/BlockchainView.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/Blockchain/TransactionView.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/Blockchain/WalletView.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/MainView.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/NodeControlView.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/UserControl1.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Pages/Window1.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Resources/EnvRes.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Resources1.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Style.axaml" value="TermiteUI/TermiteUI.csproj" />
         <entry key="TermiteUI/WalletPage.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUI/Window1.axaml" value="TermiteUI/TermiteUI.csproj" />
+        <entry key="TermiteUIMVVP/App.axaml" value="TermiteUIMVVP/TermiteUIMVVP.csproj" />
+        <entry key="TermiteUIMVVP/Views/MainWindow.axaml" value="TermiteUIMVVP/TermiteUIMVVP.csproj" />
         <entry key="TermiteUI_2.0/MainWindow.axaml" value="TermiteUI_2.0/TermiteUI_2.0.csproj" />
+        <entry key="TermiteUI_2/MainWindow.axaml" value="TermiteUI_2/TermiteUI_2.csproj" />
       </map>
     </option>
   </component>
