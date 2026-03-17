@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 class Program
 {
@@ -9,31 +8,26 @@ class Program
     {
         try
         {
-            // Адрес и порт STUN-сервера
-            string stunServer = "23.21.150.121"; // Замените на адрес нужного STUN-сервера
-            int stunPort = 3478;                   // STUN обычно слушает 19302 (UDP и TCP)
-            
-            // Устанавливаем соединение
-            using (var client = new TcpClient())
+            string stunServer = "stun.l.google.com";
+            int stunPort = 19302;
+
+            using (var client = new UdpClient())
             {
-                client.Connect(stunServer, stunPort); // Подключаемся по TCP
-                var stream = client.GetStream();
+                client.Connect(stunServer, stunPort);
 
-                // Формируем STUN-запрос
                 byte[] stunRequest = CreateStunBindingRequest();
-
-                // Отправляем запрос
-                stream.Write(stunRequest, 0, stunRequest.Length);
+                client.Send(stunRequest, stunRequest.Length);
                 Console.WriteLine("STUN-запрос отправлен.");
 
-                // Получаем ответ
-                byte[] response = new byte[1024];
-                int bytesRead = stream.Read(response, 0, response.Length);
+                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, stunPort);
+                byte[] response = client.Receive(ref remoteEP);
 
-                if (bytesRead > 0)
+                if (response.Length > 0)
                 {
                     Console.WriteLine("Ответ STUN-сервера:");
-                    Console.WriteLine(BitConverter.ToString(response, 0, bytesRead));
+                    Console.WriteLine(BitConverter.ToString(response));
+
+                    ParseStunResponse(response);
                 }
                 else
                 {
@@ -47,29 +41,46 @@ class Program
         }
     }
 
-    // Метод для создания STUN Binding Request
     private static byte[] CreateStunBindingRequest()
     {
-        // Тип сообщения: Binding Request (0x0001)
-        // Magic Cookie: 0x2112A442
-        // Transaction ID: 16 байт случайных данных
         byte[] transactionId = new byte[12];
         new Random().NextBytes(transactionId);
 
-        // Формируем бинарный запрос
-        byte[] request = new byte[20]; // Заголовок STUN — 20 байт
-        request[0] = 0x00;  // Тип сообщения (старший байт)
-        request[1] = 0x01;  // Тип сообщения (младший байт)
-        request[2] = 0x00;  // Длина (старший байт)
-        request[3] = 0x00;  // Длина (младший байт)
-        request[4] = 0x21;  // Magic Cookie (часть 1)
-        request[5] = 0x12;  // Magic Cookie (часть 2)
-        request[6] = 0xA4;  // Magic Cookie (часть 3)
-        request[7] = 0x42;  // Magic Cookie (часть 4)
+        byte[] request = new byte[20];
+        request[0] = 0x00; request[1] = 0x01;
+        request[2] = 0x00; request[3] = 0x00;
+        request[4] = 0x21; request[5] = 0x12;
+        request[6] = 0xA4; request[7] = 0x42;
 
-        // Добавляем Transaction ID
         Buffer.BlockCopy(transactionId, 0, request, 8, 12);
-
         return request;
+    }
+
+    private static void ParseStunResponse(byte[] response)
+    {
+        const int MAGIC_COOKIE = 0x2112A442;
+        int index = 20; // Пропускаем заголовок
+
+        while (index < response.Length)
+        {
+            int type = (response[index] << 8) | response[index + 1];
+            int length = (response[index + 2] << 8) | response[index + 3];
+            index += 4;
+
+            if (type == 0x0020) // XOR-MAPPED-ADDRESS
+            {
+                int family = response[index + 1];
+                int xorPort = ((response[index + 2] << 8) | response[index + 3]) ^ (MAGIC_COOKIE >> 16);
+                int xorIP = BitConverter.ToInt32(response, index + 4) ^ MAGIC_COOKIE;
+
+                IPAddress externalIP = new IPAddress(BitConverter.GetBytes(xorIP));
+                Console.WriteLine($"Внешний IP: {externalIP}, Порт: {xorPort}");
+                return;
+            }
+
+            index += length;
+        }
+
+        Console.WriteLine("Не удалось извлечь внешний IP.");
     }
 }

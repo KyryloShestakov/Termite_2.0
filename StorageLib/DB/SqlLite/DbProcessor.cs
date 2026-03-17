@@ -7,8 +7,14 @@ namespace StorageLib.DB.SqlLite;
 
 public class DbProcessor : IDbProcessor
 {
+    
     public async Task<T> ProcessService<T>(IDbProvider dbProvider, CommandType commandType, DbData data)
     {
+        if (dbProvider == null)
+        {
+            throw new ArgumentNullException(nameof(dbProvider), "dbProvider is null");
+        }
+        
         object result;
         switch (commandType)
         {

@@ -111,5 +111,6 @@ public enum Source
     App,
     Validator,
     PeerCore,
-    API
+    API,
+    Protocol,
 }

@@ -20,9 +20,7 @@ namespace DataLib.DB.SqlLite.Services.NetServices
         {
             try
             {
-                Logger.Log($"Checking if peer with NodeId {id} exists...", LogLevel.Information, Source.Server);
                 bool exists = await _context.PeersInfo.AnyAsync(p => p.NodeId == id);
-                Logger.Log($"Peer with NodeId {id} exists: {exists}", LogLevel.Information, Source.Server);
                 return exists;
             }
             catch (Exception ex)
@@ -60,14 +58,11 @@ namespace DataLib.DB.SqlLite.Services.NetServices
         {
             try
             {
-                Logger.Log($"Fetching peer info for NodeId {id}...", LogLevel.Information, Source.Server);
                 var peerInfo = await _context.MyPrivatePeerInfo.FirstOrDefaultAsync();
                 if (peerInfo == null)
                 {
-                    Logger.Log($"No peer info found for NodeId {id}.", LogLevel.Warning, Source.Server);
                     return null;
                 }
-                Logger.Log($"Peer info for NodeId {id} fetched successfully.", LogLevel.Information, Source.Server);
                 return peerInfo;
             }
             catch (Exception ex)

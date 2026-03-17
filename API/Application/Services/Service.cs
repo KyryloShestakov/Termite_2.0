@@ -20,9 +20,9 @@ public class Service
         return await _repository.GetAddressAndPrivateKey();
     }
 
-    public async Task PostTransaction(TransactionModel transactionModel)
+    public async Task<Response> PostTransaction(TransactionModel transactionModel)
     {
-        await _repository.AddTransaction(transactionModel);
+       return await _repository.AddTransaction(transactionModel);
     }
 
     public async Task<Response> GetBalance(string address)

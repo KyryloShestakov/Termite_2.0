@@ -1,0 +1,99 @@
+@startuml TcpServer
+
+package "Server" {
+class TcpServer {
+    - TcpListener _tcpListener
+    - CancellationTokenSource _cancellationTokenSource
+    - ConcurrentQueue<TcpRequest> _requestQueue
+    - Controller _controller
+    - RequestManager _requestManager
+    - SemaphoreSlim _connectionSemaphore
+    - const int MaxConnections
+    + TcpServer()
+    + Task StartAsync()
+    + Task HandleClientAsync(TcpClient tcpClient)
+    + Task<Response> ProcessRequestAsync(TcpRequest tcpRequest)
+    + Task ProcessRequestQueueAsync()
+    + void Stop()
+}
+
+class TcpRequest {
+    - string Message
+    + TcpRequest(string message)
+}
+
+class Response {
+    - string Status
+    - string Message
+    - object Data
+    - string ErrorCode
+}
+
+
+    class Controller {
+        - RequestHandlerFactory _requestHandlerFactory
+        + Controller()
+        + async Task<Response> HandleRequestAsync(TerProtocol<object> terProtocol)
+    }
+
+   class RequestHandlerFactory {
+       - IDictionary<string, IRequestHandler> _handlers
+       + RequestHandlerFactory()
+       + IRequestHandler GetHandler(string requestType)
+   }
+
+    class ServerResponseService {
+        + Response GetResponse(bool success, string message)
+    }
+
+    interface IController {
+        + HandleRequestAsync(TerProtocol<object> terProtocol)
+    }
+
+    class AuthRequestHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+    
+    class KnownPeerRequestHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+    
+    interface IRequestHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+    
+    class TransactionRequestHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+    
+    class BlockRequestHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+    
+    class PeerInfoHandler {
+        + Task<Response> HandleRequestAsync(TerProtocol<object> request)
+    }
+
+
+'TcpServer --> TcpRequest : Enqueues
+'TcpServer --> Controller : Uses
+'Controller -> ServerResponseService
+'Controller --> Response : Returns
+'Controller ..> IController
+'Controller -> RequestHandlerFactory : Uses
+'
+'
+'AuthRequestHandler ..> IRequestHandler
+'KnownPeerRequestHandler ..> IRequestHandler
+'TransactionRequestHandler ..> IRequestHandler
+'BlockRequestHandler ..> IRequestHandler
+'PeerInfoHandler ..> IRequestHandler
+'
+'RequestHandlerFactory --> IRequestHandler : Uses
+'RequestHandlerFactory --> AuthRequestHandler : Uses
+'RequestHandlerFactory --> KnownPeerRequestHandler : Uses
+'RequestHandlerFactory --> TransactionRequestHandler : Uses
+'RequestHandlerFactory --> BlockRequestHandler : Uses
+'RequestHandlerFactory --> PeerInfoHandler : Uses
+}
+@enduml

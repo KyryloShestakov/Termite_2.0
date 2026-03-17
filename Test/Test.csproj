@@ -9,6 +9,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RRLib\RRLib.csproj" />
+      <ProjectReference Include="..\SecurityLib\SecurityLib.csproj" />
+      <ProjectReference Include="..\Ter-Protocol-Lib\Ter-Protocol-Lib.csproj" />
     </ItemGroup>
 
     <ItemGroup>

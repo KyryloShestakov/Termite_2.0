@@ -7,6 +7,7 @@ using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services;
 using Utilities;
 using System.ComponentModel;
+using Avalonia.Markup.Xaml;
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib;
@@ -64,7 +65,7 @@ public partial class MyInfoPage : UserControl, INotifyPropertyChanged
         try
         {
             IModel model = await _dbProcessor.ProcessService<IModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
-            MyPrivatePeerInfoModel peerInfo = model as MyPrivatePeerInfoModel;
+            MyPrivatePeerInfoModel peerInfo = model as MyPrivatePeerInfoModel ?? throw new InvalidOperationException();
 
             if (peerInfo != null)
             {
@@ -87,4 +88,10 @@ public partial class MyInfoPage : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+
 }

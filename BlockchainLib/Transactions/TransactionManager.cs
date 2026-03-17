@@ -2,7 +2,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using DataLib.DB.SqlLite.Interfaces;
+using DataLib.DB.SqlLite.Services.NetServices;
 using ModelsLib.BlockchainLib;
+using ModelsLib.NetworkModels;
 using Newtonsoft.Json;
 using StorageLib.DB.Redis;
 using StorageLib.DB.SqlLite;
@@ -10,9 +12,7 @@ using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
 
 namespace BlockchainLib
-{
-
-
+{ 
     public class TransactionManager : ITransactionManager
     {
         private TransactionMemoryPool _memoryPool;
@@ -31,7 +31,7 @@ namespace BlockchainLib
             decimal amount,
             decimal fee,
             string signature,
-            Object data,
+            object data,
             string pubKey)
         {
             // Validation of input parameters
@@ -72,6 +72,7 @@ namespace BlockchainLib
             // Transaction creation
             Transaction transaction = new Transaction(senderAddress, recipientAddress, amount, fee, signature, data, pubKey);
             string transactionType = data?.ToString();
+            
             switch (transactionType)
             {
                 case "Unconfirmed":
@@ -87,7 +88,7 @@ namespace BlockchainLib
                     {
                         Logger.Log($"Transaction {transaction.Id} was not created", LogLevel.Warning, Source.Blockchain);
                     }
-                   // Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,Source.Storage);
+                    Logger.Log($"Transaction {transaction.Id} serialized and saved to Redis.", LogLevel.Information,Source.Storage);
                     break;
 
                 case "Confirmed":
@@ -159,15 +160,77 @@ namespace BlockchainLib
 
             return transaction;
         }
+        public Transaction SignTransaction(Transaction transaction, string privateKey)
+        {
+            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
+            if (privateKey == null) throw new ArgumentNullException(nameof(privateKey));
+
+            TransactionModel transactionModel = Transaction.ToModel(transaction);
+            string transactionData = JsonConvert.SerializeObject(new
+            {
+                transactionModel.Sender,
+                transactionModel.Receiver,
+                transactionModel.Amount,
+                transactionModel.Timestamp,
+                transactionModel.Fee,
+                transactionModel.Data,
+                transactionModel.Contract
+            });
+
+            byte[] transactionHash = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(transactionData));
+
+            RSA privateKeyRsa = GetPrivateKeyFromString(privateKey);
+            byte[] signature = privateKeyRsa.SignData(transactionHash, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+
+            transaction.Signature = Convert.ToBase64String(signature);
+
+            return transaction;
+        }
             
         private RSA GetPrivateKeyFromString(string privateKey)
         {
             using (RSA rsa = RSA.Create())
             {
-                // Преобразуем строковый ключ в byte[] и импортируем
                 rsa.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out _);
                 return rsa;
             }
+        }
+
+        public async Task<Transaction> CreateAwardedTransaction(Block block)
+        {
+            int blockHeight = 210000;
+            decimal amount = CalculateBlockReward(blockHeight, block.Transactions);
+
+            MyPrivatePeerInfoModel myInfo = await _dbProcessor.ProcessService<MyPrivatePeerInfoModel>(new MyPrivatePeerInfoService(new AppDbContext()), CommandType.Get, new DbData(null, "default"));
+            
+            Transaction transaction = new Transaction()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Amount = amount,
+                BlockId = block.Id,
+                Fee = 0,
+                PublicKey = myInfo.PublicKey,
+                Sender = "Awarded transaction",
+                Receiver = myInfo.AddressWallet,
+                Data = new string("Awarded transaction data"),
+                Signature = string.Empty,
+            };
+            
+           // Transaction transactionModel = SignTransaction(transaction, myInfo.PrivateKey);
+            
+            return transaction;
+        }
+        private const decimal InitialReward = 50m;
+        private const int HalvingInterval = 210000;
+        public static decimal CalculateBlockReward(int blockHeight, List<Transaction> transactions)
+        {
+            int halvings = blockHeight / HalvingInterval;
+        
+            decimal blockReward = InitialReward / (decimal)Math.Pow(2, halvings);
+            
+            decimal totalFees = transactions.Sum(x => x.Fee);
+            
+            return blockReward + totalFees;
         }
 
     }

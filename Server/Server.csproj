@@ -12,6 +12,7 @@
       <ProjectReference Include="..\RRLib\RRLib.csproj" />
       <ProjectReference Include="..\SecurityLib\SecurityLib.csproj" />
       <ProjectReference Include="..\StorageLib\StorageLib.csproj" />
+      <ProjectReference Include="..\Ter-Protocol-Lib\Ter-Protocol-Lib.csproj" />
       <ProjectReference Include="..\UtilitiesLib\UtilitiesLib.csproj" />
     </ItemGroup>
 

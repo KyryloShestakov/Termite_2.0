@@ -1,7 +1,9 @@
 using System.Collections.Immutable;
+using BlockchainLib.Validator;
 using DataLib.DB.SqlLite.Interfaces;
 using ModelsLib;
 using ModelsLib.BlockchainLib;
+using RRLib.Responses;
 using StorageLib.DB.SqlLite;
 using StorageLib.DB.SqlLite.Services.BlockchainDbServices;
 using Utilities;
@@ -76,7 +78,15 @@ namespace BlockchainLib
                 List<IModel> models = await _dbProcessor.ProcessService<List<IModel>>(new BlocksBdService(new AppDbContext()), CommandType.GetAll);
 
                 List<BlockModel> blocks = models.Cast<BlockModel>().OrderBy(b => b.Index).ToList();
-
+                IValidator validator = new BlockChainValidator();
+                BlockchainModel chainModel = new BlockchainModel();
+                chainModel.Blocks = blocks;
+                Response result = await validator.Validate(chainModel);
+                if (result.Status != "success")
+                {
+                    Logger.Log($"{result.Message}", LogLevel.Error, Source.Blockchain);
+                    throw new Exception($"Failed to validate blockchain: {result.Status}");
+                }
                 foreach (var blockModel in blocks)
                 {
                     Logger.Log($"Block #{blockModel.Index} was adeded", LogLevel.Warning, Source.Blockchain);

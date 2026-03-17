@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using CoreLib;
 using DataLib.DB.SqlLite.Interfaces;
 using DataLib.DB.SqlLite.Services.NetServices;
@@ -66,4 +67,10 @@ public partial class KnownPeersPage : UserControl, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+
 }

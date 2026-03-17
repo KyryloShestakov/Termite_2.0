@@ -37,12 +37,12 @@ public class BlockChainCore
 
             Logger.Log($"Block #{block.Index} successfully created. Adding block to blockchain...", LogLevel.Information, Source.Blockchain);
             
-            await _blockchain.AddBlockAsync(block);
+            _blockchain.AddBlockAsync(block);
             Logger.Log($"Block #{block.Index} added to blockchain.", LogLevel.Information, Source.Blockchain);
 
             BlockModel blockModel = block.ToBlockModel();
             
-            await _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(blockModel));
+            _dbProcessor.ProcessService<bool>(new BlocksBdService(new AppDbContext()), CommandType.Add, new DbData(blockModel));
 
             await RemoveTransactionsFromBlockFromSqlLite(block);
 

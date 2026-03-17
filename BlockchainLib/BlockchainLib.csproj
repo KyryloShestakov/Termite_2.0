@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\EnumsLib\EnumsLib.csproj" />
       <ProjectReference Include="..\RRLib\RRLib.csproj" />
+      <ProjectReference Include="..\Ter-Protocol-Lib\Ter-Protocol-Lib.csproj" />
     </ItemGroup>
 
 </Project>

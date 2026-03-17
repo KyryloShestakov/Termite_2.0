@@ -10,15 +10,15 @@ public class ClientTcp
 {
     private DataSynchronizer _dataSynchronizer;
     private ConnectionManager _connectionManager;
-    private IDbProcessor dbProcessor;
+    private IDbProcessor _dbProcessor;
     private AppDbContext _appDbContext;
 
     public ClientTcp()
     {
         _appDbContext = new AppDbContext();
-        dbProcessor = new DbProcessor();
+        _dbProcessor = new DbProcessor();
         _connectionManager = new ConnectionManager();
-        _dataSynchronizer = new DataSynchronizer(dbProcessor, _appDbContext);
+        _dataSynchronizer = new DataSynchronizer(_dbProcessor, _appDbContext);
     }
 
     public async Task RunAsync()

@@ -3,11 +3,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using RRLib;
 using RRLib.Responses;
 using Server.Controllers;
-using Server.Executors;
 using Server.Requests;
+using Ter_Protocol_Lib.Requests;
 using Utilities;
 
 public class TcpServer
@@ -16,9 +15,9 @@ public class TcpServer
     private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly ConcurrentQueue<TcpRequest> _requestQueue;
     private readonly Controller _controller;
-    private readonly RequestExecutor _requestExecutor;
     private readonly SemaphoreSlim _connectionSemaphore;
-
+    private RequestManager _requestManager;
+    
     private const int MaxConnections = 5;
 
     public TcpServer()
@@ -27,8 +26,8 @@ public class TcpServer
         _cancellationTokenSource = new CancellationTokenSource();
         _requestQueue = new ConcurrentQueue<TcpRequest>();
         _controller = new Controller();
-        _requestExecutor = new RequestExecutor();
         _connectionSemaphore = new SemaphoreSlim(MaxConnections, MaxConnections);
+        _requestManager = new RequestManager();
     }
 
     public async Task StartAsync()
@@ -102,20 +101,24 @@ public class TcpServer
     {
         try
         {
-            Request? request = Request.Deserialize(tcpRequest.Message);
-            if (request == null)
+            var terRequest = TerProtocol<string>.Deserialize(tcpRequest.Message);
+            
+            if (terRequest == null)
             {
                 Logger.Log("Invalid request received.", LogLevel.Warning, Source.Server);
                 return null;
             }
-
-            if (request.PayLoad.IsEncrypted)
-            {
-                request = await _requestExecutor.DecryptRequest(request);
-            }
-            Logger.Log($"Received request of type: {request.RequestType}", LogLevel.Information, Source.Server);
-
-            return await _controller.HandleRequestAsync(request);
+            
+            string decryptRequest = await _requestManager.DecryptRequest(terRequest.Payload);
+            var obj = RequestSerializer.DeserializeData(terRequest.Header.MessageType, decryptRequest);
+            Logger.Log($"Received request of type: {terRequest.Header.MessageType}", LogLevel.Information, Source.Server);
+            
+            
+            TerProtocol<object> terProtocol =
+                new TerProtocol<object>(terRequest.Header, new TerPayload<object>(obj));
+            
+            Response response = await _controller.HandleRequestAsync(terProtocol);
+            return response;
         }
         catch (Exception ex)
         {
@@ -129,8 +132,8 @@ public class TcpServer
         while (!_cancellationTokenSource.Token.IsCancellationRequested)
         {
             while (_requestQueue.TryDequeue(out var request))
-            {
-                await ProcessRequestAsync(request);
+            { 
+                //await ProcessRequestAsync(request);
             }
             await Task.Delay(100);
         }

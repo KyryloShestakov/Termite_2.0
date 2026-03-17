@@ -1,7 +1,9 @@
 using BlockchainLib;
+using BlockchainLib.Blocks;
 using RRLib;
-using RRLib.Requests.BlockchainRequests;
 using RRLib.Responses;
+using Ter_Protocol_Lib.Requests;
+using Utilities;
 
 namespace Server.Controllers.Handlers.BlockchainHandlers;
 
@@ -14,24 +16,34 @@ public class BlockRequestHandler : IRequestHandler
         _blockService = new BlockService();
     }
 
-    public async Task<Response> HandleRequestAsync(Request request)
+    public async Task<Response> HandleRequestAsync(TerProtocol<object> request)
     {
-        BlockRequest blockRequest = request as BlockRequest ?? throw new InvalidOperationException();
-        switch (request.Method)
+        
+        string json = request.Payload.Serialize();
+        var obj = RequestSerializer.DeserializeData(request.Header.MessageType,json);
+            
+        BlockRequest bRequest = (BlockRequest)obj;
+        
+        switch (obj)
         {
-            case "GET":
-                return await _blockService.GetBlocks(blockRequest);
-            case "GETBYID":
-                return await _blockService.GetBlockById(blockRequest);
-            case "POST":
-                return await _blockService.PostBlocks(blockRequest);
-            case "UPDATE":
-                return await _blockService.UpdateBlocks(blockRequest);
-            case "DELETE":
-                return await _blockService.DeleteBlocks(blockRequest);
+            case BlockRequest blockRequest:
+                TerProtocol<object> terProtocol = new TerProtocol<object>(request.Header, new TerPayload<object>(bRequest));
+                switch (request.Header.MethodType)
+                {
+                    case MethodType.Post:
+                        await _blockService.PostBlocks(terProtocol);
+                        break;
+                                    
+                    default:
+                        Logger.Log("Unknown command.", LogLevel.Warning, Source.Server);
+                        break;
+                }
+                break;
+                    
             default:
-                var response = new ServerResponseService().GetResponse(false, "Unknown Method.");
-                return response;
+                Console.WriteLine("Unsupported request type.");
+                break;
         }
+        return new Response();
     }
 }

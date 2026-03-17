@@ -3,10 +3,14 @@
 // and interacts with the TransactionService to perform the appropriate action.
 // If an unsupported method is received, it returns an error response indicating "Unknown Method."
 
-using BlockchainLib; // Blockchain library that may handle blockchain-related operations
+using BlockchainLib;
+using ModelsLib.BlockchainLib;
+using Newtonsoft.Json; // Blockchain library that may handle blockchain-related operations
 using PeerLib.Services; // Peer service library for handling peer-to-peer communication and transactions
 using RRLib; // Library for handling response-related operations
-using RRLib.Responses; // Responses for server communication
+using RRLib.Responses;
+using Ter_Protocol_Lib.Requests;
+using Utilities; // Responses for server communication
 
 namespace Server.Controllers.Handlers.BlockchainHandlers
 {
@@ -23,33 +27,34 @@ namespace Server.Controllers.Handlers.BlockchainHandlers
         }
 
         // Asynchronous method that processes the incoming request based on the HTTP method
-        public async Task<Response> HandleRequestAsync(Request request)
+        public async Task<Response> HandleRequestAsync(TerProtocol<object> request)
         {
-            // Switch based on the HTTP method to call the appropriate service method
-            switch (request.Method)
+            string json = request.Payload.Serialize();
+            Logger.Log(json, LogLevel.Warning, Source.Server);
+            var obj = RequestSerializer.DeserializeData(request.Header.MessageType,json);
+            
+            TransactionRequest txRequest = (TransactionRequest)obj;
+            if (txRequest != null)
             {
-                case "GET":
-                    // Handle the GET request by retrieving the transactions
-                    return await _transactionService.GetTransactions(request);
-
-                case "POST":
-                    // Handle the POST request by posting a new transaction
-                    return await _transactionService.PostTransactions(request);
-
-                case "UPDATE":
-                    // Handle the UPDATE request by updating an existing transaction
-                    return await _transactionService.UpdateTransactions(request);
-
-                case "DELETE":
-                    // Handle the DELETE request by deleting a specified transaction
-                    return await _transactionService.DeleteTransactions(request);
-
-                // If an unknown HTTP method is received, return an error response
-                default:
-                    // Default response for unsupported methods
-                    var response = new ServerResponseService().GetResponse(false, "Unknown Method.");
-                    return response;
+                TerProtocol<object> terTxProtocol = new TerProtocol<object>(request.Header, new TerPayload<object>(txRequest));
+            
+                switch (request.Header.MethodType)
+                {
+                    case MethodType.Post:
+                        Response txPostResponse = await _transactionService.PostTransactions(terTxProtocol);
+                        return txPostResponse;
+                    case MethodType.Get:
+                        Response txGetResponse = await _transactionService.GetTransaction(terTxProtocol);
+                        return txGetResponse;
+                                    
+                    default:
+                        Logger.Log("Unknown command.", LogLevel.Warning, Source.Server);
+                        break;
+                    
+                }
             }
+
+            return new ServerResponseService().GetResponse(true, "Request processed successfully.");
         }
     }
 }

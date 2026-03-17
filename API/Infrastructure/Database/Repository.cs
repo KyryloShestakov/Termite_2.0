@@ -19,7 +19,7 @@ public class Repository : IRepository
     private IDbProcessor _dbProcessor;
     private ServerResponseService _serverResponseService;
     private readonly AddressService _addressService;
-    private TransactionValidator _validator;
+    private IValidator _validator;
     private BlockManager _blockManager;
 
 
@@ -42,13 +42,29 @@ public class Repository : IRepository
     {
         try
         {
-            bool isValid = await _validator.Validate(transaction);
-            if (!isValid) return _serverResponseService.GetResponse(false, "Invalid transaction", transaction);
+            Response isValid = await _validator.Validate(transaction);
+            // if (isValid.Status != "Success") 
+            //     return _serverResponseService.GetResponse(false, $"{isValid.Message}", transaction);
+
             Logger.Log($"Transaction is valid {transaction.Id}", LogLevel.Information, Source.API);
-            
-            bool isAdded = await _dbProcessor.ProcessService<bool>(new TransactionBdService(new AppDbContext()), CommandType.Add, new DbData(transaction, transaction.Id));
-            if (!isAdded) return _serverResponseService.GetResponse(false, "Transaction wasn't added", transaction);
-            return _serverResponseService.GetResponse(true,"Transaction added successfully", transaction);
+
+            List<IModel> transactionsList = await _dbProcessor.ProcessService<List<IModel>>(
+                new TransactionBdService(new AppDbContext()), CommandType.GetAll);
+
+            List<TransactionModel> transactionModels = transactionsList.Cast<TransactionModel>().ToList();
+            bool transactionExists = transactionModels
+                .Any(t => ((TransactionModel)t).Id == transaction.Id);
+
+            if (transactionExists)
+                return _serverResponseService.GetResponse(false, "Transaction already exists", transaction);
+
+            bool isAdded = await _dbProcessor.ProcessService<bool>(
+                new TransactionBdService(new AppDbContext()), CommandType.Add, new DbData(transaction, transaction.Id));
+
+            if (!isAdded) 
+                return _serverResponseService.GetResponse(false, "Transaction wasn't added", transaction);
+
+            return _serverResponseService.GetResponse(true, "Transaction added successfully", transaction);
         }
         catch (Exception e)
         {
@@ -56,6 +72,7 @@ public class Repository : IRepository
             throw;
         }
     }
+
 
     public async Task<Response> GetTransaction(string transactionId)
     {

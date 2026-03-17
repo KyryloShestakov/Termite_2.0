@@ -1,0 +1,179 @@
+@startuml Blockchain
+    package "Blockchain" {
+        class Blockchain {
+            - ImmutableList<Block> Chain
+            + Task AddBlockAsync(Block block)
+            + Task<Block> GetLastBlockAsync()
+            + Task<string?> GetLastBlockHashAsync()
+            + Task<int> GetLastIndexAsync()
+            + Task LoadBlocksFromBd()
+        }
+        
+        class Block {
+            - string Id
+            - int Index
+            - DateTime Timestamp
+            - List<Transaction> Transactions
+            - string MerkleRoot
+            - string PreviousHash
+            - string Hash
+            - int Difficulty
+            - string Nonce
+            - string Signature 
+            - int Size
+            + string GenerateHash()
+            + int CalculateSize()
+            + BlockModel ToBlockModel()
+            + Block FromBlockModel(BlockModel model)
+            + string ToString()
+          
+        }
+        
+        class BlockBuilder {
+            - TransactionMemoryPool _transactionMemoryPool
+            - const int MaxWaitTimeInSeconds = 30000
+            - DateTime lastTransactionTime
+            - const int MaxTransactionLimit = 10
+            - Blockchain _blockChain
+            - MerkleTree _merkleTree
+            - BlockManager _blockManager
+            - IDbProcessor _dbProcessor
+            - int CurrentDifficulty { get; set; } = 2
+            + Task<Block> StartBuilding()
+            + Task<bool> TryBuildBlock()
+            + Task<Block> BuildBlockAsync()
+            + string MineBlock(Block block)
+            + string GenerateNonce()
+            + string SignBlock(Block block)
+            + Task<Block> CreateGenesisBlock()
+            + int GetCurrentDifficulty(int blockIndex)
+        }
+        
+        class BlockManager {
+            - RSA _privateKey
+            + string SignBlock(string generateHash)
+            + List<TransactionModel> GetTransactionsFromBlock(BlockModel block)
+        }
+        
+        class Transaction {
+            - string Id
+            - string BlockId
+            - string Sender
+            - string Receiver
+            - decimal Amount
+            - DateTime Timestamp
+            - decimal Fee 
+            - string Signature
+            - Object? Data
+            - SmartContract? Contract 
+            - string PublicKey
+            + string ToString()
+            + int CalculateSize()
+            + TransactionModel ToModel(Transaction transaction)
+            + Transaction ToEntity(TransactionModel model)
+            + string Serialize(Transaction model)
+        }
+        
+        class MerkleRoot {
+            + string CalculateMerkleRoot(List<Transaction> transactions)
+            + string BuildTree(List<string> nodes)
+            + string CalculateHash(string input)
+            + string SerializeTransaction(Transaction tx)
+        }
+        
+        class TransactionMemoryPool {
+            - HashSet<string> transactionSet
+            - PriorityQueue<Transaction, decimal> priorityQueue
+            + bool AddTransaction(Transaction transaction)
+            + Transaction GetHighestFeeTransaction()
+            + bool ContainsTransaction(string transactionId)
+            + int GetTransactionCount()
+            + Task FillFromSqlLite()
+        }
+        
+        class BlockchainService {
+            -DbProcessor _dbProcessor
+            -ServerResponseService _serverResponseService
+            +Task<Response> GetBlockchainInfo(TerProtocol<object> terTxProtocol)
+        }
+        
+        class TransactionService {
+            -TransactionManager _transactionManager
+            -ServerResponseService _serverResponseService
+            -IDbProcessor _dbProcessor
+            -BlockManager _blockManager
+            +Task<Response> PostTransactions(TerProtocol<object> request)
+            +Task<Response> GetTransaction(TerProtocol<object> request)
+            +Task<Response> GetTransactions(TerProtocol<object> request)
+            +Task<Response> UpdateTransactions(TerProtocol<object> request)
+            +Task<Response> DeleteTransactions(TerProtocol<object> request)
+            +string SignTransaction(TransactionModel transaction, string privateKey)          
+        }
+        
+        class TransactionManager {
+            -TransactionMemoryPool _memoryPool
+            -IDbProcessor _dbProcessor
+            -AppDbContext _appDbContext
+            +Task<Transaction> CreateTransaction()
+            +List<Transaction> GetTransactionsFromBlock(BlockModel blockModel)
+            +TransactionModel SignTransaction(TransactionModel transaction, string privateKey)
+            +RSA GetPrivateKeyFromString(string privateKey)
+            +Task<Transaction> CreateAwardedTransaction(Block block)
+            +decimal CalculateBlockReward(int blockHeight, List<Transaction> transactions)
+        }
+        
+        class BlockChainValidator {
+            -ServerResponseService _serverResponseService
+            -int MaxBlockSize = 10000
+            +Task<Response> Validate(IModel model)
+            +bool ValidateBlock(BlockModel block)
+            +bool ValidateHash(string blockHash, BlockModel blockModel)
+            +bool ValidateBlockLink(BlockModel previousBlock, BlockModel currentBlock)
+            +bool ValidateGenesisBlock(BlockModel genesisBlock)           
+        }
+        
+        interface IValidator {
+            +Task<Response> Validate(IModel model)
+        }
+        
+        class TransactionValidator {
+            -ServerResponseService _serverResponseService
+            +Task<Response> Validate(IModel model)
+            +bool VerifySignature(TransactionModel transaction)
+            +Task<bool> VerifyBalance(TransactionModel transaction)
+            +RSA GetPublicKeyFromString(string publicKeyBase64)
+            +bool IsValidBase64(string input)
+            + RSA GetPrivateKeyFromString(string privateKey)
+        }
+        
+        class AddressManager {
+            -BlockManager _blockManager
+            +(string Address, string PrivateKey, string PublicKey) GenerateAddressWithKeys()
+            +Task<decimal> GetBalance(string address)
+            +byte[] ComputeChecksum(byte[] data)
+            +byte[] Combine(byte[] hash, byte[] checksum)
+            +string EncodeBase58(byte[] data)
+            
+        }
+        
+        class AddressService {
+            -AddressManager _AddressManager
+            -ServerResponseService _serverResponseService
+            +Response GenerateAddress()
+            +Task<Response> GetBalance(string address)
+            
+        }
+        
+        
+        
+        BlockBuilder -> Blockchain : Uses
+        Blockchain -> Block : Uses
+        BlockBuilder -> Block : Uses
+        BlockBuilder -> BlockManager : Uses
+        BlockBuilder -> Transaction
+        BlockBuilder -> MerkleRoot
+        BlockBuilder -> TransactionMemoryPool
+
+        TransactionMemoryPool -> Transaction
+    }
+@enduml

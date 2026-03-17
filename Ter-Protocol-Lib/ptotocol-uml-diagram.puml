@@ -1,0 +1,76 @@
+@startuml
+    class TerProtocol {
+        -TerHeader Header { get; set; }
+        -TerPayload<T> Payload { get; set; }
+        +string Serialize()
+        +TerProtocol<T>? Deserialize(string json)        
+    }
+    
+    class TerPayload {
+        -T Data { get; set; }
+        +string Serialize()
+    }
+    
+    class TerHeader {
+        -TerMessageType MessageType { get; set; }
+        -string Version { get; set; }
+        -string PublicKey { get; set; }
+        -string MyIpAddress { get; set; }
+        -string RecipientId { get; set; }
+        -string RecipientIp { get; set; }
+        -string SenderId { get; set; }
+        -DateTime Timestamp { get; }
+        -MethodType MethodType { get; set; }
+        -IpHelper _ipHelper;
+        -DbProcessor _dbProcessor
+        +Task InitializeAsync(string recipientId)
+        +Task SetRecipientIpAsync(string recipientId)
+        +Task SetExterrnalIpAsync()
+        +Task SetPublicKeyAsync()
+    }
+    
+    class IpHelper {
+        -string StunServer = "stun.l.google.com";
+        -int StunPort = 19302;
+        -int MagicCookie = 0x2112A442;
+        +Task<string> GetExternalAddress()
+        +byte[] CreateStunBindingRequest()
+        +string ParseStunResponse(byte[] response)
+        +string GetLocalIPAddress()
+    }
+    
+    class BlockRequest {
+        -List<BlockModel> Blocks { get; set; }
+    }
+    
+    class InfoSyncRequest {
+        -int BlocksCount { get; set; }
+        -DateTime TimeOfLastBlock { get; set; }
+        -string LastBlockHash { get; set; }
+        -int CountOfTransactions { get; set; }
+        -List<string> TransactionIds { get; set; }
+    }
+    
+    interface IRequest {
+        
+    }
+    
+    class KeyExchangeRequest {
+        -string Key { get; set; }
+    }
+    
+    class PeerInfoRequest {
+        -List<PeerInfoModel> Peers { get; set; }
+    }
+    
+    class RequestSerializer {
+        -Dictionary<TerMessageType, Type> RequestTypes
+        +RequestSerializer()
+        +object? DeserializeData(TerMessageType messageType, string payload)
+    }
+    
+    class TransactionRequest {
+        -List<TransactionModel> Transactions { get; set; }
+        -Guid? Id { get; set; }
+    }
+@enduml
