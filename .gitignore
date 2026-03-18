@@ -40,3 +40,5 @@ Thumbs.db
 *.pdb
 *.runtimeconfig.json
 *.deps.json
+global.json
+identifier.sqlite
