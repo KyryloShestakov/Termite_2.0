@@ -2,15 +2,15 @@
 
 ## [1. Introduction](introduction.md)
 - [1.1 Relevance of decentralized systems](introduction.md#11-relevance-of-decentralized-systems)
-- [1.2 Ethical aspects and prevention of illegal use](#ethical-aspects-and-prevention-of-illegal-use)
-- [1.3 Conclusion](#conclusion)
+- [1.2 Ethical aspects and prevention of illegal use](introduction.md#12-ethical-aspects-and-prevention-of-illegal-use)
+- [1.3 Conclusion](introduction.md#13-conclusion)
 
-## 2. Theoretical Introduction
-- [2.1 Blockchain](#blockchain)
-- [2.2 Block](#block)
-- [2.3 Transaction](#transaction)
-- [2.4 Node](#node)
-- [2.5 Cryptocurrency](#cryptocurrency)
+## [2. Theoretical-Introduction](theoretical-introduction.md)
+- [2.1 Blockchain](theoretical-introduction.md#21-blockchain)
+- [2.2 Block](theoretical-introduction.md#22-block)
+- [2.3 Transaction](theoretical-introduction.md#23-transaction)
+- [2.4 Node](theoretical-introduction.md#24-node)
+- [2.5 Cryptocurrency](theoretical-introduction.md#25-cryptocurrency)
 
 ## 3. Project Description
 
